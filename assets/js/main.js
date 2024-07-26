@@ -186,3 +186,53 @@ function scrollUp() {
   else scrollUp.classList.remove("show-scroll");
 }
 window.addEventListener("scroll", scrollUp);
+
+/* EMAIL MANAGEMENT */
+/* const publicKey = creds.publicKey;
+const serviceId = creds.serviceId;
+
+console.log(publicKey);
+
+emailjs.init({
+  publicKey,
+});
+
+document
+  .querySelector(".contact__form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data
+    const username = document.querySelector('input[type="text"]').value;
+    const email = document.querySelector('input[type="email"]').value;
+    const phone = document.querySelector('input[type="tel"]').value;
+    const message = document.querySelector("textarea").value;
+
+    // Validate form data
+    if (!username || !email || !phone || !message) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const formData = {
+      username: username,
+      email: email,
+      phone: phone,
+      message: message,
+    };
+
+    console.log(formData);
+
+    // Send email using EmailJS
+    emailjs.send(serviceId, "contact__form", formData).then(
+      function (response) {
+        console.log("SUCCESS!", response.status, response.text);
+        alert("Message sent successfully!");
+      },
+      function (error) {
+        console.log("FAILED...");
+        console.error(error);
+        alert("Failed to send message. Please try again later.");
+      }
+    );
+  }); */
