@@ -1248,3 +1248,9 @@ themeButton?.addEventListener('click', () => {
   localStorage.setItem('selected-theme', isLightTheme ? 'light' : 'dark');
   localStorage.setItem('selected-icon', isLightTheme ? 'uil-sun' : 'uil-moon');
 });
+
+/*=============== CHATBOT SECTION ===============*/
+// ✅ Chatbot functionality is loaded from chatbot.js
+// Features: Smart LLM integration with Groq API + reliable fallback responses
+// Setup: Get free API key from https://console.groq.com for AI responses
+

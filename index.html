@@ -74,6 +74,10 @@
               </li>
 
               <li class="nav__item">
+                <a href="#chatbot" class="nav__link">AI Chat</a>
+              </li>
+
+              <li class="nav__item">
                 <a href="#games" class="nav__link">Games</a>
               </li>
 
@@ -123,7 +127,7 @@
               </p>
               <a
                 class="button"
-                href="https://drive.google.com/file/d/15Qpw5hMdzZ9OpcdifC9C8DxyRos_mFW6/view?usp=sharing"
+                href="https://drive.google.com/file/d/1l0Ro4cRZTfG4kpp99ma4jO7LvzudK2uS/view?usp=sharing"
                 target="_blank"
                 ><i class="uil uil-user button__icon"></i>
                 Download My CV
@@ -1006,7 +1010,98 @@
         </div>
       </div>
 
-            <!--===== GAMES =====-->
+      <!--===== CHATBOT =====-->
+      <section class="chatbot section" id="chatbot">
+        <h2 data-heading="Ask Me Anything" class="section__title">AI Assistant</h2>
+        
+        <div class="chatbot__container container">
+          <!-- Chatbot Header -->
+          <div class="chatbot__header">
+            <div class="chatbot__avatar">
+              <i class="uil uil-robot"></i>
+            </div>
+            <div class="chatbot__info">
+              <h3 class="chatbot__title">Ask about Yann</h3>
+              <p class="chatbot__subtitle">Get insights about my experience, skills, and projects</p>
+            </div>
+            <div class="chatbot__status">
+              <div class="chatbot__status-dot"></div>
+              <span>Online</span>
+            </div>
+          </div>
+
+          <!-- Suggested Questions -->
+          <div class="chatbot__suggestions">
+            <h4 class="chatbot__suggestions-title">Try asking:</h4>
+            <div class="chatbot__suggestions-grid">
+              <button class="chatbot__suggestion-btn" data-question="Tell me about Yann's experience at Amazon">
+                <i class="uil uil-amazon"></i>
+                Amazon Experience
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What are Yann's technical skills?">
+                <i class="uil uil-brackets-curly"></i>
+                Technical Skills
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What projects has Yann worked on?">
+                <i class="uil uil-folder-open"></i>
+                Projects
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="Tell me about Yann's education and GPA">
+                <i class="uil uil-graduation-cap"></i>
+                Education
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What are Yann's career goals?">
+                <i class="uil uil-rocket"></i>
+                Career Goals
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What internships has Yann completed?">
+                <i class="uil uil-briefcase-alt"></i>
+                Internships
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat Interface -->
+          <div class="chatbot__interface">
+            <div class="chatbot__messages" id="chatbot-messages">
+              <div class="chatbot__message chatbot__message--bot">
+                <div class="chatbot__message-avatar">
+                  <i class="uil uil-robot"></i>
+                </div>
+                <div class="chatbot__message-content">
+                  <p>Hi! I'm Yann's AI assistant. I can answer questions about his experience, skills, projects, and background. Feel free to ask me anything!</p>
+                </div>
+                <div class="chatbot__message-time">Just now</div>
+              </div>
+            </div>
+            
+            <div class="chatbot__input-area">
+              <div class="chatbot__input-container">
+                <input 
+                  type="text" 
+                  class="chatbot__input" 
+                  id="chatbot-input"
+                  placeholder="Ask me about Yann's experience, skills, projects..."
+                  maxlength="500"
+                />
+                <button class="chatbot__send-btn" id="chatbot-send">
+                  <i class="uil uil-message"></i>
+                </button>
+              </div>
+              <div class="chatbot__typing" id="chatbot-typing" style="display: none;">
+                <div class="chatbot__typing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <span>AI is typing...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--===== GAMES =====-->
       <section class="games section" id="games">
         <h2 data-heading="Interactive Fun" class="section__title">Mini Games</h2>
         
@@ -1288,6 +1383,9 @@
                 <a href="#work" class="footer__link">Work</a>
               </li>
               <li>
+                <a href="#leetcode" class="footer__link">LeetCode</a>
+              </li>
+              <li>
                 <a href="#games" class="footer__link">Games</a>
               </li>
               <li>
@@ -1302,13 +1400,6 @@
                 class="home__social-link"
               >
                 <i class="uil uil-linkedin"></i>
-              </a>
-              <a
-                href="https://x.com/YannDjoum"
-                target="_blank"
-                class="home__social-link"
-              >
-                <i class="uil uil-twitter"></i>
               </a>
             </div>
           </div>
@@ -1334,6 +1425,9 @@
 
     <!--========== SWIPER JS ==========-->
     <script src="assets/js/swiper-bundle.min.js"></script>
+
+    <!--========== CHATBOT JS ==========-->
+    <script src="assets/js/chatbot.js"></script>
 
     <!--========== MAIN JS ==========-->
     <script src="assets/js/main.js"></script>
