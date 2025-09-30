@@ -1032,8 +1032,30 @@ function initPongGame() {
   function update() {
     if (!gameRunning || gameState.isPaused) return;
     
-    // Update paddle movement based on user input
-    updatePaddleMovement();
+    // Reset paddle movements
+    leftPaddle.dy = 0;
+    rightPaddle.dy = 0;
+    
+    // Handle user input for left paddle (W/S)
+    if (keys['w']) leftPaddle.dy = -leftPaddle.speed;
+    if (keys['s']) leftPaddle.dy = leftPaddle.speed;
+    
+    // Handle user input for right paddle (Up/Down arrows) OR AI
+    if (keys['arrowup']) {
+      rightPaddle.dy = -rightPaddle.speed;
+    } else if (keys['arrowdown']) {
+      rightPaddle.dy = rightPaddle.speed;
+    } else {
+      // AI controls right paddle when player isn't using arrow keys
+      const paddleCenter = rightPaddle.y + rightPaddle.height / 2;
+      if (Math.abs(ball.y - paddleCenter) > 15) {
+        if (ball.y > paddleCenter) {
+          rightPaddle.dy = rightPaddle.speed;
+        } else {
+          rightPaddle.dy = -rightPaddle.speed;
+        }
+      }
+    }
     
     // Move paddles
     leftPaddle.y += leftPaddle.dy;
@@ -1042,18 +1064,6 @@ function initPongGame() {
     // Keep paddles in bounds
     leftPaddle.y = Math.max(0, Math.min(canvas.height - leftPaddle.height, leftPaddle.y));
     rightPaddle.y = Math.max(0, Math.min(canvas.height - rightPaddle.height, rightPaddle.y));
-    
-    // Simple AI for right paddle (only if player isn't controlling it)
-    if (!keys['arrowup'] && !keys['arrowdown']) {
-      const paddleCenter = rightPaddle.y + rightPaddle.height / 2;
-      if (ball.y > paddleCenter + 20) {
-        rightPaddle.dy = rightPaddle.speed;
-      } else if (ball.y < paddleCenter - 20) {
-        rightPaddle.dy = -rightPaddle.speed;
-      } else {
-        rightPaddle.dy = 0;
-      }
-    }
     
     // Move ball
     ball.x += ball.dx;
@@ -1157,19 +1167,7 @@ function initPongGame() {
     keys[e.key.toLowerCase()] = false;
   }
   
-  function updatePaddleMovement() {
-    // Reset paddle movements
-    leftPaddle.dy = 0;
-    rightPaddle.dy = 0;
-    
-    // Left paddle controls (W/S)
-    if (keys['w']) leftPaddle.dy = -leftPaddle.speed;
-    if (keys['s']) leftPaddle.dy = leftPaddle.speed;
-    
-    // Right paddle controls (Up/Down arrows) - Player can control right paddle too
-    if (keys['arrowup']) rightPaddle.dy = -rightPaddle.speed;
-    if (keys['arrowdown']) rightPaddle.dy = rightPaddle.speed;
-  }
+
   
   document.addEventListener('keydown', handleKeyDown);
   document.addEventListener('keyup', handleKeyUp);
@@ -1217,4 +1215,36 @@ document.addEventListener('DOMContentLoaded', () => {
     card.style.transition = `all 0.6s ease ${index * 0.1}s`;
     observer.observe(card);
   });
+});
+
+/*=============== THEME SWITCHER ===============*/
+const themeButton = document.getElementById('theme-switcher');
+const themeIcon = document.getElementById('theme-icon');
+const body = document.body;
+
+// Check for saved theme or default to dark
+const currentTheme = localStorage.getItem('selected-theme') || 'dark';
+const currentIcon = localStorage.getItem('selected-icon') || 'uil-moon';
+
+// Apply saved theme
+if (currentTheme === 'light') {
+  body.classList.add('light-theme');
+  themeIcon.classList.replace('uil-moon', 'uil-sun');
+}
+
+// Theme toggle function
+themeButton?.addEventListener('click', () => {
+  // Toggle theme
+  body.classList.toggle('light-theme');
+  
+  // Change icon
+  const isLightTheme = body.classList.contains('light-theme');
+  themeIcon.classList.replace(
+    isLightTheme ? 'uil-moon' : 'uil-sun',
+    isLightTheme ? 'uil-sun' : 'uil-moon'
+  );
+  
+  // Save theme preference
+  localStorage.setItem('selected-theme', isLightTheme ? 'light' : 'dark');
+  localStorage.setItem('selected-icon', isLightTheme ? 'uil-sun' : 'uil-moon');
 });
