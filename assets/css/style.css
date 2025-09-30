@@ -2844,7 +2844,7 @@ textarea.input {
 
 .chatbot__input-area {
   position: sticky;
-  bottom: 0;
+  bottom: 75px;
   left: 0;
   right: 0;
   z-index: 5;
@@ -3073,6 +3073,7 @@ textarea.input {
   
   .chatbot__input-area {
     padding: 1.25rem 1.5rem;
+    bottom: 32px;
   }
   
   .chatbot__input-container {
