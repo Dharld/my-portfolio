@@ -100,13 +100,6 @@
               >
                 <i class="uil uil-linkedin"></i>
               </a>
-              <a
-                href="https://x.com/YannDjoum"
-                target="_blank"
-                class="home__social-link"
-              >
-                <i class="uil uil-twitter"></i>
-              </a>
             </div>
           </div>
 
@@ -117,11 +110,12 @@
               <h1 class="home__title">Hi, I'am Yann Djoumessi</h1>
               <h3 class="home__subtitle">Software Engineer</h3>
               <p class="home__description">
-                Passionate about full stack development and distributed systems
+                Passionate about Backend Development and Distributed Systems
               </p>
               <a
                 class="button"
-                href="https://drive.google.com/file/d/1J_li7SYmTvadTgQ2AEwv15Kn4GuIsvg8/view?usp=drive_link"
+                href="https://drive.google.com/file/d/15Qpw5hMdzZ9OpcdifC9C8DxyRos_mFW6/view?usp=sharing"
+                target="_blank"
                 ><i class="uil uil-user button__icon"></i>
                 Download My CV
               </a>
@@ -146,7 +140,7 @@
 
               <div>
                 <h3 class="info__title">Email</h3>
-                <span class="info__subtitle">yanndjoumessi@gmail.com</span>
+                <span class="info__subtitle">ydjoumes@gmail.com</span>
               </div>
             </div>
           </div>
@@ -184,11 +178,30 @@
                 <div class="circle__dot"></div>
                 <div class="timeline__header">
                   <div class="timeline__logo">
+                    <img src="assets/img/Amazon-Logo.jpg" alt="" />
+                  </div>
+                  <div class="timeline__infos">
+                    <h3 class="timeline__title">
+                      Amazon
+                    </h3>
+                    <p class="timeline__text">Software Engineer Intern</p>
+                  </div>
+                </div>
+
+                <span class="timeline__date"
+                  ><i class="uil uil-calendar-alt"></i>
+                  May 2024 - Jul 2024
+                </span>
+              </div>
+              <div class="timeline__item">
+                <div class="circle__dot"></div>
+                <div class="timeline__header">
+                  <div class="timeline__logo">
                     <img src="assets/img/lambo.png" alt="" />
                   </div>
                   <div class="timeline__infos">
                     <h3 class="timeline__title">
-                      Lambo Global Education (Indiana, USA)
+                      Lambo Global Education 
                     </h3>
                     <p class="timeline__text">Software Engineer Intern</p>
                   </div>
@@ -208,7 +221,7 @@
                   </div>
                   <div class="timeline__infos">
                     <h3 class="timeline__title">
-                      Afriland First Bank (Remote)
+                      Afriland First Bank 
                     </h3>
                     <p class="timeline__text">Software Engineer Intern</p>
                   </div>
@@ -238,12 +251,30 @@
                     <h3 class="timeline__title">
                       Kennesaw State University (Kennesaw, USA)
                     </h3>
-                    <p class="timeline__text">Bs. in Computer Science</p>
+                    <p class="timeline__text">Bs. in Computer Science(Minor in Mathematics)</p>
                   </div>
                 </div>
                 <span class="timeline__date"
                   ><i class="uil uil-calendar-alt"></i>
                   Aug 2021 - Dec 2025
+                </span>
+              </div>
+
+              <div class="timeline__item">
+                <div class="circle__dot"></div>
+                <div class="timeline__header">
+                  <div class="timeline__logo">
+                    <img src="assets/img/codepath.jpg" alt="" />
+                  </div>
+                  <div class="timeline__infos">
+                    <h3 class="timeline__title">CodePath</h3>
+                    <p class="timeline__text">Advanced Interview Preparation</p>
+                  </div>
+                </div>
+
+                <span class="timeline__date"
+                  ><i class="uil uil-calendar-alt"></i>
+                  Jul 2024 - Aug 2024
                 </span>
               </div>
 
@@ -262,24 +293,6 @@
                 <span class="timeline__date"
                   ><i class="uil uil-calendar-alt"></i>
                   Jan 2024 - Apr 2024
-                </span>
-              </div>
-
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/codepath.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">CodePath</h3>
-                    <p class="timeline__text">Interview Preparation</p>
-                  </div>
-                </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jul 2024 - Aug 2024
                 </span>
               </div>
             </div>
@@ -695,39 +708,112 @@
         <h2 data-heading="My Portfolio" class="section__title">Recent Works</h2>
 
         <div class="work__container container grid">
+          <!-- Distributed Cache Server -->
           <div class="work__card mix web">
-            <img src="assets/img/lambo_training.png" alt="" class="work__img" />
-            <h3 class="work__title">Lambo Training</h3>
+            <img src="assets/img/dbcache.png" alt="" class="work__img" />
+            <h3 class="work__title">Distributed Cache Server</h3>
             <span class="work__button"
               >Demo
               <i class="uil uil-arrow-right work__button-icon"></i>
             </span>
             <div class="portfolio__item-details">
-              <h3 class="details__title">Lambo Global LLC</h3>
+              <h3 class="details__title">Distributed Cache Server</h3>
               <p class="details__description">
-                Lambo Training for Africa is an innovative e-learning platform
-                offering African students access to top free educational
-                resources and live classes from leading African educators.
-                Though still under development, it is already deployed and
-                serving users.
+                Built an in-memory key–value store in Java, implementing RESP protocol parsing, TTL expiration, RDB persistence, and LRU 
+                eviction, sustaining 1,000+ ops/sec. Engineered master–slave replication with PSYNC/REPLCONF and a multi-threaded server using custom thread pools, 
+                handling 500+ concurrent clients with sub-ms latency. Developed extensible commands (INFO, CONFIG, KEYS, CRUD) that streamlined data manipulation and improved usability.
               </p>
               <ul class="details__info">
-                <li>Created - <span>24 Jul 2024</span></li>
-
+                <li>Created - <span>15 Sep 2024</span></li>
+                <li>
+                  Technologies - 
+                  <span>Java, RESP Protocol, Multi-threading, RDB, LRU Cache</span>
+                </li>
                 <li>
                   View -
                   <span
                     ><a
-                      href="https://github.com/Dharld/Connectify/"
-                      target="https://lambo-training.netlify.app/"
-                      >https://lambo-training.netlify.app</a
+                      href="https://github.com/Dharld/distributed-cache"
+                      target="_blank"
+                      >https://github.com/Dharld/distributed-cache</a
                     ></span
                   >
                 </li>
               </ul>
             </div>
           </div>
-          <div class="work__card mix web">
+            <!-- Version Control System -->
+            <div class="work__card mix web">
+            <img src="assets/img/vcs.png" alt="" class="work__img" />
+            <h3 class="work__title">Version Control System</h3>
+            <span class="work__button"
+              >Demo
+              <i class="uil uil-arrow-right work__button-icon"></i>
+            </span>
+            <div class="portfolio__item-details">
+              <h3 class="details__title">Version Control System</h3>
+              <p class="details__description">
+              Implemented a version control system in C++ with init, hash-object, and cat-file, using SHA-1 hashing and zlib compression 
+              for object storage, sustaining 1,000+ objects/sec with sub-millisecond retrieval. Built read/write logic for blob and tree objects (write-tree, ls-tree), 
+              enabling hierarchical file tracking and supporting repositories with 100+ files while maintaining good lookup performance. 
+              Designed commit creation workflow (commit-tree) linking trees, parent commits, and metadata, supporting thousands of 
+              commits with consistent <5 ms creation time.
+              </p>
+              <ul class="details__info">
+              <li>Created - <span>20 Aug 2024</span></li>
+              <li>
+                Technologies - 
+                <span>C++, SHA-1 Hashing, zlib Compression, File I/O</span>
+              </li>
+              <li>
+                View -
+                <span
+                ><a
+                  href="https://github.com/Dharld/commitlog"
+                  target="_blank"
+                  >https://github.com/Dharld/commitlog</a
+                ></span
+                >
+              </li>
+              </ul>
+            </div>
+            </div>
+
+            <!-- POSIX Shell -->
+            <div class="work__card mix web">
+            <img src="assets/img/shell.png" alt="" class="work__img" />
+            <h3 class="work__title">Shell Wizzard</h3>
+            <span class="work__button"
+              >Demo
+              <i class="uil uil-arrow-right work__button-icon"></i>
+            </span>
+            <div class="portfolio__item-details">
+              <h3 class="details__title">Shell Wizzard</h3>
+              <p class="details__description">
+              Feature-rich, POSIX-compliant shell in C with built-ins (exit, echo, type, pwd, cd), execvp-based external commands, and comprehensive I/O redirection. Includes raw-mode terminal interface, tab completion across PATH, advanced parsing with quotes and escapes, and robust resource management for reliable interactive use.
+              </p>
+              <ul class="details__info">
+              <li>Created - <span>30 Sep 2024</span></li>
+              <li>
+                Technologies -
+                <span>C23, POSIX APIs, termios, dup2, execvp</span>
+              </li>
+              <li>
+                View -
+                <span
+                ><a
+                  href="https://github.com/Dharld/shellwizz"
+                  target="_blank"
+                  >https://github.com/Dharld/shellwizz</a
+                ></span
+                >
+              </li>
+              </ul>
+            </div>
+            </div>
+
+            <!-- NodeJS Student Portal -->
+            <div class="work__card mix web">
             <img
               src="assets/img/node-js-student-portal.jpeg"
               alt=""
@@ -741,34 +827,36 @@
             <div class="portfolio__item-details">
               <h3 class="details__title">NodeJS REST API</h3>
               <p class="details__description">
-                Developed a comprehensive Node.js-based REST API to enhance
-                student management systems. Functionality: - User
-                Authentication: Implemented secure user authentication and
-                authorization mechanisms. - Course Management: Enabled creation,
-                updating, deletion, and fetching of courses. - User Progress
-                Tracking: Provided tools to track user progress through courses
-                and quizzes. - Quizzes Management: Facilitated creation and
-                management of quizzes with questions and answers. - Multimedia
-                Support: Integrated video and PDF content handling for enriched
-                course delivery.
+              Developed a comprehensive Node.js-based REST API to enhance
+              student management systems. Functionality: - User
+              Authentication: Implemented secure user authentication and
+              authorization mechanisms. - Course Management: Enabled creation,
+              updating, deletion, and fetching of courses. - User Progress
+              Tracking: Provided tools to track user progress through courses
+              and quizzes. - Quizzes Management: Facilitated creation and
+              management of quizzes with questions and answers. - Multimedia
+              Support: Integrated video and PDF content handling for enriched
+              course delivery.
               </p>
               <ul class="details__info">
-                <li>Created - <span>12 Apr 2024</span></li>
+              <li>Created - <span>12 Apr 2024</span></li>
 
-                <li>
-                  View -
-                  <span
-                    ><a
-                      href="https://github.com/Dharld/NodeJS-Student-Portal-API"
-                      target="https://github.com/Dharld/NodeJS-Student-Portal-API"
-                      >https://github.com/Dharld/NodeJS-Student-Portal-API</a
-                    ></span
-                  >
-                </li>
+              <li>
+                View -
+                <span
+                ><a
+                  href="https://github.com/Dharld/NodeJS-Student-Portal-API"
+                  target="https://github.com/Dharld/NodeJS-Student-Portal-API"
+                  >https://github.com/Dharld/NodeJS-Student-Portal-API</a
+                ></span
+                >
+              </li>
               </ul>
             </div>
-          </div>
-          <div class="work__card mix web">
+            </div>
+
+            <!-- Connectify Social Network -->
+            <div class="work__card mix web">
             <img src="assets/img/video.gif" alt="" class="work__img" />
             <h3 class="work__title">Connectify</h3>
             <span class="work__button"
@@ -778,29 +866,31 @@
             <div class="portfolio__item-details">
               <h3 class="details__title">Lambo Global LLC</h3>
               <p class="details__description">
-                Developed a dynamic social networking web application,
-                Connectify, as my final project for CodePath. This app
-                facilitates seamless connections between users and enhances
-                social interactions through a variety of innovative features.
-                Project Highlights
+              Developed a dynamic social networking web application,
+              Connectify, as my final project for CodePath. This app
+              facilitates seamless connections between users and enhances
+              social interactions through a variety of innovative features.
+              Project Highlights
               </p>
               <ul class="details__info">
-                <li>Created - <span>12 Apr 2024</span></li>
+              <li>Created - <span>12 Apr 2024</span></li>
 
-                <li>
-                  View -
-                  <span
-                    ><a
-                      href="https://github.com/Dharld/Connectify/"
-                      target="https://github.com/Dharld/Connectify/"
-                      >https://github.com/Dharld/Connectify</a
-                    ></span
-                  >
-                </li>
+              <li>
+                View -
+                <span
+                ><a
+                  href="https://github.com/Dharld/Connectify/"
+                  target="https://github.com/Dharld/Connectify/"
+                  >https://github.com/Dharld/Connectify</a
+                ></span
+                >
+              </li>
               </ul>
             </div>
-          </div>
-          <div class="work__card mix web">
+            </div>
+
+            <!-- Movie Rental Prediction Model -->
+            <div class="work__card mix web">
             <img src="assets/img/predicting.jpeg" alt="" class="work__img" />
             <h3 class="work__title">Predicting Movie Rental Durations</h3>
             <span class="work__button"
@@ -810,28 +900,30 @@
             <div class="portfolio__item-details">
               <h3 class="details__title">Predicting Movie Rental Duration</h3>
               <p class="details__description">
-                About DVD Rental Prediction Model This project aims to develop a
-                regression model to predict the number of days a customer rents
-                a DVD from a DVD rental company. By accurately predicting rental
-                durations, the company can optimize their inventory planning and
-                improve operational efficiency.
+              About DVD Rental Prediction Model This project aims to develop a
+              regression model to predict the number of days a customer rents
+              a DVD from a DVD rental company. By accurately predicting rental
+              durations, the company can optimize their inventory planning and
+              improve operational efficiency.
               </p>
               <ul class="details__info">
-                <li>Created - <span>12 Apr 2024</span></li>
+              <li>Created - <span>12 Apr 2024</span></li>
 
-                <li>
-                  View -
-                  <span
-                    ><a
-                      href="https://github.com/Dharld/Predicting-Movie-Rental-Durations"
-                      target="https://github.com/Dharld/Predicting-Movie-Rental-Durations"
-                      >https://github.com/Dharld/Predicting-Movie-Rental-Durations</a
-                    ></span
-                  >
-                </li>
+              <li>
+                View -
+                <span
+                ><a
+                  href="https://github.com/Dharld/Predicting-Movie-Rental-Durations"
+                  target="https://github.com/Dharld/Predicting-Movie-Rental-Durations"
+                  >https://github.com/Dharld/Predicting-Movie-Rental-Durations</a
+                ></span
+                >
+              </li>
               </ul>
             </div>
-          </div>
+            </div>
+
+          <!-- Pizza Ordering System -->
           <div class="work__card mix web">
             <img src="assets/img/Pizza Ordering.jpg" alt="" class="work__img" />
             <h3 class="work__title">Pizza Ordering System</h3>
@@ -914,9 +1006,9 @@
               <div class="contact__card">
                 <i class="uil uil-envelope-edit contact__card-icon"></i>
                 <h3 class="contact__card-title">Email</h3>
-                <span class="contact__card-data">thisisyanndev@gmail.com</span>
+                <span class="contact__card-data">ydjoumes@gmail.com</span>
                 <a
-                  href="mailto:thisisyanndev@gmail.com"
+                  href="mailto:ydjoumes@gmail.com"
                   class="contact__button"
                 >
                   Write me
