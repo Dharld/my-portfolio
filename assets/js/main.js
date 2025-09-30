@@ -542,6 +542,9 @@ function initSnakeGame() {
   function update() {
     if (gameState.isPaused || !gameRunning) return;
     
+    // Don't move if no direction is set (game just started)
+    if (dx === 0 && dy === 0) return;
+    
     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
     
     // Wall collision
@@ -550,9 +553,9 @@ function initSnakeGame() {
       return;
     }
     
-    // Self collision
-    for (let segment of snake) {
-      if (head.x === segment.x && head.y === segment.y) {
+    // Self collision - check against body segments only (skip head)
+    for (let i = 1; i < snake.length; i++) {
+      if (head.x === snake[i].x && head.y === snake[i].y) {
         gameOver();
         return;
       }
@@ -955,7 +958,7 @@ function initPongGame() {
     <div class="pong-game">
       <div class="game-info" style="display: flex; justify-content: space-between; margin-bottom: 15px; color: var(--title-color);">
         <div class="score-left">Player: <span id="leftScore">0</span></div>
-        <div class="controls" style="font-size: 0.9rem; color: var(--text-color);">W/S - Left Paddle | ↑/↓ - Right Paddle</div>
+        <div class="controls" style="font-size: 0.9rem; color: var(--text-color);">W/S - Left Paddle | ↑/↓ - Right Paddle (or AI)</div>
         <div class="score-right">AI: <span id="rightScore">0</span></div>
       </div>
       <canvas id="pongCanvas" width="600" height="400"></canvas>
@@ -1029,6 +1032,9 @@ function initPongGame() {
   function update() {
     if (!gameRunning || gameState.isPaused) return;
     
+    // Update paddle movement based on user input
+    updatePaddleMovement();
+    
     // Move paddles
     leftPaddle.y += leftPaddle.dy;
     rightPaddle.y += rightPaddle.dy;
@@ -1037,14 +1043,16 @@ function initPongGame() {
     leftPaddle.y = Math.max(0, Math.min(canvas.height - leftPaddle.height, leftPaddle.y));
     rightPaddle.y = Math.max(0, Math.min(canvas.height - rightPaddle.height, rightPaddle.y));
     
-    // Simple AI for right paddle
-    const paddleCenter = rightPaddle.y + rightPaddle.height / 2;
-    if (ball.y > paddleCenter + 20) {
-      rightPaddle.dy = rightPaddle.speed;
-    } else if (ball.y < paddleCenter - 20) {
-      rightPaddle.dy = -rightPaddle.speed;
-    } else {
-      rightPaddle.dy = 0;
+    // Simple AI for right paddle (only if player isn't controlling it)
+    if (!keys['arrowup'] && !keys['arrowdown']) {
+      const paddleCenter = rightPaddle.y + rightPaddle.height / 2;
+      if (ball.y > paddleCenter + 20) {
+        rightPaddle.dy = rightPaddle.speed;
+      } else if (ball.y < paddleCenter - 20) {
+        rightPaddle.dy = -rightPaddle.speed;
+      } else {
+        rightPaddle.dy = 0;
+      }
     }
     
     // Move ball
@@ -1150,16 +1158,17 @@ function initPongGame() {
   }
   
   function updatePaddleMovement() {
+    // Reset paddle movements
     leftPaddle.dy = 0;
+    rightPaddle.dy = 0;
     
+    // Left paddle controls (W/S)
     if (keys['w']) leftPaddle.dy = -leftPaddle.speed;
     if (keys['s']) leftPaddle.dy = leftPaddle.speed;
+    
+    // Right paddle controls (Up/Down arrows) - Player can control right paddle too
     if (keys['arrowup']) rightPaddle.dy = -rightPaddle.speed;
     if (keys['arrowdown']) rightPaddle.dy = rightPaddle.speed;
-    
-    if (gameRunning) {
-      requestAnimationFrame(updatePaddleMovement);
-    }
   }
   
   document.addEventListener('keydown', handleKeyDown);
@@ -1168,9 +1177,6 @@ function initPongGame() {
   
   // Initial draw
   draw();
-  
-  // Start paddle movement updates
-  updatePaddleMovement();
 }
 
 // Add smooth scrolling animation for game cards
