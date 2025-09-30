@@ -46,10 +46,12 @@ const yannInfo = {
   
   experience: {
     amazon: "Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation at Amazon Prime Video. Integrated AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping, reducing manual operator tagging by 4+ hours per week. Leveraged Amazon Bedrock for AI-powered automated replay chapter extraction. Optimized delivery pipelines to achieve 10ms metadata latency and sustained 99.99% SLA uptime.",
-    other: "Also worked at KimboCare on distributed health-tech applications, Lambo Global Education on cloud-based orchestration tools, and contributed to ColorStack's community platform."
-  },
-  
-  skills: {
+    afriland: `Software Engineer Intern Afriland FirstBank, Summer 2023, Developed secure document microservice (Spring Boot + PostgreSQL) improving reliability and data protection. Integrated real-time notifications (OneSignal) for instant transaction updates, increasing brand trust by 20%. Built CI/CD pipeline (AWS CodePipeline + CodeBuild) automating tests and deployments, cutting release time by 50% and tripling deployment frequency.`,
+    lambo: `Summer 2024, Built a RESTful API (Spring Boot): Scaled to 500 requests/sec, boosting student satisfaction by 25%.Developed a headless CMS (Sanity.io + React): Added schema validation & automation, cutting publishing time by 40% and raising editor productivity by 25%. Created an analytics dashboard (HTML/CSS/JS): Added real-time engagement tracking, increasing course completion rates by 15%.`, 
+        other: "contributed to ColorStack's community platform."
+    },
+    
+    skills: {
     languages: ["Java", "Go", "Python", "C++", "JavaScript", "TypeScript", "SQL"],
     frameworks: ["Spring Boot", "React", "React Native", "Node.js", "LangChain"],
     databases: ["PostgreSQL", "MySQL", "DynamoDB", "Firebase", "Pinecone", "Redis"],
@@ -179,7 +181,7 @@ class YannChatbot {
             content: `You are an AI assistant representing Yann Djoumessi, a Computer Science student at Kennesaw State University with a 4.0 GPA graduating December 2025. 
 
 Key facts about Yann:
-- Interned at Amazon Prime Video (Live Playback Infrastructure) and Uber
+- Interned at Amazon Prime Video (Live Playback Infrastructure)
 - Built projects: PixShare (photo-sharing app), Redis clone, Git object store, SQLite engine
 - Skills: Java, Go, Python, C++, AWS, Spring Boot, distributed systems
 - Goals: backend engineering at scale-driven companies, startup focused on distributed systems

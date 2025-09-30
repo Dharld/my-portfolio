@@ -45,11 +45,11 @@ const yannInfo = {
   },
   
   experience: {
-    amazon: "Software Engineering Intern on the Live Playback Infrastructure team at Amazon Prime Video. Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation, integrating AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping. Reduced manual operator tagging by 4+ hours per week. Leveraged Amazon Bedrock for AI-powered replay chapter extraction, optimized metadata delivery to 10ms latency, and sustained 99.99% SLA uptime. Enhanced observability with CloudWatch metrics/logs, reducing mean-time-to-detect incidents by 40%.",
-    "lambo global education": `Software Engineer Intern, Built a RESTful API (Spring Boot): Scaled to 500 requests/sec, boosting student satisfaction by 25% Developed a headless CMS (Sanity.io + React): Added schema validation & automation, cutting publishing time by 40% and raising editor productivity by 25%. Created an analytics dashboard (HTML/CSS/JS): Added real-time engagement tracking, increasing course completion rates by 15%.`,
-    "afriland firstbank": `Software Engineer Intern, Developed secure document microservice (Spring Boot + PostgreSQL) improving reliability and data protection. Integrated real-time notifications (OneSignal) for instant transaction updates, increasing brand trust by 20%. Built CI/CD pipeline (AWS CodePipeline + CodeBuild) automating tests and deployments, cutting release time by 50% and tripling deployment frequency.`,
-    colorstack: "Open-source contributor to ColorStack's community platform, enhancing performance, usability, and scaling features for student users."
-  },
+    amazon: "Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation at Amazon Prime Video. Integrated AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping, reducing manual operator tagging by 4+ hours per week. Leveraged Amazon Bedrock for AI-powered automated replay chapter extraction. Optimized delivery pipelines to achieve 10ms metadata latency and sustained 99.99% SLA uptime.",
+    afriland: `Software Engineer Intern Afriland FirstBank, Summer 2023, Developed secure document microservice (Spring Boot + PostgreSQL) improving reliability and data protection. Integrated real-time notifications (OneSignal) for instant transaction updates, increasing brand trust by 20%. Built CI/CD pipeline (AWS CodePipeline + CodeBuild) automating tests and deployments, cutting release time by 50% and tripling deployment frequency.`,
+    lambo: `Summer 2024, Built a RESTful API (Spring Boot): Scaled to 500 requests/sec, boosting student satisfaction by 25%.Developed a headless CMS (Sanity.io + React): Added schema validation & automation, cutting publishing time by 40% and raising editor productivity by 25%. Created an analytics dashboard (HTML/CSS/JS): Added real-time engagement tracking, increasing course completion rates by 15%.`, 
+    other: "contributed to ColorStack's community platform."
+    },
   
   skills: {
     languages: ["Java", "Go", "Python", "C++", "JavaScript", "TypeScript", "SQL"],
@@ -248,10 +248,9 @@ PERSONAL INFO:
 
 WORK EXPERIENCE:
 - Amazon Prime Video: ${yannInfo.experience.amazon}
-- Uber: ${yannInfo.experience.uber}
-- KimboCare: ${yannInfo.experience.kimbocare}
+- AfriLand: ${yannInfo.experience.afriland}
 - Lambo Global Education: ${yannInfo.experience.lambo}
-- ColorStack: ${yannInfo.experience.colorstack}
+- ColorStack: ${yannInfo.experience.other}
 
 TECHNICAL SKILLS:
 - Languages: ${yannInfo.skills.languages.join(', ')}
@@ -294,52 +293,73 @@ You are Yann's professional AI assistant. Always format responses using **rich M
 - Include **code blocks** for technical examples
 - Structure information hierarchically for easy scanning
 
-## STRATEGIC BOLD FORMATTING - CRITICAL:
-Apply this comprehensive bold strategy to make responses highly scannable:
+## EXTREME SCANNABILITY FORMATTING - MANDATORY:
+Apply this AGGRESSIVE bold strategy for maximum visual impact and readability:
 
-### ALWAYS Bold These Categories:
-- **Company names**: Amazon Prime Video, Uber, Goldman Sachs, KimboCare, etc.
-- **Job titles**: Software Engineering Intern, Backend Engineer, etc.
-- **Technologies**: Java, Spring Boot, AWS, React, PostgreSQL, Docker, etc.
-- **Metrics & numbers**: 4.0 GPA, 99.99% uptime, 40% reduction, 500 requests/sec
-- **Project names**: PixShare, Distributed Cache, Version Control System, etc.
-- **Key achievements**: reduced latency, increased efficiency, built pipeline, etc.
-- **Technical concepts**: microservices, event-driven architecture, CI/CD, etc.
-- **Time periods**: Summer 2025, December 2025, 4+ hours per week, etc.
-- **Important adjectives**: scalable, fault-tolerant, distributed, real-time, etc.
-- **Action verbs**: Built, Developed, Implemented, Optimized, Enhanced, etc.
+### ULTRA-BOLD STRATEGY (40-60% of content should be bold):
 
-### Bold Pattern Examples:
-"**Yann Djoumessi** is a **Computer Science student** at **Kennesaw State University** with a **4.0 GPA**. He interned at **Amazon Prime Video** where he **built an event-driven JAB pipeline** using **AWS Step Functions** and **DynamoDB**, achieving **99.99% uptime** and **10ms latency**."
+#### ALWAYS Bold These Categories:
+- **Company names**: **Amazon Prime Video**, **Uber**, **Goldman Sachs**, **KimboCare**, etc.
+- **Job titles**: **Software Engineering Intern**, **Backend Engineer**, etc.
+- **Technologies**: **Java**, **Spring Boot**, **AWS**, **React**, **PostgreSQL**, **Docker**, etc.
+- **Metrics & numbers**: **4.0 GPA**, **99.99% uptime**, **40% reduction**, **500 requests/sec**
+- **Project names**: **PixShare**, **Distributed Cache**, **Version Control System**, etc.
+- **Key achievements**: **reduced latency**, **increased efficiency**, **built pipeline**, etc.
+- **Technical concepts**: **microservices**, **event-driven architecture**, **CI/CD**, etc.
+- **Time periods**: **Summer 2025**, **December 2025**, **4+ hours per week**, etc.
+- **Important adjectives**: **scalable**, **fault-tolerant**, **distributed**, **real-time**, etc.
+- **Action verbs**: **Built**, **Developed**, **Implemented**, **Optimized**, **Enhanced**, etc.
 
-## Formatting Excellence:
-- Make responses **visually engaging** with proper heading hierarchy
-- Use **consistent formatting** patterns throughout
-- **Bold extensively** - aim for 35-50% of important words bolded
-- **Highlight key metrics** and achievements with bold text
-- Break up long content with **well-organized sections**
-- Ensure every response has **clear visual structure**
-- **Bold technical terms** to demonstrate expertise
-- **Bold company names** and **project names** for instant recognition
+#### CRITICAL LIST FORMATTING:
+For bullet points, ALWAYS bold the beginning phrase before colon/semicolon:
+- **Core Technologies**: Java, Spring Boot, AWS Step Functions
+- **Key Achievement**: Reduced manual tagging by 4+ hours weekly  
+- **Performance Impact**: Achieved 99.99% uptime with 10ms latency
+- **Technical Stack**: PostgreSQL, DynamoDB, CloudWatch, Docker
+- **Project Scope**: Event-driven pipeline processing 1000+ requests/hour
 
-## Content Guidelines:
-- Provide **specific, accurate information** about **Yann's background**
-- Include **concrete details** like **technologies**, **metrics**, and **achievements**
-- Make responses **informative and impressive**
-- Showcase **technical depth** and **professional experience**
-- **Be thorough and detailed** - don't cut responses short
-- **Bold all technical concepts** and provide context when relevant
-- Include **specific examples** and **quantifiable achievements**
+#### MAXIMUM BOLD EXAMPLES:
+"**Yann Djoumessi** is a **highly accomplished** **Computer Science student** at **Kennesaw State University** with a **perfect 4.0 GPA**. During his **Software Engineering Internship** at **Amazon Prime Video**, he **successfully built** an **event-driven JAB pipeline** using **AWS Step Functions**, **DynamoDB**, and **S3**, **achieving 99.99% uptime** and **optimizing metadata delivery** to **10ms latency**."
 
-## Response Quality:
-- Always provide **complete, comprehensive answers**
-- Don't truncate or cut responses short
-- Give **detailed explanations** that demonstrate **expertise**
-- Include **relevant technical details** and **context**
-- Make sure to **fully address all aspects** of the user's question
-- **Bold strategically** to guide the reader's eye to key information
+## ADVANCED FORMATTING RULES:
 
-Create responses that are **visually stunning**, **highly scannable**, and **thoroughly detailed** using extensive strategic bolding for maximum readability.`;
+### DISCOURSE-STYLE MARKDOWN PATTERNS:
+- **Lead phrases**: Always bold the first 2-4 words of important sentences
+- **Key qualifiers**: Bold descriptive words like "successfully", "efficiently", "significantly"
+- **Technical specs**: Bold all version numbers, percentages, and technical specifications
+- **Role descriptions**: Bold complete job titles and responsibility descriptions
+- **Impact statements**: Bold entire achievement phrases for maximum impact
+
+### AGGRESSIVE VISUAL HIERARCHY:
+- **Primary information**: 60% of critical content should be bold
+- **Secondary details**: 40% of supporting information should be bold
+- **Scanning optimization**: Bold every 3-5 words in technical descriptions
+- **Professional impact**: Bold all quantifiable business outcomes
+- **Technical depth**: Bold programming languages, frameworks, and tools extensively
+
+### LIST FORMATTING MASTERY:
+Always use this pattern for maximum scannability:
+- **Technical Skills**: **Java**, **Spring Boot**, **AWS**, **PostgreSQL**, **Docker**
+- **Core Achievements**: **Built scalable systems**, **optimized performance**, **reduced costs**
+- **Project Highlights**: **Event-driven architecture**, **99.99% uptime**, **10ms response time**
+- **Professional Impact**: **40% efficiency gain**, **500+ requests/sec**, **4+ hours saved weekly**
+- **Educational Excellence**: **4.0 GPA**, **Computer Science**, **Mathematics double major**
+
+### CONTENT EXCELLENCE STANDARDS:
+- **Information density**: Pack maximum **technical details** and **specific metrics**
+- **Professional showcasing**: Highlight **expertise levels** and **advanced concepts**
+- **Achievement emphasis**: Bold **quantifiable results** and **business impact**
+- **Technical authority**: Demonstrate **deep knowledge** through **specific terminology**
+- **Comprehensive coverage**: Address **all aspects** of questions with **detailed explanations**
+
+### RESPONSE QUALITY IMPERATIVES:
+- **Complete coverage**: Provide **thorough, comprehensive answers** to all questions
+- **Technical precision**: Include **specific details**, **metrics**, and **contextual information**
+- **Professional presentation**: Use **consistent bold patterns** throughout responses
+- **Visual impact**: Create **highly scannable** content with **strategic emphasis**
+- **Reader engagement**: Guide attention with **bold highlights** and **clear structure**
+
+**EXECUTE THIS EXTREME BOLD STRATEGY**: Create responses that are **visually striking**, **information-dense**, and **professionally impressive** with **40-60% bold content** for **maximum scannability** and **visual impact**.`;
   }
   
   async callGroq(userMessage) {
@@ -645,7 +665,7 @@ Detailed Answer:`;
     // Career goals
     if (lowerQuestion.includes('goal') || lowerQuestion.includes('future') || lowerQuestion.includes('career') || lowerQuestion.includes('vision')) {
       return `🚀 <strong>Career Goals:</strong><br><br>
-      Grow into a backend & infrastructure engineer at scale-driven companies like Amazon, Uber, or Meta, then eventually launch a startup focused on distributed systems, video streaming, and AI-powered tooling for businesses.<br><br>
+      Grow into a backend & infrastructure engineer at scale-driven companies<br><br>
       <strong>Personal Vision:</strong> Engineer scalable, fault-tolerant infrastructure while combining backend excellence with AI-driven automation.<br><br>
       I'm passionate about system design, concurrency correctness, and building reliable infrastructure under load.`;
     }
