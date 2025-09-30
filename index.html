@@ -69,6 +69,10 @@
               </li>
 
               <li class="nav__item">
+                <a href="#games" class="nav__link">Games</a>
+              </li>
+
+              <li class="nav__item">
                 <a href="#contact" class="nav__link">Contact</a>
               </li>
             </ul>
@@ -997,6 +1001,202 @@
         </div>
       </div>
 
+            <!--===== GAMES =====-->
+      <section class="games section" id="games">
+        <h2 data-heading="Interactive Fun" class="section__title">Mini Games</h2>
+        
+        <div class="games__container container">
+          <!-- Bento Grid Layout -->
+          <div class="games__bento-grid">
+            
+            <!-- Featured Game - Large Card -->
+            <div class="games__card games__card--featured" data-game="puzzle">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <div class="games__card-header">
+                  <h3 class="games__card-title">Sliding Puzzle</h3>
+                  <span class="games__card-difficulty">Medium</span>
+                </div>
+                <p class="games__card-description">Challenge your problem-solving skills with this classic sliding puzzle game.</p>
+                <div class="games__card-stats">
+                  <div class="games__stat">
+                    <span class="games__stat-number">4x4</span>
+                    <span class="games__stat-label">Grid</span>
+                  </div>
+                  <div class="games__stat">
+                    <span class="games__stat-number">∞</span>
+                    <span class="games__stat-label">Moves</span>
+                  </div>
+                </div>
+                <button class="games__play-btn">
+                  <i class="uil uil-play"></i>
+                  Play Now
+                </button>
+              </div>
+              <div class="games__card-visual">
+                <div class="puzzle__preview">
+                  <div class="puzzle__grid">
+                    <div class="puzzle__piece">1</div>
+                    <div class="puzzle__piece">2</div>
+                    <div class="puzzle__piece">3</div>
+                    <div class="puzzle__piece">4</div>
+                    <div class="puzzle__piece">5</div>
+                    <div class="puzzle__piece">6</div>
+                    <div class="puzzle__piece">7</div>
+                    <div class="puzzle__piece">8</div>
+                    <div class="puzzle__piece puzzle__piece--empty"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory Game -->
+            <div class="games__card" data-game="memory">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Memory Match</h3>
+                <span class="games__card-difficulty">Easy</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="memory__preview">
+                    <div class="memory__cards">
+                      <div class="memory__card"></div>
+                      <div class="memory__card memory__card--flipped">
+                        <i class="uil uil-star"></i>
+                      </div>
+                      <div class="memory__card"></div>
+                      <div class="memory__card memory__card--flipped">
+                        <i class="uil uil-heart"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="games__play-btn games__play-btn--small">
+                  <i class="uil uil-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Snake Game -->
+            <div class="games__card" data-game="snake">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Snake</h3>
+                <span class="games__card-difficulty">Hard</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="snake__preview">
+                    <div class="snake__grid">
+                      <div class="snake__segment snake__segment--head"></div>
+                      <div class="snake__segment"></div>
+                      <div class="snake__segment"></div>
+                      <div class="snake__food"></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="games__play-btn games__play-btn--small">
+                  <i class="uil uil-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tic Tac Toe -->
+            <div class="games__card" data-game="tictactoe">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Tic Tac Toe</h3>
+                <span class="games__card-difficulty">Easy</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="tictactoe__preview">
+                    <div class="tictactoe__grid">
+                      <div class="tictactoe__cell">X</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell">O</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell">X</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell">O</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell"></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="games__play-btn games__play-btn--small">
+                  <i class="uil uil-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Color Match -->
+            <div class="games__card games__card--tall" data-game="colors">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Color Rush</h3>
+                <span class="games__card-difficulty">Medium</span>
+                <div class="games__card-visual">
+                  <div class="colors__preview">
+                    <div class="colors__palette">
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #ff6b6b, #ee5a24);"></div>
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #4ecdc4, #45b7aa);"></div>
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #45b7d1, #3867d6);"></div>
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #f9ca24, #f0932b);"></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="games__play-btn games__play-btn--small">
+                  <i class="uil uil-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="games__card games__card--stats">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Game Stats</h3>
+                <div class="games__stats-grid">
+                  <div class="games__stat-item">
+                    <span class="games__stat-number">5</span>
+                    <span class="games__stat-label">Games</span>
+                  </div>
+                  <div class="games__stat-item">
+                    <span class="games__stat-number">∞</span>
+                    <span class="games__stat-label">Fun</span>
+                  </div>
+                </div>
+                <div class="games__technologies">
+                  <span class="games__tech">JavaScript</span>
+                  <span class="games__tech">CSS3</span>
+                  <span class="games__tech">HTML5</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Game Modal -->
+          <div class="games__modal" id="gameModal">
+            <div class="games__modal-content">
+              <span class="games__modal-close">&times;</span>
+              <div class="games__modal-header">
+                <h3 class="games__modal-title" id="modalTitle">Game Title</h3>
+                <div class="games__modal-controls">
+                  <button class="games__control-btn" id="restartBtn">
+                    <i class="uil uil-refresh"></i>
+                  </button>
+                  <button class="games__control-btn" id="pauseBtn">
+                    <i class="uil uil-pause"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="games__modal-body" id="gameArea">
+                <!-- Game content will be loaded here -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!--===== CONTACT =====-->
       <section class="contact section" id="contact">
         <h2 data-heading="Get in touch" class="section__title">Contact Me</h2>
 
@@ -1077,6 +1277,9 @@
               </li>
               <li>
                 <a href="#work" class="footer__link">Work</a>
+              </li>
+              <li>
+                <a href="#games" class="footer__link">Games</a>
               </li>
               <li>
                 <a href="#contact" class="footer__link">Contact</a>
