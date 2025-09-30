@@ -7,6 +7,10 @@
 /build/
 /dist/
 
+# Ignore dependencies and environment files
+node_modules/
+.env
+
 # Ignore IDE and editor files
 .idea/
 .vscode/

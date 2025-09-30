@@ -15,14 +15,16 @@ Both are 100% FREE with no credit card required!
 */
 
 // SIMPLE & RELIABLE FREE LLM Configuration
+const ENV_CONFIG = window.__CHATBOT_CONFIG__ || {};
 const LLM_CONFIG = {
   USE_LLM: true, // Set to false to use only fallback responses
   
   // Option A: Groq (RECOMMENDED - Fast & Reliable)
   PROVIDER: 'groq',
-  API_KEY: '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', // Get FREE from: https://console.groq.com
-  MODEL: 'llama-3.1-8b-instant',
-  API_URL: 'https://api.groq.com/openai/v1/chat/completions'
+  API_KEY: ENV_CONFIG.GROQ_API_KEY || '',
+  MODEL: ENV_CONFIG.GROQ_MODEL || 'llama-3.1-8b-instant',
+  API_URL: ENV_CONFIG.GROQ_API_URL || 'https://api.groq.com/openai/v1/chat/completions',
+  PROXY_URL: ENV_CONFIG.CHATBOT_PROXY_URL || ''
   
   // Option B: HuggingFace (Alternative) - Uncomment to use
   /*
@@ -32,6 +34,12 @@ const LLM_CONFIG = {
   API_URL: 'https://api-inference.huggingface.co/models/'
   */
 };
+
+LLM_CONFIG.USE_PROXY = typeof LLM_CONFIG.PROXY_URL === 'string' && LLM_CONFIG.PROXY_URL.trim().length > 0;
+
+if (LLM_CONFIG.USE_LLM && !LLM_CONFIG.USE_PROXY && !LLM_CONFIG.API_KEY) {
+  console.warn('[Chatbot] No LLM credentials detected. Add GROQ_API_KEY to your .env file or configure CHATBOT_PROXY_URL, then run "npm run generate:creds" to enable live responses.');
+}
 
 // Yann's detailed information
 const yannInfo = {
@@ -253,7 +261,8 @@ class YannChatbot {
   }
   
   isLLMConfigured() {
-    return !LLM_CONFIG.API_KEY.includes('your_free_') && LLM_CONFIG.API_KEY.length > 20;
+    const hasApiKey = typeof LLM_CONFIG.API_KEY === 'string' && LLM_CONFIG.API_KEY.trim().length > 0;
+    return LLM_CONFIG.USE_PROXY || hasApiKey;
   }
   
   async callLLM(userMessage) {
@@ -330,29 +339,54 @@ You are Yann's professional AI assistant. Always format responses using **rich M
   
   async callGroq(userMessage) {
     const systemPrompt = this.createSystemPrompt();
-    
+    const requestPayload = {
+      model: LLM_CONFIG.MODEL,
+      messages: [
+        {
+          role: 'system',
+          content: systemPrompt
+        },
+        {
+          role: 'user',
+          content: userMessage
+        }
+      ],
+      max_tokens: 700,
+      temperature: 0.7,
+      top_p: 0.9
+    };
+
+    if (LLM_CONFIG.USE_PROXY) {
+      const response = await fetch(LLM_CONFIG.PROXY_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          provider: 'groq',
+          ...requestPayload
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Proxy error: ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const messageContent = data?.choices?.[0]?.message?.content || data?.output;
+      if (!messageContent) {
+        throw new Error('Proxy response missing content');
+      }
+      return messageContent;
+    }
+
     const response = await fetch(LLM_CONFIG.API_URL, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${LLM_CONFIG.API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        model: LLM_CONFIG.MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt
-          },
-          {
-            role: 'user',
-            content: userMessage
-          }
-        ],
-        max_tokens: 700,
-        temperature: 0.7,
-        top_p: 0.9
-      })
+      body: JSON.stringify(requestPayload)
     });
 
     if (!response.ok) {
@@ -639,6 +673,14 @@ Detailed Answer:`;
     // Only scroll to bottom for user messages, keep bot responses at current position
     if (sender === 'user') {
       this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    } else if (sender === 'bot') {
+      requestAnimationFrame(() => {
+        messageDiv.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      });
     }
   }
   
