@@ -165,6 +165,7 @@ Deploy steps:
    GROQ_MODEL=llama-3.1-8b-instant
    ```
    Leave `GROQ_API_KEY` empty—only the proxy needs it.
+  *Tip:* The frontend will also accept `/api/groq-proxy` or `my-proxy.example.com/api/groq-proxy`; it automatically normalises relative paths and hostnames without a scheme.
 2. Run `npm run generate:creds` to refresh `creds.js` with the proxy URL.
 3. Deploy the static site. The chatbot now sends requests to the proxy and never sees the API key.
 

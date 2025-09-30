@@ -16,6 +16,30 @@ Both are 100% FREE with no credit card required!
 
 // SIMPLE & RELIABLE FREE LLM Configuration
 const ENV_CONFIG = window.__CHATBOT_CONFIG__ || {};
+
+function normalizeProxyUrl(value) {
+  if (typeof value !== 'string') return '';
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+  if (trimmed.startsWith('//')) {
+    return `https:${trimmed}`;
+  }
+  if (trimmed.startsWith('/')) {
+    return trimmed;
+  }
+  if (/^localhost(:\d+)?\//i.test(trimmed)) {
+    return `http://${trimmed}`;
+  }
+  if (/^([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?\//i.test(trimmed)) {
+    return `https://${trimmed}`;
+  }
+  return `/${trimmed.replace(/^\/+/, '')}`;
+}
+
+const rawProxyUrl = ENV_CONFIG.CHATBOT_PROXY_URL || '';
 const LLM_CONFIG = {
   USE_LLM: true, // Set to false to use only fallback responses
   
@@ -24,7 +48,7 @@ const LLM_CONFIG = {
   API_KEY: ENV_CONFIG.GROQ_API_KEY || '',
   MODEL: ENV_CONFIG.GROQ_MODEL || 'llama-3.1-8b-instant',
   API_URL: ENV_CONFIG.GROQ_API_URL || 'https://api.groq.com/openai/v1/chat/completions',
-  PROXY_URL: ENV_CONFIG.CHATBOT_PROXY_URL || ''
+  PROXY_URL: normalizeProxyUrl(rawProxyUrl)
   
   // Option B: HuggingFace (Alternative) - Uncomment to use
   /*
