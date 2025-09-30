@@ -297,15 +297,10 @@ Respond as Yann's professional AI assistant. Keep responses under 100 words, fri
       this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
     } else if (sender === 'bot') {
       requestAnimationFrame(() => {
-        const container = this.messagesContainer;
-        if (!container) return;
-        const containerRect = container.getBoundingClientRect();
-        const messageRect = messageDiv.getBoundingClientRect();
-        const offsetFromTop = messageRect.top - containerRect.top;
-        const target = Math.max(0, container.scrollTop + offsetFromTop - 25);
-        container.scrollTo({
-          top: target,
-          behavior: 'smooth'
+        messageDiv.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
         });
       });
     }
