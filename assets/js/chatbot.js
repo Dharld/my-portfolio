@@ -41,12 +41,15 @@ const yannInfo = {
     degree: "Computer Science and Mathematics",
     gpa: "4.0",
     graduation: "December 2025",
-    focus: "Backend engineering, distributed systems, operating systems, and large-scale infrastructure design"
+    focus: "Backend engineering, distributed systems, operating systems, large-scale infrastructure design, and fault-tolerant pipelines"
   },
   
   experience: {
-    amazon: "Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation at Amazon Prime Video. Integrated AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping, reducing manual operator tagging by 4+ hours per week. Leveraged Amazon Bedrock for AI-powered automated replay chapter extraction. Optimized delivery pipelines to achieve 10ms metadata latency and sustained 99.99% SLA uptime.",
-    other: "Also worked at KimboCare on distributed health-tech applications, Lambo Global Education on cloud-based orchestration tools, and contributed to ColorStack's community platform."
+    amazon: "Software Engineering Intern on the Live Playback Infrastructure team at Amazon Prime Video. Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation, integrating AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping. Reduced manual operator tagging by 4+ hours per week. Leveraged Amazon Bedrock for AI-powered replay chapter extraction, optimized metadata delivery to 10ms latency, and sustained 99.99% SLA uptime. Enhanced observability with CloudWatch metrics/logs, reducing mean-time-to-detect incidents by 40%.",
+    uber: "Worked on backend services and infrastructure reliability, focusing on scalable system design, distributed coordination, and high-availability systems.",
+    kimbocare: "Software Engineer Intern contributing to distributed health-tech applications with focus on data pipelines, API development, and cloud integration.",
+    lambo: "Software Engineer Intern designing and implementing cloud-based orchestration tools and building scalable web applications with RESTful APIs.",
+    colorstack: "Open-source contributor to ColorStack's community platform, enhancing performance, usability, and scaling features for student users."
   },
   
   skills: {
@@ -54,25 +57,49 @@ const yannInfo = {
     frameworks: ["Spring Boot", "React", "React Native", "Node.js", "LangChain"],
     databases: ["PostgreSQL", "MySQL", "DynamoDB", "Firebase", "Pinecone", "Redis"],
     cloud: ["AWS (EC2, RDS, S3, Lambda, CloudWatch, CDK)", "Docker", "Kubernetes"],
-    tools: ["Git", "GitHub", "Jenkins", "AWS CodePipeline", "JUnit", "Mockito"]
+    tools: ["Git", "GitHub", "Jenkins", "AWS CodePipeline", "JUnit", "Mockito", "CloudWatch Metrics/Logs", "CI/CD pipelines"]
   },
   
   projects: {
-    pixshare: "Photo-sharing app built with Spring Boot + AWS S3 + Spring Security, deployed on EC2",
-    redis: "In-memory key-value store supporting SET, GET, MSET, MGET, capacity management, and multi-threading (Java)",
-    git: "Git-Compatible Object Store with SHA-1 hashing, zlib compression, tree/commit objects (C++)",
-    sqlite: "Database engine studying SSTables, LSM-trees, B-Trees, paging, and query execution (Go)",
-    chatbot: "AI companion for students using LangChain + Pinecone + Firebase"
+    pixshare: "Photo-sharing app built with Spring Boot + AWS S3 + Spring Security, deployed on EC2. Supports presigned URLs for uploads, user authentication, and CloudWatch monitoring.",
+    "distributed cache": "Redis-like in-memory key-value store (Java) supporting SET, GET, MSET, MGET, capacity management with a doubly linked list, and multi-threading for concurrency.",
+    "version control": "Git-Compatible Object Store (C++) implementing SHA-1 hashing, zlib compression, tree/commit objects, staging area, crash-safe text index, and plumbing commands (init, hash-object, cat-file, add).",
+    "database engine": "SQLite-style database engine (Go) exploring SSTables, LSM-trees, B-Trees, paging, Bloom filters, compaction strategies, and query execution.",
+    matrix: "C++ Matrix library with LU decomposition, GEMM, forward/backward substitution, and error handling policies for singular matrices.",
+    pda: "Producer/Sorter/Stats CLI pipeline (C++) with flags parsing (--unique, --reserve), reallocation tracking, and deterministic stdout/stderr outputs.",
+    chatbot: "Campus AI companion built with LangChain + Pinecone + Firebase. Provides course recommendations, mentoring, and scheduling support using vector embeddings."
   },
   
   achievements: [
-    "Secured internships with Amazon Prime Video, Uber and Goldman Sachs",
+    "Secured internships with Amazon Prime Video and offers from Uber, and Goldman Sachs",
     "4.0 GPA at Kennesaw State University",
-    "Delivered projects scaling beyond 200+ concurrent operations",
-    "Recognized for architectural clarity and system reliability"
+    "Delivered projects scaling beyond 200+ concurrent operations with atomic, crash-safe design",
+    "Recognized for architectural clarity, concurrency correctness, and reliability under load",
+    "Built PixShare (AWS-deployed photo app), Redis-like server, Git object store, and SQLite-like storage engine"
   ],
   
-  goals: "Long-term vision: grow into a backend & infrastructure engineer at scale-driven companies and launch a startup focused on distributed systems and AI-powered tooling for businesses."
+  academics: {
+    coursework: [
+      "Parallel & Distributed Systems – concurrency, synchronization, distributed coordination",
+      "Operating Systems – processes, virtualization, paging, scheduling, memory translation",
+      "Data Structures & Algorithms – graphs, dynamic programming, greedy methods",
+      "Graph Theory – BFS, DFS, network flows, matchings",
+      "Numerical Methods – error analysis, stability, approximations",
+      "Concepts of Programming Languages – functional vs imperative paradigms, runtime models"
+    ],
+    independentStudy: [
+      "Operating Systems: Three Easy Pieces (OSTEP) – virtualization, concurrency, persistence",
+      "Designing Data-Intensive Applications – storage engines, replication, consensus, fault tolerance",
+      "Computer Architecture (Hennessy & Patterson) – pipelining, memory hierarchy, CPU design"
+    ]
+  },
+  
+  goals: "Grow into a backend & infrastructure engineer at scale-driven companies (Amazon, Uber, Meta) and eventually launch a startup focused on distributed systems, video streaming, and AI-powered tooling for businesses.",
+  
+  personal: {
+    hobbies: ["Soccer", "Fitness/Gym training", "Reading books", "Building side projects blending creativity with engineering"],
+    vision: "Engineer scalable, fault-tolerant infrastructure while combining backend excellence with AI-driven automation."
+  }
 };
 
 // Chatbot functionality
@@ -175,9 +202,12 @@ PERSONAL INFO:
 - Graduation: ${yannInfo.personalInfo.graduation}
 - Focus: ${yannInfo.personalInfo.focus}
 
-EXPERIENCE:
+WORK EXPERIENCE:
 - Amazon Prime Video: ${yannInfo.experience.amazon}
-- Other Experience: ${yannInfo.experience.other}
+- Uber: ${yannInfo.experience.uber}
+- KimboCare: ${yannInfo.experience.kimbocare}
+- Lambo Global Education: ${yannInfo.experience.lambo}
+- ColorStack: ${yannInfo.experience.colorstack}
 
 TECHNICAL SKILLS:
 - Languages: ${yannInfo.skills.languages.join(', ')}
@@ -186,18 +216,26 @@ TECHNICAL SKILLS:
 - Cloud: ${yannInfo.skills.cloud.join(', ')}
 - Tools: ${yannInfo.skills.tools.join(', ')}
 
-PROJECTS:
+MAJOR PROJECTS:
 - PixShare: ${yannInfo.projects.pixshare}
-- Distributed Cache Server: ${yannInfo.projects.redis}
-- Version Control System: ${yannInfo.projects.git}
-- Database Engine with indexing: ${yannInfo.projects.sqlite}
+- Distributed Cache: ${yannInfo.projects["distributed cache"]}
+- Version Control System: ${yannInfo.projects["version control"]}
+- Database Engine: ${yannInfo.projects["database engine"]}
+- Matrix Library: ${yannInfo.projects.matrix}
+- PDA CLI Pipeline: ${yannInfo.projects.pda}
 - AI Campus Companion: ${yannInfo.projects.chatbot}
+
+ACADEMIC BACKGROUND:
+Coursework: ${yannInfo.academics.coursework.join(', ')}
+Independent Study: ${yannInfo.academics.independentStudy.join(', ')}
 
 ACHIEVEMENTS:
 ${yannInfo.achievements.map(achievement => `- ${achievement}`).join('\n')}
 
-CAREER GOALS:
-${yannInfo.goals}
+CAREER GOALS: ${yannInfo.goals}
+
+PERSONAL INTERESTS: ${yannInfo.personal.hobbies.join(', ')}
+VISION: ${yannInfo.personal.vision}
 
 Respond as Yann's professional AI assistant. Keep responses under 150 words, friendly but professional. Use the detailed information above to provide accurate, specific answers about Yann's background, experience, and projects.`;
   }
@@ -306,12 +344,13 @@ Respond as Yann's professional AI assistant. Keep responses under 150 words, fri
     
     // Amazon experience
     if (lowerQuestion.includes('amazon') || lowerQuestion.includes('prime video')) {
-      return `At Amazon Prime Video (Summer 2025), I worked on Live Playback Infrastructure where I:<br><br>
+      return `At Amazon Prime Video (Summer 2025), I was a Software Engineering Intern on the Live Playback Infrastructure team:<br><br>
       🔧 Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation<br>
       ⏱️ Reduced manual operator tagging by 4+ hours per week<br>
       🤖 Used Amazon Bedrock for AI-powered automated replay chapter extraction<br>
       🚀 Achieved 10ms metadata latency and 99.99% SLA uptime<br>
-      📊 Enhanced observability with CloudWatch, cutting incident detection time by 40%`;
+      📊 Enhanced observability with CloudWatch metrics/logs, reducing mean-time-to-detect incidents by 40%<br>
+      ⚡ Integrated AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping`;
     }
     
     // Technical skills
@@ -326,12 +365,13 @@ Respond as Yann's professional AI assistant. Keep responses under 150 words, fri
     
     // Projects
     if (lowerQuestion.includes('project') || lowerQuestion.includes('built')) {
-      return `Here are some key projects I've worked on:<br><br>
-      <strong>PixShare:</strong> Photo-sharing app with Spring Boot + AWS S3 + Spring Security<br>
-      <strong>Redis Clone:</strong> In-memory key-value store with multi-threading support (Java)<br>
-      <strong>Git Object Store:</strong> Git-compatible system with SHA-1 hashing (C++)<br>
-      <strong>SQLite Clone:</strong> Database engine studying SSTables and LSM-trees (Go)<br>
-      <strong>Campus Chatbot:</strong> AI companion using LangChain + Pinecone + Firebase`;
+      return `Here are some key projects I've built:<br><br>
+      <strong>PixShare:</strong> Photo-sharing app with Spring Boot + AWS S3 + Spring Security, presigned URLs, CloudWatch monitoring<br>
+      <strong>Distributed Cache:</strong> Redis-like key-value store (Java) with doubly linked list, multi-threading, atomic operations<br>
+      <strong>Version Control System:</strong> Git-compatible object store (C++) with SHA-1 hashing, zlib compression, crash-safe indexing<br>
+      <strong>Database Engine:</strong> SQLite-style engine (Go) with SSTables, LSM-trees, B-Trees, Bloom filters<br>
+      <strong>Matrix Library:</strong> C++ library with LU decomposition, GEMM, error handling for singular matrices<br>
+      <strong>Campus AI Companion:</strong> LangChain + Pinecone + Firebase chatbot for course recommendations and mentoring`;
     }
     
     // Education
@@ -345,29 +385,51 @@ Respond as Yann's professional AI assistant. Keep responses under 150 words, fri
     }
     
     // Career goals
-    if (lowerQuestion.includes('goal') || lowerQuestion.includes('future') || lowerQuestion.includes('career')) {
-      return `🚀 My long-term vision is to grow into a backend & infrastructure engineer at scale-driven companies and eventually launch a startup focused on distributed systems and AI-powered tooling for businesses.<br><br>
-      I'm passionate about system design, fault-tolerant infrastructure, and video streaming pipelines.`;
+    if (lowerQuestion.includes('goal') || lowerQuestion.includes('future') || lowerQuestion.includes('career') || lowerQuestion.includes('vision')) {
+      return `🚀 <strong>Career Goals:</strong><br><br>
+      Grow into a backend & infrastructure engineer at scale-driven companies like Amazon, Uber, or Meta, then eventually launch a startup focused on distributed systems, video streaming, and AI-powered tooling for businesses.<br><br>
+      <strong>Personal Vision:</strong> Engineer scalable, fault-tolerant infrastructure while combining backend excellence with AI-driven automation.<br><br>
+      I'm passionate about system design, concurrency correctness, and building reliable infrastructure under load.`;
     }
     
-    // Internships
-    if (lowerQuestion.includes('internship') || lowerQuestion.includes('experience')) {
-      return `💼 My internship experience includes:<br><br>
-      <strong>Amazon Prime Video (2025):</strong> Live Playback Infrastructure<br>
-      <strong>Uber (2024):</strong> Backend services and infrastructure reliability<br>
-      <strong>KimboCare:</strong> Distributed health-tech applications<br>
-      <strong>Lambo Global Education:</strong> Cloud-based orchestration tools<br>
-      <strong>ColorStack:</strong> Open source community platform contributions`;
+    // Internships and experience
+    if (lowerQuestion.includes('internship') || lowerQuestion.includes('experience') || lowerQuestion.includes('uber')) {
+      return `💼 My professional experience includes:<br><br>
+      <strong>Amazon Prime Video (2025):</strong> Software Engineering Intern - Live Playback Infrastructure, JAB pipeline development<br>
+      <strong>Uber:</strong> Backend services and infrastructure reliability, scalable system design, distributed coordination<br>
+      <strong>KimboCare:</strong> Software Engineer Intern - distributed health-tech applications, data pipelines, API development<br>
+      <strong>Lambo Global Education:</strong> Software Engineer Intern - cloud-based orchestration tools, RESTful APIs<br>
+      <strong>ColorStack:</strong> Open-source contributor enhancing performance, usability, and scaling features<br><br>
+      🎯 Also received offers from Goldman Sachs`;
     }
     
+    // Academic background
+    if (lowerQuestion.includes('course') || lowerQuestion.includes('academic') || lowerQuestion.includes('study')) {
+      return `📚 <strong>Academic Background:</strong><br><br>
+      <strong>Key Coursework:</strong> Parallel & Distributed Systems, Operating Systems, Data Structures & Algorithms, Graph Theory, Numerical Methods, Programming Languages<br><br>
+      <strong>Independent Study:</strong><br>
+      • Operating Systems: Three Easy Pieces (OSTEP)<br>
+      • Designing Data-Intensive Applications<br>
+      • Computer Architecture (Hennessy & Patterson)<br><br>
+      Focus areas include concurrency, fault tolerance, storage engines, and system reliability.`;
+    }
+
+    // Personal interests
+    if (lowerQuestion.includes('hobby') || lowerQuestion.includes('personal') || lowerQuestion.includes('interest') || lowerQuestion.includes('soccer')) {
+      return `⚽ <strong>Personal Interests:</strong><br><br>
+      <strong>Hobbies:</strong> Soccer, Fitness/Gym training, Reading technical books, Building side projects that blend creativity with engineering<br><br>
+      I enjoy staying active through sports and fitness while continuously learning through technical literature and hands-on project development.`;
+    }
+
     // Default response
     return `That's a great question! I'd be happy to tell you more about Yann's background. Try asking about:<br><br>
-    • His Amazon Prime Video experience<br>
+    • His Amazon Prime Video & Uber experience<br>
     • Technical skills and programming languages<br>
-    • University education and 4.0 GPA<br>
-    • Projects like PixShare or Redis Clone<br>
-    • Career goals and future vision<br>
-    • Internship experiences`;
+    • University education, coursework, and 4.0 GPA<br>
+    • Projects like PixShare, distributed cache, or database engine<br>
+    • Career goals and startup vision<br>
+    • Academic coursework and independent study<br>
+    • Personal interests and hobbies`;
   }
 }
 

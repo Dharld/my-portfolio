@@ -1254,3 +1254,49 @@ themeButton?.addEventListener('click', () => {
 // Features: Smart LLM integration with Groq API + reliable fallback responses
 // Setup: Get free API key from https://console.groq.com for AI responses
 
+/*=============== SMOOTH SECTION ANIMATIONS ===============*/
+// Intersection Observer for smooth fade-in animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fade-in-up');
+      entry.target.style.animationDelay = '0.2s';
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+// Observe all sections for smooth animations
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section:not(.chatbot)');
+  const cards = document.querySelectorAll('.skills__card, .services__card, .work__card, .testimonial__card');
+  
+  // Add fade-in classes to sections (excluding chatbot)
+  sections.forEach((section, index) => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(30px)';
+    section.style.transition = 'all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
+    setTimeout(() => observer.observe(section), index * 100);
+  });
+  
+  // Add staggered animations to cards
+  cards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px) scale(0.95)';
+    card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+    setTimeout(() => observer.observe(card), index * 150);
+  });
+
+  // Ensure chatbot section is visible and animated properly
+  const chatbotSection = document.querySelector('.chatbot');
+  if (chatbotSection) {
+    chatbotSection.style.opacity = '1';
+    chatbotSection.style.transform = 'translateY(0)';
+  }
+});
+

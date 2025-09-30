@@ -74,6 +74,57 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Global loading and transition improvements */
+*,
+*::before,
+*::after {
+  transition-property: opacity, transform, background-color, color, border-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Smooth fade-in animations for content */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger animation delays */
+.fade-in-up:nth-child(1) { transition-delay: 0.1s; }
+.fade-in-up:nth-child(2) { transition-delay: 0.2s; }
+.fade-in-up:nth-child(3) { transition-delay: 0.3s; }
+.fade-in-up:nth-child(4) { transition-delay: 0.4s; }
+.fade-in-up:nth-child(5) { transition-delay: 0.5s; }
+.fade-in-up:nth-child(6) { transition-delay: 0.6s; }
+
 body,
 button,
 input {
@@ -91,6 +142,7 @@ body {
   background-attachment: fixed;
   color: var(--text-color);
   min-height: 100vh;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 h1,
@@ -137,8 +189,17 @@ input {
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section {
-  padding: 6.5rem 0 2rem;
+  padding: 8rem 0 4rem; /* Increased vertical padding */
   position: relative;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Smooth fade-in when section is in view */
+.section.fade-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Smooth gradient overlays for better blending */
@@ -2154,6 +2215,8 @@ textarea.input {
   z-index: 1;
   max-width: 900px;
   margin: 0 auto;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .chatbot__header {
@@ -2259,18 +2322,43 @@ textarea.input {
   color: var(--text-color);
   font-size: var(--normal-font-size);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   align-items: center;
   gap: 0.75rem;
   text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.chatbot__suggestion-btn:nth-child(1) { animation-delay: 0.8s; }
+.chatbot__suggestion-btn:nth-child(2) { animation-delay: 0.9s; }
+.chatbot__suggestion-btn:nth-child(3) { animation-delay: 1.0s; }
+.chatbot__suggestion-btn:nth-child(4) { animation-delay: 1.1s; }
+
+@keyframes buttonAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Global fade-in animation triggered by JavaScript */
+.fade-in-up {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
 }
 
 .chatbot__suggestion-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
   border-color: var(--first-color);
-  box-shadow: 0 8px 25px rgba(var(--first-color-rgb), 0.3);
-  background: rgba(var(--first-color-rgb), 0.05);
+  box-shadow: 0 12px 35px rgba(var(--first-color-rgb), 0.4);
+  background: rgba(var(--first-color-rgb), 0.08);
+}
+
+.chatbot__suggestion-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  transition-duration: 0.2s;
 }
 
 .chatbot__suggestion-btn i {
@@ -2299,6 +2387,16 @@ textarea.input {
   display: flex;
   gap: 1rem;
   max-width: 80%;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  animation: messageAppear 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes messageAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .chatbot__message--bot {
@@ -2383,12 +2481,15 @@ textarea.input {
   color: var(--text-color);
   font-size: var(--normal-font-size);
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: scale(1);
 }
 
 .chatbot__input:focus {
   border-color: var(--first-color);
-  box-shadow: 0 0 20px rgba(var(--first-color-rgb), 0.2);
+  box-shadow: 0 0 25px rgba(var(--first-color-rgb), 0.3), 0 4px 15px rgba(var(--first-color-rgb), 0.1);
+  transform: scale(1.01);
+  background: rgba(var(--first-color-rgb), 0.02);
 }
 
 .chatbot__input::placeholder {
@@ -2422,30 +2523,56 @@ textarea.input {
 }
 
 .chatbot__typing {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin: 1rem 1rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border-radius: 20px 20px 5px 20px;
   color: var(--text-color-light);
   font-size: var(--small-font-size);
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  animation: fadeInTyping 0.3s ease-out forwards;
+}
+
+@keyframes fadeInTyping {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .chatbot__typing-dots {
   display: flex;
-  gap: 2px;
+  gap: 3px;
+  margin-left: 0.5rem;
 }
 
 .chatbot__typing-dots span {
-  width: 4px;
-  height: 4px;
-  background: var(--first-color);
+  width: 6px;
+  height: 6px;
+  background: var(--skin-color);
   border-radius: 50%;
-  animation: typing 1.4s infinite;
+  animation: typingPulse 1.4s infinite ease-in-out;
+  opacity: 0.4;
 }
 
 .chatbot__typing-dots span:nth-child(1) { animation-delay: 0s; }
 .chatbot__typing-dots span:nth-child(2) { animation-delay: 0.2s; }
 .chatbot__typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingPulse {
+  0%, 60%, 100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
 
 @keyframes typing {
   0%, 60%, 100% { transform: translateY(0); }
