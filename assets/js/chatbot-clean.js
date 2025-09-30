@@ -45,9 +45,9 @@ const yannInfo = {
   },
   
   experience: {
-    amazon: "Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation at Amazon Prime Video. Integrated AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping, reducing manual operator tagging by 4+ hours per week. Leveraged Amazon Bedrock for AI-powered automated replay chapter extraction. Optimized delivery pipelines to achieve 10ms metadata latency and sustained 99.99% SLA uptime.",
-    afriland: `Software Engineer Intern Afriland FirstBank, Summer 2023, Developed secure document microservice (Spring Boot + PostgreSQL) improving reliability and data protection. Integrated real-time notifications (OneSignal) for instant transaction updates, increasing brand trust by 20%. Built CI/CD pipeline (AWS CodePipeline + CodeBuild) automating tests and deployments, cutting release time by 50% and tripling deployment frequency.`,
-    lambo: `Summer 2024, Built a RESTful API (Spring Boot): Scaled to 500 requests/sec, boosting student satisfaction by 25%.Developed a headless CMS (Sanity.io + React): Added schema validation & automation, cutting publishing time by 40% and raising editor productivity by 25%. Created an analytics dashboard (HTML/CSS/JS): Added real-time engagement tracking, increasing course completion rates by 15%.`, 
+    amazon: "Summer 2025 — Software Engineering Intern at Prime Video. Built an event-driven Just-After-Broadcast (JAB) pipeline, integrating AWS Step Functions, DynamoDB, S3, and FFmpeg. Automation cut manual replay tagging by 4+ hours weekly and held metadata latency to 10ms with 99.99% uptime.",
+    lambo: "Summer 2024 — Software Engineering Intern at Lambo Global Education. Delivered a Spring Boot REST API handling 500 requests/sec, automated a Sanity.io + React CMS workflow, and launched an analytics dashboard that lifted course completion by 15%.",
+    afriland: "Summer 2023 — Software Engineering Intern at Afriland FirstBank. Built a Spring Boot + PostgreSQL document microservice, wired OneSignal notifications that increased brand trust by 20%, and automated releases with AWS CodePipeline/CodeBuild to slash deployment time by 50%.",
         other: "contributed to ColorStack's community platform."
     },
     
@@ -320,12 +320,10 @@ Respond as Yann's professional AI assistant. Keep responses under 100 words, fri
     
     // Internships
     if (lowerQuestion.includes('internship') || lowerQuestion.includes('experience')) {
-      return `💼 My internship experience includes:<br><br>
-      <strong>Amazon Prime Video (2025):</strong> Live Playback Infrastructure<br>
-      <strong>Uber (2024):</strong> Backend services and infrastructure reliability<br>
-      <strong>KimboCare:</strong> Distributed health-tech applications<br>
-      <strong>Lambo Global Education:</strong> Cloud-based orchestration tools<br>
-      <strong>ColorStack:</strong> Open source community platform contributions`;
+      return `💼 Internship timeline (2025 → 2023):<br><br>
+      <strong>Amazon Prime Video — Summer 2025:</strong> Built an event-driven JAB pipeline, automated replay tagging, and held 10ms latency with AWS Step Functions, DynamoDB, S3, FFmpeg, and Bedrock.<br><br>
+      <strong>Lambo Global Education — Summer 2024:</strong> Scaled a Spring Boot REST API to 500 requests/sec, automated a Sanity.io + React CMS workflow, and shipped an analytics dashboard that lifted course completion by 15%.<br><br>
+      <strong>Afriland FirstBank — Summer 2023:</strong> Delivered a Spring Boot + PostgreSQL document microservice, added OneSignal notifications that increased brand trust by 20%, and automated releases with AWS CodePipeline/CodeBuild to cut deployment time by 50%.`;
     }
     
     // Default response
