@@ -107,6 +107,9 @@ class YannChatbot {
     this.input = null;
     this.sendButton = null;
     this.typingIndicator = null;
+    this.markdownRenderer = null;
+    this.markdownConfigured = false;
+    this.slugCounts = new Map();
     this.init();
   }
   
@@ -282,16 +285,26 @@ VISION: ${yannInfo.personal.vision}
 
 You are Yann's professional AI assistant. Always format responses using **rich Markdown** for maximum visual impact and readability.
 
-## Response Structure:
+## Response Structure - BULLET POINT MASTERY:
 - Start with a **clear main heading** (#) when appropriate
 - Use **section headings** (##) to organize major topics
 - Use **subsection headings** (###) for detailed breakdowns
+- **EXTENSIVELY USE BULLET POINTS** - Convert most content to bullet format
 - **Bold important terms** and achievements
 - Use *italics* for emphasis and context
-- Create **bullet lists** for features, skills, or achievements
-- Use **numbered lists** for processes or rankings
+- **MANDATORY**: Create bullet lists for ALL of these:
+  • **Technical skills** and technologies
+  • **Achievements** and accomplishments  
+  • **Project features** and capabilities
+  • **Work responsibilities** and tasks
+  • **Educational highlights** and coursework
+  • **Tools** and frameworks used
+  • **Metrics** and quantifiable results
+  • **Benefits** and impacts delivered
+- Every technical detail should be a **bullet point with • symbol**
+- Use **numbered lists** only for sequential processes or rankings
 - Include **code blocks** for technical examples
-- Structure information hierarchically for easy scanning
+- Structure information hierarchically with **extensive bullet formatting**
 
 ## EXTREME SCANNABILITY FORMATTING - MANDATORY:
 Apply this AGGRESSIVE bold strategy for maximum visual impact and readability:
@@ -310,13 +323,24 @@ Apply this AGGRESSIVE bold strategy for maximum visual impact and readability:
 - **Important adjectives**: **scalable**, **fault-tolerant**, **distributed**, **real-time**, etc.
 - **Action verbs**: **Built**, **Developed**, **Implemented**, **Optimized**, **Enhanced**, etc.
 
-#### CRITICAL LIST FORMATTING:
-For bullet points, ALWAYS bold the beginning phrase before colon/semicolon:
-- **Core Technologies**: Java, Spring Boot, AWS Step Functions
-- **Key Achievement**: Reduced manual tagging by 4+ hours weekly  
-- **Performance Impact**: Achieved 99.99% uptime with 10ms latency
-- **Technical Stack**: PostgreSQL, DynamoDB, CloudWatch, Docker
-- **Project Scope**: Event-driven pipeline processing 1000+ requests/hour
+#### CORRECT BULLET POINT STRUCTURE:
+**IMPORTANT**: Headers/Titles should be CLEAN without bullet points. Only list items get bullets.
+
+**CORRECT FORMAT:**
+## Technical Skills
+• **Programming Languages**: **Java**, **Spring Boot**, **Python**, **Go**
+• **Cloud Technologies**: **AWS**, **Docker**, **Kubernetes**, **PostgreSQL**
+• **Key Achievement**: **Reduced manual tagging** by **4+ hours weekly**
+• **Performance Impact**: **Achieved 99.99% uptime** with **10ms latency**
+
+**WRONG FORMAT:**
+• ## Technical Skills (DON'T DO THIS - No bullets on headers!)
+
+**STRUCTURE RULES:**
+- Headers (# ## ###) = Clean titles without bullets
+- List items under headers = Use • bullet points extensively
+- Bold the category/description in each bullet point
+- Convert details to bullet format under proper headers
 
 #### MAXIMUM BOLD EXAMPLES:
 "**Yann Djoumessi** is a **highly accomplished** **Computer Science student** at **Kennesaw State University** with a **perfect 4.0 GPA**. During his **Software Engineering Internship** at **Amazon Prime Video**, he **successfully built** an **event-driven JAB pipeline** using **AWS Step Functions**, **DynamoDB**, and **S3**, **achieving 99.99% uptime** and **optimizing metadata delivery** to **10ms latency**."
@@ -383,7 +407,7 @@ Always use this pattern for maximum scannability:
             content: userMessage
           }
         ],
-        max_tokens: 1000,
+        max_tokens: 700,
         temperature: 0.7,
         top_p: 0.9
       })
@@ -439,113 +463,210 @@ Detailed Answer:`;
     throw new Error('Invalid HuggingFace response format');
   }
   
-  // OpenAI-quality Markdown to HTML converter with comprehensive formatting
+  // Standards-based Markdown renderer with accessibility-first defaults
   markdownToHtml(markdown) {
-    let html = markdown;
-    
-    // Process code blocks first (to avoid interference)
-    html = html.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
-      const language = lang || 'plaintext';
-      return `<div class="code-block"><div class="code-header">${language}</div><pre><code class="language-${language}">${code.trim()}</code></pre></div>`;
-    });
-    
-    // Process blockquotes
-    html = html.replace(/^> (.*$)/gim, '<blockquote class="markdown-quote">$1</blockquote>');
-    
-    // Process headers with complete h1-h6 support and proper hierarchy
-    html = html.replace(/^###### (.*$)/gim, '<h6 class="h6-header"><span class="header-icon">▫️</span>$1</h6>');
-    html = html.replace(/^##### (.*$)/gim, '<h5 class="h5-header"><span class="header-icon">▪️</span>$1</h5>');
-    html = html.replace(/^#### (.*$)/gim, '<h4 class="h4-header"><span class="header-icon">🔸</span>$1</h4>');
-    html = html.replace(/^### (.*$)/gim, '<h3 class="section-header"><span class="header-icon">🔹</span>$1</h3>');
-    html = html.replace(/^## (.*$)/gim, '<h2 class="main-header"><span class="header-icon">🔸</span>$1</h2>');
-    html = html.replace(/^# (.*$)/gim, '<h1 class="title-header">$1</h1>');
-    
-    // Process links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="markdown-link" target="_blank" rel="noopener noreferrer">$1</a>');
-    
-    // Process bold and italic text (improved regex)
-    html = html.replace(/(?<!\*)\*\*([^*]+?)\*\*(?!\*)/g, '<strong class="highlight-text">$1</strong>');
-    html = html.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em class="italic-text">$1</em>');
-    
-    // Process strikethrough
-    html = html.replace(/~~([^~]+?)~~/g, '<del class="strikethrough-text">$1</del>');
-    
-    // Process inline code (improved to avoid conflicts)
-    html = html.replace(/(?<!`)`([^`]+?)`(?!`)/g, '<code class="inline-code">$1</code>');
-    
-    // Process bullet lists with better formatting
-    const lines = html.split('\n');
-    let inList = false;
-    let listType = null;
-    const processedLines = [];
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      
-      // Check for bullet points
-      if (line.match(/^[-*•] /)) {
-        if (!inList) {
-          processedLines.push('<ul class="styled-list">');
-          inList = true;
-          listType = 'ul';
-        }
-        const content = line.replace(/^[-*•] /, '');
-        processedLines.push(`<li class="list-item"><span class="bullet">•</span><span class="item-content">${content}</span></li>`);
-      }
-      // Check for numbered lists
-      else if (line.match(/^\d+\. /)) {
-        if (!inList || listType !== 'ol') {
-          if (inList) processedLines.push(`</${listType}>`);
-          processedLines.push('<ol class="numbered-list">');
-          inList = true;
-          listType = 'ol';
-        }
-        const content = line.replace(/^\d+\. /, '');
-        processedLines.push(`<li class="numbered-item">${content}</li>`);
-      }
-      // Regular line
-      else {
-        if (inList) {
-          processedLines.push(`</${listType}>`);
-          inList = false;
-          listType = null;
-        }
-        if (line) {
-          processedLines.push(`<p class="content-paragraph">${line}</p>`);
-        }
-      }
+    if (!markdown) return '';
+
+    this.slugCounts = new Map();
+    this.configureMarkdownRenderer();
+
+    if (!this.markdownConfigured || typeof marked === 'undefined') {
+      return this.basicMarkdownFallback(markdown);
     }
-    
-    if (inList) {
-      processedLines.push(`</${listType}>`);
+
+    const parsedHtml = marked.parse(markdown, { renderer: this.markdownRenderer });
+    return this.sanitizeHtml(parsedHtml);
+  }
+
+  configureMarkdownRenderer() {
+    if (this.markdownConfigured || typeof marked === 'undefined') {
+      if (typeof marked === 'undefined') {
+        console.warn('Marked library not found. Falling back to basic formatting.');
+      }
+      return;
     }
-    
-    html = processedLines.join('\n');
-    
-    // Process tables (basic support)
-    html = html.replace(/\n\|(.+)\|\n\|(-+\|)+\n((\|.+\|\n?)+)/g, (match) => {
-      const rows = match.trim().split('\n');
-      const header = rows[0];
-      const body = rows.slice(2);
-      
-      let tableHtml = '<table class="styled-table"><thead><tr>';
-      header.split('|').slice(1, -1).forEach(cell => {
-        tableHtml += `<th>${cell.trim()}</th>`;
-      });
-      tableHtml += '</tr></thead><tbody>';
-      
-      body.forEach(row => {
-        tableHtml += '<tr>';
-        row.split('|').slice(1, -1).forEach(cell => {
-          tableHtml += `<td>${cell.trim()}</td>`;
-        });
-        tableHtml += '</tr>';
-      });
-      tableHtml += '</tbody></table>';
-      return tableHtml;
+
+    const escapeHtml = (value) => this.escapeHtml(value);
+    const slugify = (value) => this.slugify(value);
+    const sanitizeUrl = (value) => this.sanitizeUrl(value);
+
+    const renderer = new marked.Renderer();
+
+    renderer.heading = (text, level) => {
+      const safeLevel = Math.min(Math.max(level, 1), 6);
+      const tag = `h${safeLevel}`;
+      const anchorId = slugify(text);
+      return `<${tag} id="${anchorId}" class="md-heading md-heading-${safeLevel}" tabindex="-1">${text}</${tag}>`;
+    };
+
+    renderer.paragraph = (text) => `<p class="md-paragraph">${text}</p>`;
+
+    renderer.strong = (text) => `<strong class="md-strong">${text}</strong>`;
+
+    renderer.em = (text) => `<em class="md-em">${text}</em>`;
+
+    renderer.codespan = (code) => `<code class="md-code-inline">${escapeHtml(code)}</code>`;
+
+    renderer.code = (code, infostring) => {
+      const language = (infostring || '').trim() || 'plaintext';
+      const safeCode = escapeHtml(code);
+      const safeLanguage = escapeHtml(language.toLowerCase());
+      return `<figure class="md-code-block" role="group" aria-label="Code example in ${safeLanguage}">
+        <figcaption class="md-code-language">${safeLanguage}</figcaption>
+        <pre tabindex="0"><code class="language-${safeLanguage}">${safeCode}</code></pre>
+      </figure>`;
+    };
+
+    renderer.blockquote = (quote) => `<blockquote class="md-blockquote" tabindex="0" aria-label="Quoted content">${quote}</blockquote>`;
+
+    renderer.list = (body, ordered, start) => {
+      const tag = ordered ? 'ol' : 'ul';
+      const startAttr = ordered && start !== 1 ? ` start="${start}"` : '';
+      const typeClass = ordered ? 'md-list--ordered' : 'md-list--unordered';
+      return `<${tag} class="md-list ${typeClass}" role="list"${startAttr}>${body}</${tag}>`;
+    };
+
+    renderer.listitem = (text) => `<li class="md-list__item" role="listitem">${text}</li>`;
+
+    renderer.hr = () => '<hr class="md-divider" role="presentation" />';
+
+    renderer.table = (header, body) => {
+      const tableHeader = header ? `<thead>${header}</thead>` : '';
+      const tableBody = body ? `<tbody>${body}</tbody>` : '<tbody></tbody>';
+      return `<div class="md-table-container" role="region" aria-live="polite">
+        <table class="md-table" role="table">
+          ${tableHeader}
+          ${tableBody}
+        </table>
+      </div>`;
+    };
+
+    renderer.tablerow = (content) => `<tr>${content}</tr>`;
+
+    renderer.tablecell = (content, { header, align }) => {
+      const tag = header ? 'th' : 'td';
+      const alignmentClass = align ? ` md-table__cell--${align}` : '';
+      const ariaScope = header ? ' scope="col"' : '';
+      const alignAttr = align ? ` style="text-align:${align}"` : '';
+      return `<${tag} class="md-table__cell${alignmentClass}"${ariaScope}${alignAttr}>${content}</${tag}>`;
+    };
+
+    renderer.link = (href, title, text) => {
+      const sanitizedHref = sanitizeUrl(href) || '#';
+      const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+      return `<a class="md-link" href="${sanitizedHref}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
+    };
+
+    renderer.image = (href, title, text) => {
+      const sanitizedSrc = sanitizeUrl(href);
+      const altText = escapeHtml(text || '');
+      const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+      if (!sanitizedSrc) {
+        return `<span class="md-image--invalid">${altText}</span>`;
+      }
+      return `<figure class="md-image" role="group" aria-label="${altText}">
+        <img src="${sanitizedSrc}" alt="${altText}" loading="lazy" decoding="async" />
+        ${altText ? `<figcaption class="md-image__caption">${altText}</figcaption>` : ''}
+      </figure>`;
+    };
+
+    renderer.html = (html) => this.sanitizeHtml(html);
+
+    marked.setOptions({
+      renderer,
+      gfm: true,
+      breaks: true,
+      smartypants: true,
+      headerIds: false,
+      mangle: false
     });
-    
-    return html;
+
+    this.markdownRenderer = renderer;
+    this.markdownConfigured = true;
+  }
+
+  basicMarkdownFallback(markdown) {
+    const safeMarkdown = this.escapeHtml(markdown);
+    return safeMarkdown
+      .split(/\n{2,}/)
+      .map((block) => `<p class="md-paragraph">${block.replace(/\n/g, '<br />')}</p>`)
+      .join('');
+  }
+
+  sanitizeHtml(html) {
+    if (!html) return '';
+    if (typeof window === 'undefined' || typeof DOMParser === 'undefined') return html;
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`<div>${html}</div>`, 'text/html');
+    const forbiddenSelectors = ['script', 'style', 'iframe', 'object', 'embed', 'link', 'meta'];
+    doc.querySelectorAll(forbiddenSelectors.join(',')).forEach((el) => el.remove());
+
+    doc.body.querySelectorAll('*').forEach((el) => {
+      [...el.attributes].forEach((attr) => {
+        const attrName = attr.name.toLowerCase();
+        if (attrName.startsWith('on') || attrName === 'style' || attrName === 'srcdoc') {
+          el.removeAttribute(attr.name);
+          return;
+        }
+        if (attrName === 'href' || attrName === 'src') {
+          const sanitized = this.sanitizeUrl(attr.value);
+          if (!sanitized) {
+            el.removeAttribute(attr.name);
+          } else {
+            el.setAttribute(attr.name, sanitized);
+          }
+        }
+      });
+
+      if (el.tagName === 'A') {
+        el.setAttribute('target', '_blank');
+        el.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+
+    return doc.body.innerHTML;
+  }
+
+  sanitizeUrl(url) {
+    if (!url) return '';
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+    if (trimmed.startsWith('#')) return trimmed;
+    const protocolMatch = trimmed.match(/^([a-z0-9+.-]+):/i);
+    if (protocolMatch) {
+      const protocol = protocolMatch[1].toLowerCase();
+      const allowedProtocols = ['http', 'https', 'mailto', 'tel'];
+      if (!allowedProtocols.includes(protocol)) {
+        return '';
+      }
+      return trimmed;
+    }
+    return trimmed;
+  }
+
+  escapeHtml(value) {
+    if (value === null || value === undefined) return '';
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  slugify(value) {
+    const base = String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-');
+    const count = this.slugCounts.get(base) || 0;
+    this.slugCounts.set(base, count + 1);
+    if (!base) {
+      return `section-${this.slugCounts.size}`;
+    }
+    return count ? `${base}-${count}` : base;
   }
 
   addMessage(content, sender) {
