@@ -303,7 +303,8 @@ function getGameTitle(gameType) {
     'memory': 'Memory Match',
     'snake': 'Snake Game',
     'tictactoe': 'Tic Tac Toe',
-    'colors': 'Color Rush'
+    'colors': 'Color Rush',
+    'pong': 'Pong Game'
   };
   return titles[gameType] || 'Game';
 }
@@ -334,6 +335,9 @@ function initGame(gameType) {
       break;
     case 'colors':
       initColorRush();
+      break;
+    case 'pong':
+      initPongGame();
       break;
   }
 }
@@ -453,6 +457,180 @@ function getNeighbors(index, size) {
   if (col < size - 1) neighbors.push(index + 1); // right
   
   return neighbors;
+}
+
+// Snake Game
+function initSnakeGame() {
+  let snake = [{x: 200, y: 200}];
+  let food = {x: 160, y: 160};
+  let dx = 0;
+  let dy = 0;
+  let score = 0;
+  let gameRunning = false;
+  let gameLoop;
+  
+  gameArea.innerHTML = `
+    <div class="snake-game">
+      <div class="game-info">
+        <div class="score">Score: <span id="snakeScore">0</span></div>
+        <div class="controls">Use WASD or Arrow Keys to move</div>
+        <button id="startSnake" class="start-btn">Start Game</button>
+      </div>
+      <canvas id="snakeCanvas" width="400" height="400"></canvas>
+    </div>
+  `;
+  
+  const canvas = document.getElementById('snakeCanvas');
+  const ctx = canvas.getContext('2d');
+  const startBtn = document.getElementById('startSnake');
+  
+  canvas.style.cssText = `
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    display: block;
+    margin: 10px auto;
+  `;
+  
+  startBtn.style.cssText = `
+    background: linear-gradient(135deg, var(--skin-color), hsl(202, 94%, 45%));
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    font-weight: 500;
+  `;
+  
+  function generateFood() {
+    food = {
+      x: Math.round((Math.random() * (canvas.width - 20)) / 20) * 20,
+      y: Math.round((Math.random() * (canvas.height - 20)) / 20) * 20
+    };
+    
+    // Make sure food doesn't spawn on snake
+    for (let segment of snake) {
+      if (segment.x === food.x && segment.y === food.y) {
+        generateFood();
+        return;
+      }
+    }
+  }
+  
+  function drawSnake() {
+    snake.forEach((segment, index) => {
+      if (index === 0) {
+        ctx.fillStyle = '#16a34a'; // Head color
+      } else {
+        ctx.fillStyle = '#22c55e'; // Body color
+      }
+      ctx.fillRect(segment.x, segment.y, 18, 18);
+    });
+  }
+  
+  function drawFood() {
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(food.x, food.y, 18, 18);
+  }
+  
+  function clear() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  
+  function update() {
+    if (gameState.isPaused || !gameRunning) return;
+    
+    const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+    
+    // Wall collision
+    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+      gameOver();
+      return;
+    }
+    
+    // Self collision
+    for (let segment of snake) {
+      if (head.x === segment.x && head.y === segment.y) {
+        gameOver();
+        return;
+      }
+    }
+    
+    snake.unshift(head);
+    
+    // Check food collision
+    if (head.x === food.x && head.y === food.y) {
+      score += 10;
+      document.getElementById('snakeScore').textContent = score;
+      generateFood();
+    } else {
+      snake.pop();
+    }
+  }
+  
+  function gameOver() {
+    gameRunning = false;
+    clearTimeout(gameLoop);
+    startBtn.textContent = 'Restart Game';
+    startBtn.style.display = 'block';
+    setTimeout(() => {
+      alert(`Game Over! Final Score: ${score}`);
+    }, 100);
+  }
+  
+  function runGameLoop() {
+    clear();
+    update();
+    drawFood();
+    drawSnake();
+    
+    if (gameRunning) {
+      gameLoop = setTimeout(runGameLoop, 150);
+    }
+  }
+  
+  function startGame() {
+    snake = [{x: 200, y: 200}];
+    dx = 0;
+    dy = 0;
+    score = 0;
+    gameRunning = true;
+    startBtn.style.display = 'none';
+    document.getElementById('snakeScore').textContent = score;
+    generateFood();
+    runGameLoop();
+  }
+  
+  // Controls
+  function handleKeyPress(e) {
+    if (!gameRunning) return;
+    
+    const key = e.key.toLowerCase();
+    
+    if ((key === 'arrowleft' || key === 'a') && dx !== 20) {
+      dx = -20;
+      dy = 0;
+    } else if ((key === 'arrowright' || key === 'd') && dx !== -20) {
+      dx = 20;
+      dy = 0;
+    } else if ((key === 'arrowup' || key === 'w') && dy !== 20) {
+      dx = 0;
+      dy = -20;
+    } else if ((key === 'arrowdown' || key === 's') && dy !== -20) {
+      dx = 0;
+      dy = 20;
+    }
+  }
+  
+  document.addEventListener('keydown', handleKeyPress);
+  startBtn.addEventListener('click', startGame);
+  
+  // Initial draw
+  clear();
+  drawFood();
+  drawSnake();
 }
 
 // Memory Game
@@ -582,9 +760,14 @@ function initTicTacToe() {
       font-size: 3rem;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: var(--skin-color);
+      width: 95px;
+      height: 95px;
+      min-width: 95px;
+      min-height: 95px;
+      box-sizing: border-box;
     `;
     
     cell.addEventListener('click', () => makeMove(i));
@@ -645,13 +828,13 @@ function initColorRush() {
   
   gameArea.innerHTML = `
     <div class="color-rush-game">
-      <div class="game-header">
+      <div class="game-header" style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.2rem; color: var(--title-color);">
         <div class="score">Score: <span id="colorScore">0</span></div>
         <div class="timer">Time: <span id="colorTimer">30</span>s</div>
       </div>
-      <div class="target-color">
-        <div>Match this color:</div>
-        <div class="target-display" id="targetDisplay"></div>
+      <div class="target-color" style="text-align: center; margin-bottom: 20px;">
+        <div style="color: var(--text-color); margin-bottom: 10px; font-size: 1.1rem;">Match this color:</div>
+        <div class="target-display" id="targetDisplay" style="width: 100px; height: 100px; margin: 0 auto; border-radius: 12px; border: 3px solid rgba(255, 255, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);"></div>
       </div>
       <div class="color-options" id="colorOptions"></div>
     </div>
@@ -758,6 +941,236 @@ function initColorRush() {
   
   generateRound();
   startTimer();
+}
+
+// Pong Game
+function initPongGame() {
+  let canvas, ctx;
+  let ball, leftPaddle, rightPaddle;
+  let gameRunning = false;
+  let animationFrame;
+  let leftScore = 0, rightScore = 0;
+  
+  gameArea.innerHTML = `
+    <div class="pong-game">
+      <div class="game-info" style="display: flex; justify-content: space-between; margin-bottom: 15px; color: var(--title-color);">
+        <div class="score-left">Player: <span id="leftScore">0</span></div>
+        <div class="controls" style="font-size: 0.9rem; color: var(--text-color);">W/S - Left Paddle | ↑/↓ - Right Paddle</div>
+        <div class="score-right">AI: <span id="rightScore">0</span></div>
+      </div>
+      <canvas id="pongCanvas" width="600" height="400"></canvas>
+      <button id="startPong" class="start-btn" style="margin-top: 15px; background: linear-gradient(135deg, var(--skin-color), hsl(202, 94%, 45%)); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 500;">Start Game</button>
+    </div>
+  `;
+  
+  canvas = document.getElementById('pongCanvas');
+  ctx = canvas.getContext('2d');
+  const startBtn = document.getElementById('startPong');
+  
+  canvas.style.cssText = `
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    display: block;
+    margin: 0 auto;
+  `;
+  
+  // Game objects
+  ball = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    dx: 5,
+    dy: 3,
+    radius: 8,
+    speed: 5
+  };
+  
+  leftPaddle = {
+    x: 20,
+    y: canvas.height / 2 - 40,
+    width: 10,
+    height: 80,
+    dy: 0,
+    speed: 8
+  };
+  
+  rightPaddle = {
+    x: canvas.width - 30,
+    y: canvas.height / 2 - 40,
+    width: 10,
+    height: 80,
+    dy: 0,
+    speed: 6
+  };
+  
+  function drawRect(x, y, width, height, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, width, height);
+  }
+  
+  function drawCircle(x, y, radius, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  function drawNet() {
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([10, 10]);
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  
+  function update() {
+    if (!gameRunning || gameState.isPaused) return;
+    
+    // Move paddles
+    leftPaddle.y += leftPaddle.dy;
+    rightPaddle.y += rightPaddle.dy;
+    
+    // Keep paddles in bounds
+    leftPaddle.y = Math.max(0, Math.min(canvas.height - leftPaddle.height, leftPaddle.y));
+    rightPaddle.y = Math.max(0, Math.min(canvas.height - rightPaddle.height, rightPaddle.y));
+    
+    // Simple AI for right paddle
+    const paddleCenter = rightPaddle.y + rightPaddle.height / 2;
+    if (ball.y > paddleCenter + 20) {
+      rightPaddle.dy = rightPaddle.speed;
+    } else if (ball.y < paddleCenter - 20) {
+      rightPaddle.dy = -rightPaddle.speed;
+    } else {
+      rightPaddle.dy = 0;
+    }
+    
+    // Move ball
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+    
+    // Ball collision with top and bottom walls
+    if (ball.y - ball.radius <= 0 || ball.y + ball.radius >= canvas.height) {
+      ball.dy = -ball.dy;
+    }
+    
+    // Ball collision with paddles
+    if (ball.x - ball.radius <= leftPaddle.x + leftPaddle.width &&
+        ball.y >= leftPaddle.y && ball.y <= leftPaddle.y + leftPaddle.height) {
+      ball.dx = Math.abs(ball.dx);
+      // Add some angle based on where it hits the paddle
+      const hitPos = (ball.y - leftPaddle.y) / leftPaddle.height;
+      ball.dy = (hitPos - 0.5) * 8;
+    }
+    
+    if (ball.x + ball.radius >= rightPaddle.x &&
+        ball.y >= rightPaddle.y && ball.y <= rightPaddle.y + rightPaddle.height) {
+      ball.dx = -Math.abs(ball.dx);
+      const hitPos = (ball.y - rightPaddle.y) / rightPaddle.height;
+      ball.dy = (hitPos - 0.5) * 8;
+    }
+    
+    // Score
+    if (ball.x < 0) {
+      rightScore++;
+      document.getElementById('rightScore').textContent = rightScore;
+      resetBall();
+    } else if (ball.x > canvas.width) {
+      leftScore++;
+      document.getElementById('leftScore').textContent = leftScore;
+      resetBall();
+    }
+    
+    // Check for win condition
+    if (leftScore >= 5 || rightScore >= 5) {
+      gameRunning = false;
+      const winner = leftScore >= 5 ? 'Player' : 'AI';
+      setTimeout(() => {
+        alert(`${winner} wins! Final Score: ${leftScore} - ${rightScore}`);
+        startBtn.style.display = 'block';
+        startBtn.textContent = 'Play Again';
+      }, 500);
+    }
+  }
+  
+  function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+    ball.dx = (Math.random() > 0.5 ? 1 : -1) * ball.speed;
+    ball.dy = (Math.random() - 0.5) * 6;
+  }
+  
+  function draw() {
+    // Clear canvas
+    drawRect(0, 0, canvas.width, canvas.height, 'rgba(0, 0, 0, 0.1)');
+    
+    // Draw net
+    drawNet();
+    
+    // Draw paddles
+    drawRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height, '#22c55e');
+    drawRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height, '#ef4444');
+    
+    // Draw ball
+    drawCircle(ball.x, ball.y, ball.radius, '#ffffff');
+  }
+  
+  function gameLoop() {
+    update();
+    draw();
+    
+    if (gameRunning) {
+      animationFrame = requestAnimationFrame(gameLoop);
+    }
+  }
+  
+  function startGame() {
+    leftScore = 0;
+    rightScore = 0;
+    document.getElementById('leftScore').textContent = leftScore;
+    document.getElementById('rightScore').textContent = rightScore;
+    
+    gameRunning = true;
+    startBtn.style.display = 'none';
+    resetBall();
+    gameLoop();
+  }
+  
+  // Controls
+  const keys = {};
+  
+  function handleKeyDown(e) {
+    keys[e.key.toLowerCase()] = true;
+  }
+  
+  function handleKeyUp(e) {
+    keys[e.key.toLowerCase()] = false;
+  }
+  
+  function updatePaddleMovement() {
+    leftPaddle.dy = 0;
+    
+    if (keys['w']) leftPaddle.dy = -leftPaddle.speed;
+    if (keys['s']) leftPaddle.dy = leftPaddle.speed;
+    if (keys['arrowup']) rightPaddle.dy = -rightPaddle.speed;
+    if (keys['arrowdown']) rightPaddle.dy = rightPaddle.speed;
+    
+    if (gameRunning) {
+      requestAnimationFrame(updatePaddleMovement);
+    }
+  }
+  
+  document.addEventListener('keydown', handleKeyDown);
+  document.addEventListener('keyup', handleKeyUp);
+  startBtn.addEventListener('click', startGame);
+  
+  // Initial draw
+  draw();
+  
+  // Start paddle movement updates
+  updatePaddleMovement();
 }
 
 // Add smooth scrolling animation for game cards
