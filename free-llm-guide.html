@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free LLM Setup Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .option { border: 1px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .free { background: #e8f5e8; border-color: #4caf50; }
+        .code { background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; }
+        .pros { color: #4caf50; }
+        .cons { color: #ff9800; }
+    </style>
+</head>
+<body>
+    <h1>🆓 FREE LLM Options for Your Chatbot</h1>
+    
+    <div class="option free">
+        <h2>1. Hugging Face Inference API (RECOMMENDED)</h2>
+        <p><strong>Cost:</strong> 100% FREE</p>
+        <div class="pros">
+            ✅ No credit card required<br>
+            ✅ Thousands of models available<br>
+            ✅ Easy browser integration<br>
+            ✅ Good rate limits<br>
+        </div>
+        <p><strong>Setup:</strong></p>
+        <ol>
+            <li>Go to <a href="https://huggingface.co/join">huggingface.co/join</a></li>
+            <li>Go to <a href="https://huggingface.co/settings/tokens">Settings → Tokens</a></li>
+            <li>Create a "Read" token</li>
+            <li>Replace the API key in chatbot.js</li>
+        </ol>
+        <div class="code">API_KEY: 'hf_your_actual_token_here'</div>
+    </div>
+
+    <div class="option free">
+        <h2>2. Groq (SUPER FAST & FREE)</h2>
+        <p><strong>Cost:</strong> FREE (30 requests/minute)</p>
+        <div class="pros">
+            ✅ Lightning fast responses<br>
+            ✅ Llama 3.1, Mixtral models<br>
+            ✅ No credit card required<br>
+        </div>
+        <p><strong>Setup:</strong></p>
+        <ol>
+            <li>Go to <a href="https://console.groq.com">console.groq.com</a></li>
+            <li>Sign up (free)</li>
+            <li>Get API key</li>
+            <li>Update chatbot.js with Groq API</li>
+        </ol>
+        <div class="code">
+            API_URL: 'https://api.groq.com/openai/v1/chat/completions'<br>
+            MODEL: 'llama-3.1-8b-instant'
+        </div>
+    </div>
+
+    <div class="option free">
+        <h2>3. Ollama (LOCAL - COMPLETELY FREE)</h2>
+        <p><strong>Cost:</strong> 100% FREE (runs on your computer)</p>
+        <div class="pros">
+            ✅ No API keys needed<br>
+            ✅ Complete privacy<br>
+            ✅ No internet required after setup<br>
+            ✅ Many models available<br>
+        </div>
+        <div class="cons">
+            ⚠️ Requires local installation<br>
+            ⚠️ Uses computer resources<br>
+        </div>
+        <p><strong>Setup:</strong></p>
+        <ol>
+            <li>Download <a href="https://ollama.ai">Ollama</a></li>
+            <li>Install and run: <code>ollama pull llama3.1</code></li>
+            <li>Start server: <code>ollama serve</code></li>
+            <li>Use localhost API in chatbot</li>
+        </ol>
+    </div>
+
+    <div class="option free">
+        <h2>4. Together AI</h2>
+        <p><strong>Cost:</strong> FREE tier available</p>
+        <div class="pros">
+            ✅ Good model selection<br>
+            ✅ Reliable performance<br>
+        </div>
+        <p><strong>Setup:</strong></p>
+        <ol>
+            <li>Go to <a href="https://api.together.xyz">api.together.xyz</a></li>
+            <li>Sign up for free account</li>
+            <li>Get API key</li>
+            <li>Integrate with chatbot</li>
+        </ol>
+    </div>
+
+    <h2>🚀 Current Implementation</h2>
+    <p>Your chatbot is already set up with <strong>Hugging Face</strong> - just add your free API key!</p>
+    
+    <h3>Benefits of Using Real LLM vs Deterministic Responses:</h3>
+    <ul>
+        <li><strong>Natural Conversations:</strong> More human-like, varied responses</li>
+        <li><strong>Context Understanding:</strong> Better comprehension of complex questions</li>
+        <li><strong>Personality:</strong> Can maintain Yann's professional voice consistently</li>
+        <li><strong>Flexibility:</strong> Handles unexpected questions gracefully</li>
+        <li><strong>Impressive:</strong> Shows real AI capabilities to portfolio visitors</li>
+    </ul>
+
+    <h3>Fallback System:</h3>
+    <p>Your chatbot has a smart fallback system - if the LLM fails, it uses the original deterministic responses. Best of both worlds!</p>
+
+</body>
+</html>

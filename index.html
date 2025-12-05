@@ -69,6 +69,14 @@
               </li>
 
               <li class="nav__item">
+                <a href="#chatbot" class="nav__link">AI Chat</a>
+              </li>
+
+              <li class="nav__item">
+                <a href="#games" class="nav__link">Games</a>
+              </li>
+
+              <li class="nav__item">
                 <a href="#contact" class="nav__link">Contact</a>
               </li>
             </ul>
@@ -114,7 +122,7 @@
               </p>
               <a
                 class="button"
-                href="https://drive.google.com/file/d/15Qpw5hMdzZ9OpcdifC9C8DxyRos_mFW6/view?usp=sharing"
+                href="https://drive.google.com/file/d/1l0Ro4cRZTfG4kpp99ma4jO7LvzudK2uS/view?usp=sharing"
                 target="_blank"
                 ><i class="uil uil-user button__icon"></i>
                 Download My CV
@@ -190,7 +198,7 @@
 
                 <span class="timeline__date"
                   ><i class="uil uil-calendar-alt"></i>
-                  May 2024 - Jul 2024
+                  May 2025 - Jul 2025
                 </span>
               </div>
               <div class="timeline__item">
@@ -997,6 +1005,297 @@
         </div>
       </div>
 
+      <!--===== CHATBOT =====-->
+      <section class="chatbot section" id="chatbot">
+        <h2 data-heading="Ask Me Anything" class="section__title">AI Assistant</h2>
+        
+        <div class="chatbot__container container">
+          <!-- Chatbot Header -->
+          <div class="chatbot__header">
+            <div class="chatbot__avatar">
+              <i class="uil uil-robot"></i>
+            </div>
+            <div class="chatbot__info">
+              <h3 class="chatbot__title">Ask about Yann</h3>
+              <p class="chatbot__subtitle">Get insights about my experience, skills, and projects</p>
+            </div>
+            <div class="chatbot__status">
+              <div class="chatbot__status-dot"></div>
+              <span>Online</span>
+            </div>
+          </div>
+
+          <!-- Suggested Questions -->
+          <div class="chatbot__suggestions">
+            <h4 class="chatbot__suggestions-title">Try asking:</h4>
+            <div class="chatbot__suggestions-grid">
+              <!-- <button class="chatbot__suggestion-btn" data-question="Tell me about Yann's experience at Amazon">
+                <i class="uil uil-amazon"></i>
+                Amazon Experience
+              </button> -->
+              <button class="chatbot__suggestion-btn" data-question="What are Yann's technical skills?">
+                <i class="uil uil-brackets-curly"></i>
+                Technical Skills
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What projects has Yann worked on?">
+                <i class="uil uil-folder-open"></i>
+                Projects
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="Tell me about Yann's education and GPA">
+                <i class="uil uil-graduation-cap"></i>
+                Education
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What are Yann's career goals?">
+                <i class="uil uil-rocket"></i>
+                Career Goals
+              </button>
+              <button class="chatbot__suggestion-btn" data-question="What internships has Yann completed?">
+                <i class="uil uil-briefcase-alt"></i>
+                Internships
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat Interface -->
+          <div class="chatbot__interface">
+            <div class="chatbot__messages" id="chatbot-messages">
+              <div class="chatbot__message chatbot__message--bot">
+                <div class="chatbot__message-avatar">
+                  <i class="uil uil-robot"></i>
+                </div>
+                <div class="chatbot__message-content">
+                  <p>Hi! I'm Yann's AI assistant. I can answer questions about his experience, skills, projects, and background. Feel free to ask me anything!</p>
+                </div>
+                <div class="chatbot__message-time">Just now</div>
+              </div>
+            </div>
+            
+            <div class="chatbot__input-area">
+              <div class="chatbot__input-container">
+                <input 
+                  type="text" 
+                  class="chatbot__input" 
+                  id="chatbot-input"
+                  placeholder="Ask me about Yann's experience, skills, projects..."
+                  maxlength="500"
+                />
+                <button class="chatbot__send-btn" id="chatbot-send">
+                  <i class="uil uil-message"></i>
+                </button>
+              </div>
+              <div class="chatbot__typing" id="chatbot-typing" style="display: none;">
+                <div class="chatbot__typing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <span>AI is typing...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--===== GAMES =====-->
+      <section class="games section" id="games">
+        <h2 data-heading="Interactive Fun" class="section__title">Mini Games</h2>
+        
+        <div class="games__container container">
+          <!-- Bento Grid Layout -->
+          <div class="games__bento-grid">
+            
+            <!-- Featured Game - Large Card -->
+            <div class="games__card games__card--featured" data-game="puzzle">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <div class="games__card-header">
+                  <h3 class="games__card-title">Sliding Puzzle</h3>
+                  <span class="games__card-difficulty">Medium</span>
+                </div>
+                <p class="games__card-description">Challenge your problem-solving skills with this classic sliding puzzle game.</p>
+                <div class="games__card-stats">
+                  <div class="games__stat">
+                    <span class="games__stat-number">4x4</span>
+                    <span class="games__stat-label">Grid</span>
+                  </div>
+                  <div class="games__stat">
+                    <span class="games__stat-number">∞</span>
+                    <span class="games__stat-label">Moves</span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="games__card-visual">
+                <div class="puzzle__preview">
+                  <div class="puzzle__grid">
+                    <div class="puzzle__piece">1</div>
+                    <div class="puzzle__piece">2</div>
+                    <div class="puzzle__piece">3</div>
+                    <div class="puzzle__piece">4</div>
+                    <div class="puzzle__piece">5</div>
+                    <div class="puzzle__piece">6</div>
+                    <div class="puzzle__piece">7</div>
+                    <div class="puzzle__piece">8</div>
+                    <div class="puzzle__piece puzzle__piece--empty"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory Game -->
+            <div class="games__card" data-game="memory">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Memory Match</h3>
+                <span class="games__card-difficulty">Easy</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="memory__preview">
+                    <div class="memory__cards">
+                      <div class="memory__card"></div>
+                      <div class="memory__card memory__card--flipped">
+                        <i class="uil uil-star"></i>
+                      </div>
+                      <div class="memory__card"></div>
+                      <div class="memory__card memory__card--flipped">
+                        <i class="uil uil-heart"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Snake Game -->
+            <div class="games__card" data-game="snake">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Snake</h3>
+                <span class="games__card-difficulty">Hard</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="snake__preview">
+                    <div class="snake__grid">
+                      <div class="snake__segment snake__segment--head"></div>
+                      <div class="snake__segment"></div>
+                      <div class="snake__segment"></div>
+                      <div class="snake__food"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tic Tac Toe -->
+            <div class="games__card" data-game="tictactoe">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Tic Tac Toe</h3>
+                <span class="games__card-difficulty">Easy</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="tictactoe__preview">
+                    <div class="tictactoe__grid">
+                      <div class="tictactoe__cell">X</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell">O</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell">X</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell">O</div>
+                      <div class="tictactoe__cell"></div>
+                      <div class="tictactoe__cell"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Color Match -->
+            <div class="games__card games__card--tall" data-game="colors">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Color Rush</h3>
+                <span class="games__card-difficulty">Medium</span>
+                <div class="games__card-visual">
+                  <div class="colors__preview">
+                    <div class="colors__palette">
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #ff6b6b, #ee5a24);"></div>
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #4ecdc4, #45b7aa);"></div>
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #45b7d1, #3867d6);"></div>
+                      <div class="color__swatch" style="background: linear-gradient(45deg, #f9ca24, #f0932b);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pong Game -->
+            <div class="games__card" data-game="pong">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Pong</h3>
+                <span class="games__card-difficulty">Medium</span>
+                <div class="games__card-visual games__card-visual--small">
+                  <div class="pong__preview">
+                    <div class="pong__court">
+                      <div class="pong__paddle pong__paddle--left"></div>
+                      <div class="pong__ball"></div>
+                      <div class="pong__paddle pong__paddle--right"></div>
+                      <div class="pong__net"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="games__card games__card--stats">
+              <div class="games__card-bg"></div>
+              <div class="games__card-content">
+                <h3 class="games__card-title">Game Stats</h3>
+                <div class="games__stats-grid">
+                  <div class="games__stat-item">
+                    <span class="games__stat-number">6</span>
+                    <span class="games__stat-label">Games</span>
+                  </div>
+                  <div class="games__stat-item">
+                    <span class="games__stat-number">∞</span>
+                    <span class="games__stat-label">Fun</span>
+                  </div>
+                </div>
+                <div class="games__technologies">
+                  <span class="games__tech">JavaScript</span>
+                  <span class="games__tech">CSS3</span>
+                  <span class="games__tech">HTML5</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Game Modal -->
+          <div class="games__modal" id="gameModal">
+            <div class="games__modal-content">
+              <span class="games__modal-close">&times;</span>
+              <div class="games__modal-header">
+                <h3 class="games__modal-title" id="modalTitle">Game Title</h3>
+                <div class="games__modal-controls">
+                  <button class="games__control-btn" id="restartBtn">
+                    <i class="uil uil-refresh"></i>
+                  </button>
+                  <button class="games__control-btn" id="pauseBtn">
+                    <i class="uil uil-pause"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="games__modal-body" id="gameArea">
+                <!-- Game content will be loaded here -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!--===== CONTACT =====-->
       <section class="contact section" id="contact">
         <h2 data-heading="Get in touch" class="section__title">Contact Me</h2>
 
@@ -1079,6 +1378,12 @@
                 <a href="#work" class="footer__link">Work</a>
               </li>
               <li>
+                <a href="#leetcode" class="footer__link">LeetCode</a>
+              </li>
+              <li>
+                <a href="#games" class="footer__link">Games</a>
+              </li>
+              <li>
                 <a href="#contact" class="footer__link">Contact</a>
               </li>
             </ul>
@@ -1090,13 +1395,6 @@
                 class="home__social-link"
               >
                 <i class="uil uil-linkedin"></i>
-              </a>
-              <a
-                href="https://x.com/YannDjoum"
-                target="_blank"
-                class="home__social-link"
-              >
-                <i class="uil uil-twitter"></i>
               </a>
             </div>
           </div>
@@ -1122,6 +1420,12 @@
 
     <!--========== SWIPER JS ==========-->
     <script src="assets/js/swiper-bundle.min.js"></script>
+
+  <!--========== MARKED (Markdown Parser) ==========-->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+
+    <!--========== CHATBOT JS ==========-->
+    <script src="assets/js/chatbot.js"></script>
 
     <!--========== MAIN JS ==========-->
     <script src="assets/js/main.js"></script>

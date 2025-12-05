@@ -1,0 +1,13 @@
+{
+  "name": "my-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:creds": "node scripts/generate-creds.js",
+    "build": "npm run generate:creds"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
