@@ -69,63 +69,64 @@ if (LLM_CONFIG.USE_LLM && !LLM_CONFIG.USE_PROXY && !LLM_CONFIG.API_KEY) {
 const yannInfo = {
   personalInfo: {
     name: "Yann Djoumessi",
+    location: "Kirkland, WA",
+    role: "Software Engineer at Amazon Prime Video; Founder of TrendSpot",
     university: "Kennesaw State University",
-    degree: "Computer Science and Mathematics",
+    degree: "B.S. in Computer Science (Minor in Mathematics)",
     gpa: "4.0",
     graduation: "December 2025",
-    focus: "Backend engineering, distributed systems, operating systems, large-scale infrastructure design, and fault-tolerant pipelines"
+    focus: "Backend engineering, distributed systems, live video infrastructure, and AI-driven automation"
   },
-  
+
   experience: {
-    amazon: "Summer 2025 — Software Engineering Intern at Amazon Prime Video. Built an event-driven Just-After-Broadcast (JAB) pipeline for replay generation, integrating AWS Step Functions, DynamoDB, S3, and FFmpeg-based clipping. Reduced manual operator tagging by 4+ hours weekly, leveraged Amazon Bedrock for automated chapter extraction, and held 10ms metadata latency with 99.99% uptime.",
-    lambo: "Summer 2024 — Software Engineering Intern at Lambo Global Education. Built a Spring Boot REST API that scaled to 500 requests/sec, developed a Sanity.io + React headless CMS with schema automation, and shipped an analytics dashboard (HTML/CSS/JS) that lifted course completion rates by 15%.",
-    afriland: "Summer 2023 — Software Engineering Intern at Afriland FirstBank. Delivered a Spring Boot + PostgreSQL document microservice, added OneSignal real-time notifications that increased brand trust by 20%, and automated the release pipeline with AWS CodePipeline/CodeBuild to cut deployment time by 50%.",
-    other: "contributed to ColorStack's community platform."
-    },
-  
+    amazon: "January 2026 - Present - Software Engineer at Amazon Prime Video (Seattle). Built a Java backend authorization service using a DynamoDB lease model, an event-driven fan-out layer, and a 'Chat with your Intent' feature that lets operators trigger fleets of agents from one conversational entry point, now brokering 1,000+ agent-driven leases per week across the live-channel infrastructure behind Prime Video live sports. Reduced the ad playout offset from 15s to 10s for approved live-sports properties using a per-property signed protobuf override carried from the playback service through the session token into the streaming JWT, recovering an estimated $3.7M+/yr in live ad revenue. Cut p99 latency on the URL-resolution service from 82ms to 47ms with AtomicReference swaps on the JWT-signing key state and a pooled byte-buffer allocator. Improved live pipeline reliability with fixes in the C++ streaming core and smarter server placement during a cross-region migration, reducing dropouts across 1M+ concurrent viewer sessions. Closed a duplicate-state race in channel provisioning using DynamoDB conditional writes, an optimistic-locking version guard, and 409-conflict retries with exponential backoff. Resolved 20 production incidents during events peaking at 3M+ concurrent viewers with zero broadcast-day escalations.",
+    amazonInternship: "May 2025 - August 2025 - Software Engineer Intern at Amazon Prime Video (Seattle). Built a Java live-manifest-to-MP4 extraction service using an ffmpeg wrapper tuned with hardware-accelerated decode, explicit stream mapping, and timeshifted-manifest windowing, cutting per-asset conversion from ~90s to under 12s and unblocking ~200 downstream trim jobs per day. Delivered a serverless media-analysis pipeline using AWS Step Functions to orchestrate ffmpeg conversion, S3 storage, and Bedrock Lambdas on Claude 3.5 Sonnet, backed by a DynamoDB single-table design, returning AI-generated segment insights for 1K+ live events. Migrated the codebase from AWS SDK v1 to v2 with 1,100+ new test lines, cutting p99 dependency latency ~20%. Wired dependency injection with Dagger, lifting unit-test coverage from ~55% to 90%. Shipped AI-assisted clip suggestions into the operator UI in TypeScript/Vue, cutting clip-selection time ~70% per event.",
+    trendspot: "January 2026 - Present - Founder and engineer of TrendSpot, an AI marketing platform. Solo-built the whole system: a Creative Signal Engine that ingests competitor ads from the Meta, Google, and TikTok ad libraries and extracts 22 structured creative signals per ad, using pgvector cosine similarity and cross-platform pattern analysis to rank A/B ad-test strategies; and a multi-agent creative generation layer on the AWS Strands SDK where a strategist plans, copywriters and art directors work in parallel, and a reviewer checks the output, generating images and video through OpenAI, Gemini, and Veo behind a provider router that fails over automatically. Runs on AWS with CDK-defined RDS PostgreSQL, Dockerized FastAPI workers, Redis-backed queues, and a Next.js frontend on EC2, shipped by a GitHub Actions pipeline.",
+    lambo: "Summer 2024 - Software Engineer Intern at Lambo Global Education. Built a Spring Boot REST API that scaled to 500 requests/sec, developed a Sanity.io + React headless CMS with schema automation, and shipped an analytics dashboard that lifted course completion rates by 15%.",
+    afriland: "Summer 2023 - Software Engineer Intern at Afriland FirstBank. Delivered a Spring Boot + PostgreSQL document microservice, added OneSignal real-time notifications, and automated the release pipeline with AWS CodePipeline/CodeBuild to cut deployment time by 50%."
+  },
+
   skills: {
-    languages: ["Java", "Go", "Python", "C++", "JavaScript", "TypeScript", "SQL"],
-    frameworks: ["Spring Boot", "React", "React Native", "Node.js", "LangChain"],
-    databases: ["PostgreSQL", "MySQL", "DynamoDB", "Firebase", "Pinecone", "Redis"],
-    cloud: ["AWS (EC2, RDS, S3, Lambda, CloudWatch, CDK)", "Docker", "Kubernetes"],
-    tools: ["Git", "GitHub", "Jenkins", "AWS CodePipeline", "JUnit", "Mockito", "CloudWatch Metrics/Logs", "CI/CD pipelines"]
+    languages: ["Java", "Python", "TypeScript", "C++", "Kotlin", "SQL"],
+    frameworks: ["Spring Boot", "FastAPI", "React", "Next.js", "Vue", "Dagger", "AWS Strands"],
+    databases: ["PostgreSQL", "pgvector", "DynamoDB", "Redis", "MySQL"],
+    cloud: ["AWS (EC2, RDS, S3, Lambda, Step Functions, Bedrock, Secrets Manager, CDK)", "Docker"],
+    tools: ["Git", "protobuf", "ffmpeg", "Kafka", "Etcd", "Make", "Grafana", "GitHub Actions", "JUnit", "pytest"]
   },
-  
+
   projects: {
-    pixshare: "Photo-sharing app built with Spring Boot + AWS S3 + Spring Security, deployed on EC2. Supports presigned URLs for uploads, user authentication, and CloudWatch monitoring.",
-    "distributed cache": "Redis-like in-memory key-value store (Java) supporting SET, GET, MSET, MGET, capacity management with a doubly linked list, and multi-threading for concurrency.",
-    "version control": "Git-Compatible Object Store (C++) implementing SHA-1 hashing, zlib compression, tree/commit objects, staging area, crash-safe text index, and plumbing commands (init, hash-object, cat-file, add).",
-    "database engine": "SQLite-style database engine (Go) exploring SSTables, LSM-trees, B-Trees, paging, Bloom filters, compaction strategies, and query execution.",
-    matrix: "C++ Matrix library with LU decomposition, GEMM, forward/backward substitution, and error handling policies for singular matrices.",
-    pda: "Producer/Sorter/Stats CLI pipeline (C++) with flags parsing (--unique, --reserve), reallocation tracking, and deterministic stdout/stderr outputs.",
-    chatbot: "Campus AI companion built with LangChain + Pinecone + Firebase. Provides course recommendations, mentoring, and scheduling support using vector embeddings."
+    trendspot: "AI marketing platform (see experience). Python, FastAPI, Next.js, PostgreSQL + pgvector, AWS Strands multi-agent system, Redis, Docker, AWS CDK.",
+    "distributed cache": "In-memory key-value store in Java implementing RESP protocol parsing, TTL expiration, RDB persistence, and LRU eviction, sustaining 50K+ ops/sec on a single core. Engineered master-slave replication with PSYNC, REPLCONF, WAIT, and full/partial resync via replication offsets on a multi-threaded server with custom thread pools handling 1K+ concurrent clients at sub-millisecond p99. Extended the command surface with INFO, CONFIG, KEYS, TYPE, EXPIRE, XADD/XRANGE streams, and SUBSCRIBE/PUBLISH so any off-the-shelf Redis client connects unchanged.",
+    "database engine": "Internal database engine in C++ supporting a subset of SQL (CREATE TABLE, INSERT, SELECT) with file-backed persistence and 4KB page-based storage. Implemented B-Tree indexing for point and range queries with node splits, merges, and disk-aware traversal through a custom page manager, plus WAL-based durability and SSTable-inspired flushing with in-memory buffering and background compaction.",
+    "version control": "Git-compatible object store in C++ implementing SHA-1 hashing, zlib compression, tree/commit objects, and plumbing commands (init, hash-object, cat-file, write-tree, ls-tree, commit-tree)."
   },
-  
+
   achievements: [
     "4.0 GPA at Kennesaw State University",
-    "Delivered projects scaling beyond 200+ concurrent operations with atomic, crash-safe design",
-    "Recognized for architectural clarity, concurrency correctness, and reliability under load",
-    "Built PixShare (AWS-deployed photo app), Redis-like server, Git object store, and SQLite-like storage engine"
+    "Recovered an estimated $3.7M+/yr in live ad revenue by cutting the Prime Video ad playout offset from 15s to 10s",
+    "Cut p99 latency on a production URL-resolution service from 82ms to 47ms",
+    "Resolved 20 production incidents across live-sports events peaking at 3M+ concurrent viewers with zero broadcast-day escalations",
+    "Founded and solo-built TrendSpot, an AI marketing platform running in production on AWS"
   ],
-  
+
   academics: {
     coursework: [
-      "Parallel & Distributed Systems – concurrency, synchronization, distributed coordination",
-      "Operating Systems – processes, virtualization, paging, scheduling, memory translation",
-      "Data Structures & Algorithms – graphs, dynamic programming, greedy methods",
-      "Graph Theory – BFS, DFS, network flows, matchings",
-      "Numerical Methods – error analysis, stability, approximations",
-      "Concepts of Programming Languages – functional vs imperative paradigms, runtime models"
+      "Data Structures & Algorithms",
+      "Operating Systems - processes, virtualization, paging, scheduling",
+      "Computer Networks",
+      "Database Systems and Introduction to Databases",
+      "Distributed Systems - concurrency, synchronization, coordination",
+      "Software Engineering"
     ],
     independentStudy: [
-      "Operating Systems: Three Easy Pieces (OSTEP) – virtualization, concurrency, persistence",
-      "Designing Data-Intensive Applications – storage engines, replication, consensus, fault tolerance",
-      "Computer Architecture (Hennessy & Patterson) – pipelining, memory hierarchy, CPU design"
+      "Operating Systems: Three Easy Pieces (OSTEP) - virtualization, concurrency, persistence",
+      "Designing Data-Intensive Applications - storage engines, replication, consensus, fault tolerance",
+      "Computer Architecture (Hennessy & Patterson) - pipelining, memory hierarchy, CPU design"
     ]
   },
-  
-  goals: "Grow into a backend & infrastructure engineer at scale-driven companies and build low-latency, reliable systems",
-  
+
+  goals: "Build low-latency, reliable backend and infrastructure systems at scale, and grow TrendSpot into a product that automates marketing for small businesses",
+
   personal: {
     hobbies: ["Soccer", "Fitness/Gym training", "Reading books", "Building side projects blending creativity with engineering"],
     vision: "Engineer scalable, fault-tolerant infrastructure while combining backend excellence with AI-driven automation."
@@ -299,10 +300,12 @@ class YannChatbot {
   }
 
   createSystemPrompt() {
-    return `You are an AI assistant representing ${yannInfo.personalInfo.name}, a ${yannInfo.personalInfo.degree} student at ${yannInfo.personalInfo.university} with a ${yannInfo.personalInfo.gpa} GPA graduating ${yannInfo.personalInfo.graduation}.
+    return `You are an AI assistant representing ${yannInfo.personalInfo.name}, ${yannInfo.personalInfo.role}, based in ${yannInfo.personalInfo.location}. He graduated from ${yannInfo.personalInfo.university} in ${yannInfo.personalInfo.graduation} with a ${yannInfo.personalInfo.gpa} GPA.
 
 PERSONAL INFO:
 - Name: ${yannInfo.personalInfo.name}
+- Location: ${yannInfo.personalInfo.location}
+- Current role: ${yannInfo.personalInfo.role}
 - University: ${yannInfo.personalInfo.university}
 - Degree: ${yannInfo.personalInfo.degree}
 - GPA: ${yannInfo.personalInfo.gpa}
@@ -310,10 +313,11 @@ PERSONAL INFO:
 - Focus: ${yannInfo.personalInfo.focus}
 
 WORK EXPERIENCE:
-- Amazon: ${yannInfo.experience.amazon}
-- AfriLand: ${yannInfo.experience.afriland}
+- Amazon Prime Video (current, full-time): ${yannInfo.experience.amazon}
+- Amazon Prime Video (internship): ${yannInfo.experience.amazonInternship}
+- TrendSpot (founder): ${yannInfo.experience.trendspot}
 - Lambo Global Education: ${yannInfo.experience.lambo}
-- ColorStack: ${yannInfo.experience.other}
+- AfriLand FirstBank: ${yannInfo.experience.afriland}
 
 TECHNICAL SKILLS:
 - Languages: ${yannInfo.skills.languages.join(', ')}
@@ -323,13 +327,10 @@ TECHNICAL SKILLS:
 - Tools: ${yannInfo.skills.tools.join(', ')}
 
 MAJOR PROJECTS:
-- PixShare: ${yannInfo.projects.pixshare}
-- Distributed Cache: ${yannInfo.projects["distributed cache"]}
-- Version Control System: ${yannInfo.projects["version control"]}
+- TrendSpot: ${yannInfo.projects.trendspot}
+- Distributed Cache Server: ${yannInfo.projects["distributed cache"]}
 - Database Engine: ${yannInfo.projects["database engine"]}
-- Matrix Library: ${yannInfo.projects.matrix}
-- PDA CLI Pipeline: ${yannInfo.projects.pda}
-- AI Campus Companion: ${yannInfo.projects.chatbot}
+- Version Control System: ${yannInfo.projects["version control"]}
 
 ACADEMIC BACKGROUND:
 Coursework: ${yannInfo.academics.coursework.join(', ')}
@@ -422,9 +423,9 @@ You are Yann's professional AI assistant. Always format responses using **rich M
   }
   
   async callHuggingFace(userMessage) {
-    const contextPrompt = `You are an AI assistant representing ${yannInfo.personalInfo.name}, a highly accomplished ${yannInfo.personalInfo.degree} student at ${yannInfo.personalInfo.university} with a ${yannInfo.personalInfo.gpa} GPA. He has extensive experience at top companies including Amazon Prime Video, and has built impressive projects like PixShare (AWS photo-sharing app), distributed Redis-like cache, Git-compatible version control system, and SQLite-style database engine.
+    const contextPrompt = `You are an AI assistant representing ${yannInfo.personalInfo.name}, ${yannInfo.personalInfo.role}, based in ${yannInfo.personalInfo.location}. He graduated from ${yannInfo.personalInfo.university} with a ${yannInfo.personalInfo.gpa} GPA and works on live video infrastructure at Amazon Prime Video, while building TrendSpot, an AI marketing platform. He has also built a Redis-compatible distributed cache in Java, a Git-compatible version control system in C++, and a SQLite-style database engine.
 
-Technical Skills: ${yannInfo.skills.languages.join(', ')}, ${yannInfo.skills.frameworks.join(', ')}, ${yannInfo.skills.databases.join(', ')}, AWS, Docker, Kubernetes.
+Technical Skills: ${yannInfo.skills.languages.join(', ')}, ${yannInfo.skills.frameworks.join(', ')}, ${yannInfo.skills.databases.join(', ')}, AWS, Docker.
 
 Provide comprehensive, detailed responses using rich Markdown formatting. Include specific technical details, metrics, and achievements when relevant.
 
@@ -725,19 +726,19 @@ Detailed Answer:`;
       return `## Technical Skills
 
 ### Programming Languages
-**Java**, **Go**, **Python**, **C++**, **JavaScript**, **TypeScript**, **SQL**
+**Java**, **Python**, **TypeScript**, **C++**, **Kotlin**, **SQL**
 
 ### Frameworks & Libraries
-**Spring Boot**, **React**, **React Native**, **Node.js**, **LangChain**
+**Spring Boot**, **FastAPI**, **React**, **Next.js**, **Vue**, **Dagger**, **AWS Strands**
 
 ### Databases & Storage
-**PostgreSQL**, **MySQL**, **DynamoDB**, **Firebase**, **Pinecone**, **Redis**
+**PostgreSQL**, **pgvector**, **DynamoDB**, **Redis**, **MySQL**
 
 ### Cloud & DevOps
-**AWS** (EC2, RDS, S3, Lambda, CloudWatch, CDK), **Docker**, **Kubernetes**
+**AWS** (EC2, RDS, S3, Lambda, Step Functions, Bedrock, Secrets Manager, CDK), **Docker**, **GitHub Actions**
 
 ### Development Tools
-**Git**, **GitHub**, **Jenkins**, **AWS CodePipeline**, **JUnit**, **Mockito**, **CloudWatch Metrics/Logs**`;
+**Git**, **protobuf**, **ffmpeg**, **Kafka**, **Etcd**, **Make**, **Grafana**, **JUnit**, **pytest**`;
     }
     
     // Projects
@@ -746,49 +747,39 @@ Detailed Answer:`;
 
 ## Core Systems & Infrastructure
 
-### **PixShare** - *Full-Stack Photo Platform*
-- **Tech Stack:** Spring Boot, AWS S3, Spring Security
-- **Features:** Presigned URLs, user authentication, CloudWatch monitoring
-- **Deployment:** EC2 with scalable architecture
+### **TrendSpot** - *AI Marketing Platform*
+- **Role:** Founder, solo-built end to end
+- **Creative Signal Engine:** ingests competitor ads from Meta, Google, and TikTok ad libraries and extracts 22 structured creative signals per ad
+- **Multi-agent generation:** strategist, parallel copywriters and art directors, and a reviewer, built on the AWS Strands SDK
+- **Media:** images and video via OpenAI, Gemini, and Veo behind an automatic-failover provider router
+- **Stack:** Python, FastAPI, Next.js, PostgreSQL + pgvector, Redis, Docker, AWS CDK on EC2/RDS
 
-### **Distributed Cache Server** - *Redis Implementation*
-- **Language:** Java with advanced concurrency
-- **Architecture:** Doubly linked list + multi-threading
-- **Operations:** SET, GET, MSET, MGET with atomic guarantees
-- **Scale:** Handles **200+ concurrent operations**
+### **Distributed Cache Server** - *Redis-Compatible Implementation*
+- **Language:** Java with custom thread pools
+- **Core:** RESP protocol parsing, TTL expiration, RDB persistence, LRU eviction
+- **Replication:** master-slave with PSYNC, REPLCONF, WAIT, full/partial resync via offsets
+- **Scale:** **50K+ ops/sec** on a single core, **1K+ concurrent clients** at sub-millisecond p99
+
+### **Database Engine** - *SQLite-Style Implementation*
+- **Language:** C++ with a custom page manager
+- **Storage:** 4KB page-based persistence, B-Tree indexing with node splits and merges
+- **Durability:** WAL-based write safety, SSTable-inspired flushing with background compaction
+- **Queries:** CREATE TABLE, INSERT, SELECT with point and range lookups
 
 ### **Version Control System** - *Git-Compatible Engine*
 - **Language:** C++ with system-level programming
 - **Features:** SHA-1 hashing, zlib compression, crash-safe indexing
-- **Commands:** init, hash-object, cat-file, add operations
-- **Storage:** Tree/commit objects with staging area
-
-## Specialized Libraries
-
-### **Database Engine** - *SQLite-Style Implementation*
-- **Language:** Go for performance and concurrency
-- **Components:** SSTables, LSM-trees, B-Trees, Bloom filters
-- **Features:** Paging, compaction strategies, query execution
-
-### **Matrix Computation Library**
-- **Language:** C++ with numerical methods
-- **Operations:** LU decomposition, GEMM, forward/backward substitution
-- **Reliability:** Error handling for singular matrices
-
-### **AI Campus Companion**
-- **Tech Stack:** LangChain + Pinecone + Firebase
-- **Purpose:** Course recommendations, mentoring, and scheduling support
-- **AI Features:** Vector embeddings for intelligent responses`;
+- **Commands:** init, hash-object, cat-file, write-tree, ls-tree, commit-tree`;
     }
     
     // Education
     if (lowerQuestion.includes('education') || lowerQuestion.includes('gpa') || lowerQuestion.includes('university')) {
       return `📚 <strong>Education Details:</strong><br><br>
       <strong>University:</strong> Kennesaw State University<br>
-      <strong>Degree:</strong> Computer Science and Mathematics<br>
+      <strong>Degree:</strong> B.S. in Computer Science (Minor in Mathematics)<br>
       <strong>GPA:</strong> 4.0<br>
-      <strong>Graduation:</strong> December 2025<br><br>
-      I focus on backend engineering, distributed systems, operating systems, and large-scale infrastructure design.`;
+      <strong>Graduated:</strong> December 2025<br><br>
+      I focus on backend engineering, distributed systems, live video infrastructure, and AI-driven automation.`;
     }
     
     // Career goals
@@ -800,13 +791,23 @@ Detailed Answer:`;
     }
     
     // Internships and experience
-    if (lowerQuestion.includes('internship') || lowerQuestion.includes('experience') || lowerQuestion.includes('uber')) {
-      return `## Internship Experience (2025 → 2023)
+    if (lowerQuestion.includes('internship') || lowerQuestion.includes('experience') || lowerQuestion.includes('amazon') || lowerQuestion.includes('trendspot')) {
+      return `## Experience (2026 → 2023)
 
-### Summer 2025 – Amazon Prime Video
-- **Role:** Software Engineering Intern on the Live Playback Infrastructure team
-- **Highlights:** Event-driven JAB pipeline saved 4+ hours of manual tagging each week and kept metadata latency at 10ms with 99.99% uptime
-- **Stack:** AWS Step Functions, DynamoDB, S3, FFmpeg, Amazon Bedrock
+### Jan 2026 – Present · Amazon Prime Video
+- **Role:** Software Engineer, live-channel infrastructure for live sports
+- **Highlights:** Cut the ad playout offset from 15s to 10s via a per-property signed protobuf override, recovering an estimated **$3.7M+/yr**; dropped p99 on the URL-resolution service from **82ms to 47ms**; resolved 20 production incidents across events peaking at **3M+ concurrent viewers**
+- **Stack:** Java, C++, Python, DynamoDB, protobuf, JWT, AWS
+
+### Jan 2026 – Present · TrendSpot *(founder)*
+- **Role:** Founder and sole engineer of an AI marketing platform
+- **Highlights:** Built the Creative Signal Engine for competitor-ad intelligence and a multi-agent creative generation system on the AWS Strands SDK
+- **Stack:** Python, FastAPI, Next.js, PostgreSQL + pgvector, Redis, Docker, AWS CDK
+
+### May 2025 – Aug 2025 · Amazon Prime Video
+- **Role:** Software Engineer Intern, media insights
+- **Highlights:** Cut per-asset conversion from ~90s to under 12s with a tuned ffmpeg wrapper; delivered a Step Functions + Bedrock (Claude 3.5 Sonnet) analysis pipeline for 1K+ live events; lifted unit-test coverage from ~55% to 90% with Dagger DI
+- **Stack:** Java, AWS Step Functions, DynamoDB, S3, ffmpeg, Amazon Bedrock, TypeScript/Vue
 
 ### Summer 2024 – Lambo Global Education
 - **Focus:** Built a Spring Boot REST API that sustained 500 requests/sec and automated a Sanity.io + React CMS workflow
@@ -822,7 +823,7 @@ Detailed Answer:`;
     // Academic background
     if (lowerQuestion.includes('course') || lowerQuestion.includes('academic') || lowerQuestion.includes('study')) {
       return `📚 <strong>Academic Background:</strong><br><br>
-      <strong>Key Coursework:</strong> Parallel & Distributed Systems, Operating Systems, Data Structures & Algorithms, Graph Theory, Numerical Methods, Programming Languages<br><br>
+      <strong>Key Coursework:</strong> Data Structures & Algorithms, Operating Systems, Computer Networks, Database Systems, Distributed Systems, Software Engineering<br><br>
       <strong>Independent Study:</strong><br>
       • Operating Systems: Three Easy Pieces (OSTEP)<br>
       • Designing Data-Intensive Applications<br>
@@ -839,10 +840,11 @@ Detailed Answer:`;
 
     // Default response
     return `That's a great question! I'd be happy to tell you more about Yann's background. Try asking about:<br><br>
-    • His Amazon Prime Video & Uber experience<br>
+    • His Amazon Prime Video experience<br>
+    • TrendSpot, the AI marketing platform he founded<br>
     • Technical skills and programming languages<br>
     • University education, coursework, and 4.0 GPA<br>
-    • Projects like PixShare, distributed cache, or database engine<br>
+    • Projects like the distributed cache server or database engine<br>
     • Career goals and startup vision<br>
     • Academic coursework and independent study<br>
     • Personal interests and hobbies`;
