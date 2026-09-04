@@ -225,8 +225,7 @@ input {
 }
 
 /* Enhanced gradients for specific sections */
-.leetcode::after,
-.games::after {
+.leetcode::after {
   background: linear-gradient(
     to bottom,
     transparent 0%,
@@ -760,7 +759,7 @@ input {
 
 /*===== Work Section =====*/
 .work__container {
-  grid-template-columns: repeat(3, 330px);
+  grid-template-columns: repeat(3, minmax(0, 330px));
   gap: 1.8rem;
   justify-content: center;
   padding-top: 1rem;
@@ -1386,7 +1385,7 @@ textarea.input {
   }
 
   .work__container {
-    grid-template-columns: repeat(2, 330px);
+    grid-template-columns: repeat(2, minmax(0, 330px));
     gap: 2.5rem;
   }
 }
@@ -1484,7 +1483,7 @@ textarea.input {
   }
 
   .skills__container {
-    grid-template-columns: 340px 300px;
+    grid-template-columns: minmax(0, 340px) minmax(0, 300px);
   }
 
   .skills__list {
@@ -1531,17 +1530,17 @@ textarea.input {
   }
 
   .qualification__container {
-    grid-template-columns: 290px;
+    grid-template-columns: min(290px, 100%);
     row-gap: 3rem;
   }
 
   .skills__container {
-    grid-template-columns: 300px;
+    grid-template-columns: min(300px, 100%);
     row-gap: 3rem;
   }
 
   .work__container {
-    grid-template-columns: 330px;
+    grid-template-columns: min(330px, 100%);
   }
 
   .services__container {
@@ -1558,7 +1557,7 @@ textarea.input {
   }
 
   .contact__container {
-    grid-template-columns: 360px;
+    grid-template-columns: min(360px, 100%);
     row-gap: 3rem;
   }
 
@@ -1674,7 +1673,7 @@ textarea.input {
 
   .contact__container,
   .work__container {
-    grid-template-columns: 300px;
+    grid-template-columns: min(300px, 100%);
   }
 
   .footer__container {
@@ -3115,661 +3114,6 @@ body.light-theme .chatbot::before {
   display: none;
 }
 
-/*=============== GAMES SECTION ===============*/
-.games {
-  background: linear-gradient(135deg, 
-    hsl(var(--hue-color), 19%, 5%) 0%,
-    hsl(var(--hue-color), 25%, 8%) 50%,
-    hsl(var(--hue-color), 19%, 5%) 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.games::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.games__container {
-  position: relative;
-  z-index: 1;
-}
-
-.games__bento-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 200px);
-  grid-template-areas: 
-    "featured featured memory snake"
-    "featured featured tictactoe colors" 
-    "pong stats stats stats";
-  gap: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.games__card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.games__card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.4s ease;
-  z-index: 1;
-}
-
-.games__card:hover::before {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
-}
-
-.games__card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(var(--skin-color), 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-              0 0 0 1px rgba(59, 130, 246, 0.2);
-}
-
-.games__card-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--box-color);
-  z-index: 0;
-}
-
-.games__card-content {
-  position: relative;
-  z-index: 2;
-  padding: 1.5rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-}
-
-/* Featured Card */
-.games__card--featured {
-  grid-area: featured;
-}
-
-.games__card--featured .games__card-content {
-  padding: 2rem;
-}
-
-.games__card--featured .games__card-bg {
-  background: linear-gradient(135deg, 
-    hsl(242, 25%, 12%) 0%,
-    hsl(242, 30%, 15%) 100%);
-}
-
-.games__card--tall {
-  grid-area: colors;
-}
-
-.games__card--stats {
-  background: linear-gradient(135deg, 
-    hsl(202, 94%, 15%) 0%,
-    hsl(202, 94%, 20%) 100%);
-  grid-area: stats;
-}
-
-/* Assign specific areas to game cards */
-.games__card[data-game="memory"] {
-  grid-area: memory;
-}
-
-.games__card[data-game="snake"] {
-  grid-area: snake;
-}
-
-.games__card[data-game="tictactoe"] {
-  grid-area: tictactoe;
-}
-
-.games__card[data-game="pong"] {
-  grid-area: pong;
-}
-
-.games__card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
-.games__card-title {
-  font-size: var(--h3-font-size);
-  font-weight: var(--font-bold);
-  color: var(--title-color);
-  margin-bottom: 0.5rem;
-}
-
-.games__card-difficulty {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: var(--smaller-font-size);
-  font-weight: var(--font-medium);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.games__card-difficulty {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.games__card[data-game="snake"] .games__card-difficulty,
-.games__card[data-game="puzzle"] .games__card-difficulty {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.games__card-description {
-  color: var(--text-color);
-  font-size: var(--small-font-size);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-.games__card-stats {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.games__stat {
-  text-align: center;
-}
-
-.games__stat-number {
-  display: block;
-  font-size: var(--h2-font-size);
-  font-weight: var(--font-bold);
-  color: var(--skin-color);
-  line-height: 1;
-}
-
-.games__stat-label {
-  font-size: var(--smaller-font-size);
-  color: var(--text-color);
-  opacity: 0.7;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-
-
-.games__card-visual {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.games__card-visual--small {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Game Previews */
-.puzzle__preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-}
-
-.puzzle__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  width: 90px;
-  height: 90px;
-}
-
-.puzzle__piece {
-  background: linear-gradient(135deg, var(--skin-color) 0%, hsl(202, 94%, 45%) 100%);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--font-bold);
-  color: white;
-  font-size: var(--small-font-size);
-  transition: all 0.3s ease;
-}
-
-.puzzle__piece--empty {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px dashed rgba(255, 255, 255, 0.3);
-}
-
-.memory__preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-}
-
-.memory__cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  width: 60px;
-}
-
-.memory__card {
-  width: 25px;
-  height: 25px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.memory__card--flipped {
-  background: linear-gradient(135deg, var(--skin-color) 0%, hsl(202, 94%, 45%) 100%);
-  color: white;
-}
-
-.snake__preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-}
-
-.snake__grid {
-  position: relative;
-  width: 60px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.snake__segment {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: #22c55e;
-  border-radius: 2px;
-}
-
-.snake__segment--head {
-  top: 16px;
-  left: 20px;
-  background: #16a34a;
-}
-
-.snake__segment:nth-child(2) {
-  top: 16px;
-  left: 12px;
-}
-
-.snake__segment:nth-child(3) {
-  top: 16px;
-  left: 4px;
-}
-
-.snake__food {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #ef4444;
-  border-radius: 50%;
-  top: 8px;
-  right: 8px;
-}
-
-.tictactoe__preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-}
-
-.tictactoe__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  padding: 2px;
-}
-
-.tictactoe__cell {
-  background: var(--box-color);
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 8px;
-  font-weight: var(--font-bold);
-  color: var(--skin-color);
-}
-
-.colors__preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-}
-
-.colors__palette {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  width: 60px;
-  height: 60px;
-}
-
-.color__swatch {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.color__swatch:hover {
-  transform: scale(1.1);
-}
-
-.pong__preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-}
-
-.pong__court {
-  position: relative;
-  width: 80px;
-  height: 50px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.pong__paddle {
-  position: absolute;
-  width: 3px;
-  height: 15px;
-  background: #22c55e;
-  border-radius: 2px;
-}
-
-.pong__paddle--left {
-  left: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.pong__paddle--right {
-  right: 5px;
-  top: 20%;
-  transform: translateY(-50%);
-}
-
-.pong__ball {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #ef4444;
-  border-radius: 50%;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-}
-
-.pong__net {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(255, 255, 255, 0.3) 3px,
-    rgba(255, 255, 255, 0.3) 6px
-  );
-  transform: translateX(-50%);
-}
-
-/* Stats Card */
-.games__stats-grid {
-  display: flex;
-  justify-content: space-around;
-  margin: 1rem 0;
-}
-
-.games__stat-item {
-  text-align: center;
-}
-
-.games__stat-item .games__stat-number {
-  font-size: var(--h1-font-size);
-  color: white;
-}
-
-.games__stat-item .games__stat-label {
-  font-size: var(--small-font-size);
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.games__technologies {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-
-.games__tech {
-  padding: 0.25rem 0.75rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  font-size: var(--smaller-font-size);
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Game Modal */
-.games__modal {
-  display: none;
-  position: fixed;
-  z-index: var(--z-modal);
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.games__modal.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.games__modal-content {
-  background: linear-gradient(135deg, 
-    var(--box-color) 0%,
-    hsl(var(--hue-color), 20%, 12%) 100%);
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.games__modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  font-size: 2rem;
-  color: var(--text-color);
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.games__modal-close:hover {
-  color: var(--title-color);
-}
-
-.games__modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.games__modal-title {
-  font-size: var(--h2-font-size);
-  color: var(--title-color);
-  margin: 0;
-}
-
-.games__modal-controls {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.games__control-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  padding: 0.5rem;
-  color: var(--text-color);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.games__control-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--title-color);
-}
-
-.games__modal-body {
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  padding: 2rem;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 1024px) {
-  .games__bento-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 200px;
-    grid-auto-flow: dense;
-    gap: 0.75rem;
-  }
-  
-  .games__card--featured {
-    grid-column: span 2;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .games__bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 180px;
-    grid-auto-flow: dense;
-    gap: 0.75rem;
-  }
-  
-  .games__card--featured {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-  
-  .games__card--tall {
-    grid-row: span 1;
-  }
-  
-  .games__card--stats {
-    grid-column: 1 / -1; /* Full width on tablet */
-  }
-  
-  .games__card-content {
-    padding: 1.25rem;
-    min-height: 160px;
-  }
-  
-  .games__card--featured .games__card-content {
-    padding: 1.5rem;
-    min-height: 200px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .games__bento-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 200px;
-    grid-auto-flow: dense;
-    gap: 0.5rem;
-  }
-  
-  .games__card--featured,
-  .games__card--tall {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-  
-  .games__card--stats {
-    grid-column: 1 / -1; /* Full width on mobile */
-  }
-  
-  .games__modal-content {
-    width: 95%;
-    padding: 1.5rem;
-  }
-}
-
 /*=============== LIGHT THEME ===============*/
 body.light-theme {
   --title-color: hsl(var(--hue-color), 15%, 15%);
@@ -3791,39 +3135,6 @@ body.light-theme {
     hsl(215, 30%, 95%) 50%,
     hsl(220, 25%, 97%) 75%,
     hsl(220, 30%, 99%) 100%);
-}
-
-/* Light theme specific adjustments */
-body.light-theme .games__card::before {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-}
-
-body.light-theme .games__card:hover::before {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-}
-
-body.light-theme .games__card-bg {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-body.light-theme .games__card {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-body.light-theme .games__card:hover {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-body.light-theme .games {
-  background: transparent;
-}
-
-body.light-theme .games::before {
-  display: none;
 }
 
 /* Theme switcher removed */
