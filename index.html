@@ -1,1294 +1,882 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--========== UNICONS ==========-->
-    <link
-      rel="stylesheet"
-      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yann Djoumessi — Software Engineer</title>
+    <meta name="description" content="Backend engineer specializing in distributed systems, high-performance computing, and system design.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <style>
+        :root {
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+            --coral: #f97316;
+            --coral-light: #fb923c;
+            --white: #ffffff;
+        }
 
-    <!--========== BOXICONS ==========-->
-    <link
-      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!--========== SWIPER CSS ==========-->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
 
-    <!--========== MAIN CSS ==========-->
-    <link rel="stylesheet" href="assets/css/style.css" />
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--slate-900);
+            color: var(--slate-100);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="assets/img/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/img/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/img/favicon-32x32.png"
-    />
-    <link rel="manifest" href="assets/img/site.webmanifest" />
+        /* Grid overlay effect */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--slate-800) 1px, transparent 1px),
+                linear-gradient(90deg, var(--slate-800) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    <title>Yann Portfolio</title>
-  </head>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
 
-  <body>
-    <!--========== SIDEBAR ==========-->
-    <div class="nav__toggle" id="nav-toggle">
-      <i class="uil uil-bars"></i>
-    </div>
-    <aside class="sidebar" id="sidebar">
-      <nav class="nav">
-        <div class="nav__logo">
-          <a href="index.html" class="nav__logo-text">Y</a>
-        </div>
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--slate-800);
+        }
 
-        <div class="nav__menu">
-          <div class="menu">
-            <ul class="nav__list">
-              <li class="nav__item">
-                <a href="#home" class="nav__link active-link">Home</a>
-              </li>
-              <li class="nav__item">
-                <a href="#services" class="nav__link">Services</a>
-              </li>
-              <li class="nav__item">
-                <a href="#work" class="nav__link">Work</a>
-              </li>
+        .nav-logo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
 
-              <li class="nav__item">
-                <a href="#chatbot" class="nav__link">AI Chat</a>
-              </li>
+        .nav-logo span {
+            color: var(--coral);
+        }
 
-              <li class="nav__item">
-              </li>
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
 
-              <li class="nav__item">
-                <a href="#contact" class="nav__link">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        .nav-links a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--slate-400);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
 
-        <div class="btn__share">
-          <i class="uil uil-share-alt social__share"></i>
-        </div>
+        .nav-links a:hover {
+            color: var(--coral);
+        }
 
-        <div class="nav__close" id="nav-close">
-          <i class="uil uil-times"></i>
-        </div>
-      </nav>
-    </aside>
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding-top: 6rem;
+        }
 
-    <!--========== MAIN ==========-->
-    <main class="main">
-      <!--===== Home =====-->
-      <section class="home" id="home">
-        <div class="home__container container grid">
-          <div class="home__social">
-            <span class="home__social-follow">Follow Me</span>
-            <div class="home__social-links">
-              <a
-                href="https://www.linkedin.com/in/yann-djoumessi"
-                target="_blank"
-                class="home__social-link"
-              >
-                <i class="uil uil-linkedin"></i>
-              </a>
-            </div>
-          </div>
+        .hero-content {
+            animation: fadeSlideUp 1s ease-out;
+        }
 
-          <!-- <img src="assets/img/Me-Cropped.png" alt="" class="home__img" /> -->
+        .hero-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--coral);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
 
-          <div class="home__top">
-            <div class="home__data">
-              <h1 class="home__title">Hi, I'am Yann Djoumessi</h1>
-              <h3 class="home__subtitle">Software Engineer</h3>
-              <p class="home__description">
-                Passionate about Backend Development and Distributed Systems
-              </p>
-              <a
-                class="button"
-                href="https://drive.google.com/file/d/145nwLQrWicdMpFgD2U6sMstpcXJa80xu/view?usp=sharing"
-                target="_blank"
-                ><i class="uil uil-user button__icon"></i>
-                Download My CV
-              </a>
-            </div>
-            <div class="home__circle">
-              <img src="assets/img/Me-Cropped.png" alt="" />
-            </div>
-          </div>
+        .hero-label::before {
+            content: '';
+            width: 2rem;
+            height: 1px;
+            background: var(--coral);
+        }
 
-          <div class="my__info">
-            <div class="info__item">
-              <i class="uil uil-phone info__icon"></i>
+        .hero-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
 
-              <div>
-                <h3 class="info__title">Phone</h3>
-                <span class="info__subtitle">(404)-649-4887</span>
-              </div>
-            </div>
+        .hero-title em {
+            font-style: italic;
+            color: var(--coral-light);
+        }
 
-            <div class="info__item">
-              <i class="uil uil-envelope-edit info__icon"></i>
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--slate-400);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
 
-              <div>
-                <h3 class="info__title">Email</h3>
-                <span class="info__subtitle">ydjoumes@gmail.com</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
 
-      <!--===== Qualification =====-->
-      <section class="qualification section">
-        <h2 data-heading="My Journey" class="section__title">Qualification</h2>
+        .btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-        <div class="qualification__container container grid">
-          <div class="experience">
-            <h3 class="qualification__title">
-              <i class="uil uil-suitcase"></i> Experience
-            </h3>
+        .btn-primary {
+            background: var(--coral);
+            color: var(--white);
+            border: none;
+        }
 
-            <div class="timeline">
-              <!-- <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/headstarter.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">HeadStarter AI (NY, USA)</h3>
-                    <p class="timeline__text">Software Engineer Fellow</p>
-                  </div>
+        .btn-primary:hover {
+            background: var(--coral-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--slate-300);
+            border: 1px solid var(--slate-600);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--coral);
+            color: var(--coral);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeSlideUp 1s ease-out 0.2s both;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--coral);
+        }
+
+        .stat-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--slate-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--coral);
+            letter-spacing: 0.1em;
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--slate-700);
+        }
+
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .exp-card {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+            padding: 2.5rem;
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            transition: all 0.3s ease;
+        }
+
+        .exp-card:hover {
+            border-color: var(--coral);
+            transform: translateX(8px);
+        }
+
+        .exp-date {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--slate-400);
+        }
+
+        .exp-company {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .exp-role {
+            color: var(--coral);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .exp-desc {
+            color: var(--slate-400);
+            font-size: 0.95rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--coral), var(--coral-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--slate-600);
+        }
+
+        .project-tech {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--coral);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--slate-400);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--slate-300);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--coral);
+        }
+
+        .project-featured {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .project-featured .project-content {
+            padding-right: 2rem;
+        }
+
+        .project-featured .project-visual {
+            background: var(--slate-700);
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--slate-500);
+            font-size: 0.8rem;
+        }
+
+        /* Education Section */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .edu-main {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            padding: 3rem;
+        }
+
+        .edu-school {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-degree {
+            color: var(--coral);
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-date {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--slate-400);
+            margin-bottom: 1.5rem;
+        }
+
+        .edu-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            padding: 0.5rem 1rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--coral);
+        }
+
+        .edu-extras {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .edu-extra-card {
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            padding: 1.5rem;
+        }
+
+        .edu-extra-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-extra-org {
+            font-size: 0.9rem;
+            color: var(--slate-400);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--slate-800);
+            border-top: 1px solid var(--slate-700);
+            border-bottom: 1px solid var(--slate-700);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-text h2 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .contact-text p {
+            color: var(--slate-400);
+            font-size: 1.1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--slate-900);
+            border: 1px solid var(--slate-700);
+            text-decoration: none;
+            color: var(--slate-300);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--coral);
+            color: var(--white);
+            transform: translateX(8px);
+        }
+
+        .contact-link-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .contact-link-value {
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--slate-500);
+        }
+
+        /* Animations */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 8rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-label {
+                justify-content: center;
+            }
+
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .exp-card {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-featured {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+
+            .edu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="nav-logo">yann<span>.</span>dev</a>
+        <ul class="nav-links">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container" style="display: contents;">
+                <div class="hero-content">
+                    <div class="hero-label">Software Engineer</div>
+                    <h1 class="hero-title">
+                        Building <em>systems</em><br>
+                        that scale.
+                    </h1>
+                    <p class="hero-subtitle">
+                        I'm Yann Djoumessi — a backend engineer specializing in distributed systems, 
+                        high-performance computing, and infrastructure that handles millions of requests.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="https://drive.google.com/file/d/1l0Ro4cRZTfG4kpp99ma4jO7LvzudK2uS/view" target="_blank" class="btn btn-primary">
+                            Download CV →
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            Get in touch
+                        </a>
+                    </div>
                 </div>
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jul 2024 - Sep 2024
-                </span>
-              </div> -->
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/Amazon-Logo.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">
-                      Amazon Prime Video (Seattle, USA)
-                    </h3>
-                    <p class="timeline__text">Software Engineer</p>
-                  </div>
+                <div class="hero-visual">
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">4.0</div>
+                            <div class="stat-label">GPA</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">3+</div>
+                            <div class="stat-label">Internships</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">1000+</div>
+                            <div class="stat-label">Ops/Second</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">Dec '25</div>
+                            <div class="stat-label">Graduating</div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jan 2026 - Present
-                </span>
-              </div>
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/Amazon-Logo.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">
-                      Amazon Prime Video (Seattle, USA)
-                    </h3>
-                    <p class="timeline__text">Software Engineer Intern</p>
-                  </div>
+        <section id="experience" class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Experience</h2>
+                <span class="section-line"></span>
+            </div>
+            <div class="experience-grid">
+                <div class="exp-card">
+                    <div class="exp-date">May — Jul 2025</div>
+                    <div class="exp-content">
+                        <h3 class="exp-company">Amazon</h3>
+                        <p class="exp-role">Software Engineer Intern — Prime Video</p>
+                        <p class="exp-desc">Live Playback Infrastructure team. Building systems that deliver streaming content to millions of concurrent viewers worldwide.</p>
+                    </div>
                 </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  May 2025 - Aug 2025
-                </span>
-              </div>
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/lambo.png" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">
-                      Lambo Global Education 
-                    </h3>
-                    <p class="timeline__text">Software Engineer Intern</p>
-                  </div>
+                <div class="exp-card">
+                    <div class="exp-date">May — Jul 2024</div>
+                    <div class="exp-content">
+                        <h3 class="exp-company">Lambo Global Education</h3>
+                        <p class="exp-role">Software Engineer Intern</p>
+                        <p class="exp-desc">Built Spring Boot REST APIs handling 500+ requests/second. Designed PostgreSQL schemas and implemented comprehensive test suites with JUnit and Mockito.</p>
+                    </div>
                 </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  May 2024 - Jul 2024
-                </span>
-              </div>
-
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/Afriland.jpeg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">
-                      Afriland First Bank 
-                    </h3>
-                    <p class="timeline__text">Software Engineer Intern</p>
-                  </div>
+                <div class="exp-card">
+                    <div class="exp-date">Jul — Aug 2023</div>
+                    <div class="exp-content">
+                        <h3 class="exp-company">Afriland First Bank</h3>
+                        <p class="exp-role">Software Engineer Intern</p>
+                        <p class="exp-desc">Developed document management microservice with PostgreSQL backend. Streamlined internal workflows and improved document retrieval efficiency.</p>
+                    </div>
                 </div>
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jul 2023 - Aug 2023
-                </span>
-              </div>
             </div>
-          </div>
+        </section>
 
-          <div class="education">
-            <h3 class="qualification__title">
-              <i class="uil uil-graduation-cap"></i> Education
-            </h3>
-
-            <div class="timeline">
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/ksu.png" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">
-                      Kennesaw State University (Kennesaw, USA)
-                    </h3>
-                    <p class="timeline__text">Bs. in Computer Science(Minor in Mathematics)</p>
-                  </div>
+        <section id="projects" class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Projects</h2>
+                <span class="section-line"></span>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card project-featured">
+                    <div class="project-content">
+                        <div class="project-tech">Java • RESP Protocol • Multi-threading</div>
+                        <h3 class="project-title">Distributed Cache Server</h3>
+                        <p class="project-desc">
+                            Built a Redis-compatible in-memory key-value store implementing RESP protocol parsing, 
+                            TTL expiration, RDB persistence, and LRU eviction. Engineered master-slave replication 
+                            with PSYNC/REPLCONF, handling 500+ concurrent clients with sub-millisecond latency.
+                        </p>
+                        <a href="https://github.com/Dharld/distributed-cache" target="_blank" class="project-link">
+                            View on GitHub →
+                        </a>
+                    </div>
+                    <div class="project-visual">
+                        <span>1,000+ ops/sec</span>
+                    </div>
                 </div>
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Aug 2021 - Dec 2025
-                </span>
-              </div>
-
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/codepath.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">CodePath</h3>
-                    <p class="timeline__text">Advanced Interview Preparation</p>
-                  </div>
+                <div class="project-card">
+                    <div class="project-tech">C++ • SHA-1 • zlib</div>
+                    <h3 class="project-title">Version Control System</h3>
+                    <p class="project-desc">
+                        Git-compatible VCS with SHA-1 hashing and zlib compression. Supports blob/tree objects, 
+                        commit workflows, and hierarchical file tracking with sub-millisecond retrieval.
+                    </p>
+                    <a href="https://github.com/Dharld/commitlog" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
                 </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jul 2024 - Aug 2024
-                </span>
-              </div>
-
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/codepath.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">CodePath</h3>
-                    <p class="timeline__text">Intermediate Web Design</p>
-                  </div>
+                <div class="project-card">
+                    <div class="project-tech">C • POSIX • termios</div>
+                    <h3 class="project-title">Shell Wizard</h3>
+                    <p class="project-desc">
+                        Feature-rich POSIX-compliant shell with built-ins, I/O redirection, raw-mode terminal, 
+                        tab completion across PATH, and advanced quote/escape parsing.
+                    </p>
+                    <a href="https://github.com/Dharld/shellwizz" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
                 </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jan 2024 - Apr 2024
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="organization">
-            <h3 class="qualification__title">
-              <i class="uil uil-users-alt"></i> Organization
-            </h3>
-
-            <div class="timeline">
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/colorstack.jpeg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">ColorStack</h3>
-                    <p class="timeline__text">Member</p>
-                  </div>
+                <div class="project-card">
+                    <div class="project-tech">Node.js • REST • JWT</div>
+                    <h3 class="project-title">Student Portal API</h3>
+                    <p class="project-desc">
+                        Comprehensive REST API for student management with authentication, course management, 
+                        progress tracking, and multimedia content handling.
+                    </p>
+                    <a href="https://github.com/Dharld/NodeJS-Student-Portal-API" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
                 </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  April 2024 - Present
-                </span>
-              </div>
-
-              <div class="timeline__item">
-                <div class="circle__dot"></div>
-                <div class="timeline__header">
-                  <div class="timeline__logo">
-                    <img src="assets/img/karat.jpg" alt="" />
-                  </div>
-                  <div class="timeline__infos">
-                    <h3 class="timeline__title">
-                      Brilliant Black Minds - Karat
-                    </h3>
-                    <p class="timeline__text">Member</p>
-                  </div>
+                <div class="project-card">
+                    <div class="project-tech">React • Firebase • WebSockets</div>
+                    <h3 class="project-title">Connectify</h3>
+                    <p class="project-desc">
+                        Real-time social networking application built as CodePath capstone. Features live messaging, 
+                        user connections, and seamless social interactions.
+                    </p>
+                    <a href="https://github.com/Dharld/Connectify" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
                 </div>
-
-                <span class="timeline__date"
-                  ><i class="uil uil-calendar-alt"></i>
-                  Jul 2024 - Present
-                </span>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!--===== Skills =====-->
-      <!-- <section class="services section" id="services">
-        <h2 data-heading="Services" class="section__title">My Skills</h2>
-
-        <div class="services__container container grid">
-          <div class="services__content">
-            <div>
-              <i class="uil uil-web-grid services__icon"></i>
-              <h3 class="services__title">
-                Frontend <br />
-                Engineer
-              </h3>
+        <section id="education" class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Education</h2>
+                <span class="section-line"></span>
             </div>
-
-            <span class="services__button">
-              View More
-              <i class="uil uil-arrow-right services__button-icon"></i>
-            </span>
-
-            <div class="services__modal">
-              <div class="services__modal-content">
-                <i class="uil uil-times services__modal-close"></i>
-
-                <h3 class="services__modal-title">Frontend Engineering</h3>
-                <p class="services__modal-description">
-                  I like to create beautiful and responsive websites. I build
-                  functional and interactive web applications that leverage
-                  latest JS technlogies. I like to optimize the systems to make
-                  them <strong>faster</strong> and more
-                  <strong>efficient</strong>.
-                </p>
-                <h3 class="services__modal-stack">My Tech Stack</h3>
-                <ul class="services__modal-services">
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_javascript_480px_1.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_html_5_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_css3_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_babel_128px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_webpack_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_react_native_480px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_angularjs_480px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_vue_js_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_nodejs_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_sass_480px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/supabase.jpg"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_redux_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_firebase_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="services__content">
-            <div>
-              <i class="uil uil-arrow services__icon"></i>
-              <h3 class="services__title">
-                Backend <br />
-                Engineer
-              </h3>
-            </div>
-
-            <span class="services__button">
-              View More
-              <i class="uil uil-arrow-right services__button-icon"></i>
-            </span>
-
-            <div class="services__modal">
-              <div class="services__modal-content">
-                <i class="uil uil-times services__modal-close"></i>
-
-                <h3 class="services__modal-title">Backend Engineer</h3>
-                <p class="services__modal-description">
-                  With strong foundations in backend development, I strive to
-                  learn about distributed systems and cloud computing. I am
-                  eager about creating scalable and efficient systems.
-                </p>
-
-                <ul class="services__modal-services grid">
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_java_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_Spring_Boot_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_python_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_php_logo_32px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_redis_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_mysql_logo_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_postgresql_96px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/icons8_maven_ios_100px.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/junit.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/postman.jpeg"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/mockito.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="services__content">
-            <div>
-              <i class="uil uil-brain services__icon"></i>
-              <h3 class="services__title">
-                Machine <br />
-                Learning
-              </h3>
-            </div>
-
-            <span class="services__button">
-              View More
-              <i class="uil uil-arrow-right services__button-icon"></i>
-            </span>
-
-            <div class="services__modal">
-              <div class="services__modal-content">
-                <i class="uil uil-times services__modal-close"></i>
-
-                <h3 class="services__modal-title">Machine Learning</h3>
-                <p class="services__modal-description">
-                  I'm learning how to develop machining learning models. And I'm
-                  very enthusiastic about the future of AI and its applications.
-                  I'm looking for connections and people with interests in those
-                  domains to satisfy my curiosity and to build reliable
-                  applications for the future.
-                </p>
-
-                <ul class="services__modal-services grid">
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/pytorch.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/NumPy-Logo.png"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                  <li class="services__modal-service">
-                    <i class="services__modal-i">
-                      <img
-                        src="assets/img/scikit.jpg"
-                        class="services__modal-service-i"
-                        alt=""
-                      />
-                    </i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> -->
-
-      <!--===== Work =====-->
-      <section class="work section" id="work">
-        <h2 data-heading="My Portfolio" class="section__title">Recent Works</h2>
-
-        <div class="work__container container grid">
-          <!-- TrendSpot -->
-          <div class="work__card mix web">
-            <img src="assets/img/trendspot.png" alt="" class="work__img" />
-            <h3 class="work__title">TrendSpot</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">TrendSpot &mdash; AI Marketing Platform</h3>
-              <p class="details__description">
-                Founded and solo-built an AI marketing platform that turns a company's website into
-                finished, on-brand ads without a designer or agency. The Creative Signal Engine ingests
-                competitor ads from the Meta, Google, and TikTok ad libraries and extracts 22 structured
-                creative signals per ad, using pgvector cosine similarity and cross-platform pattern
-                analysis to rank A/B ad-test strategies before any spend. A multi-agent system on the AWS
-                Strands SDK then produces the creative &mdash; a strategist plans, copywriters and art
-                directors work in parallel, and a reviewer checks the output &mdash; generating images and
-                video through OpenAI, Gemini, and Veo behind a provider router that fails over
-                automatically when a model is unavailable.
-              </p>
-              <ul class="details__info">
-                <li>Created - <span>Jan 2026</span></li>
-                <li>
-                  Technologies -
-                  <span
-                    >Python, FastAPI, Next.js, PostgreSQL, pgvector, AWS Strands, Redis, Docker, AWS
-                    CDK</span
-                  >
-                </li>
-                <li>
-                  View -
-                  <span
-                    ><a href="https://trend-spot.ai" target="_blank"
-                      >https://trend-spot.ai</a
-                    ></span
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Distributed Cache Server -->
-          <div class="work__card mix web">
-            <img src="assets/img/dbcache.png" alt="" class="work__img" />
-            <h3 class="work__title">Distributed Cache Server</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">Distributed Cache Server</h3>
-              <p class="details__description">
-                Built an in-memory key–value store in Java, implementing RESP protocol parsing, TTL expiration, RDB persistence, and LRU 
-                eviction, sustaining 1,000+ ops/sec. Engineered master–slave replication with PSYNC/REPLCONF and a multi-threaded server using custom thread pools, 
-                handling 500+ concurrent clients with sub-ms latency. Developed extensible commands (INFO, CONFIG, KEYS, CRUD) that streamlined data manipulation and improved usability.
-              </p>
-              <ul class="details__info">
-                <li>Created - <span>15 Sep 2024</span></li>
-                <li>
-                  Technologies - 
-                  <span>Java, RESP Protocol, Multi-threading, RDB, LRU Cache</span>
-                </li>
-                <li>
-                  View -
-                  <span
-                    ><a
-                      href="https://github.com/Dharld/distributed-cache"
-                      target="_blank"
-                      >https://github.com/Dharld/distributed-cache</a
-                    ></span
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-            <!-- Version Control System -->
-            <div class="work__card mix web">
-            <img src="assets/img/vcs.png" alt="" class="work__img" />
-            <h3 class="work__title">Version Control System</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">Version Control System</h3>
-              <p class="details__description">
-              Implemented a version control system in C++ with init, hash-object, and cat-file, using SHA-1 hashing and zlib compression 
-              for object storage, sustaining 1,000+ objects/sec with sub-millisecond retrieval. Built read/write logic for blob and tree objects (write-tree, ls-tree), 
-              enabling hierarchical file tracking and supporting repositories with 100+ files while maintaining good lookup performance. 
-              Designed commit creation workflow (commit-tree) linking trees, parent commits, and metadata, supporting thousands of 
-              commits with consistent <5 ms creation time.
-              </p>
-              <ul class="details__info">
-              <li>Created - <span>20 Aug 2024</span></li>
-              <li>
-                Technologies - 
-                <span>C++, SHA-1 Hashing, zlib Compression, File I/O</span>
-              </li>
-              <li>
-                View -
-                <span
-                ><a
-                  href="https://github.com/Dharld/commitlog"
-                  target="_blank"
-                  >https://github.com/Dharld/commitlog</a
-                ></span
-                >
-              </li>
-              </ul>
-            </div>
-            </div>
-
-            <!-- POSIX Shell -->
-            <div class="work__card mix web">
-            <img src="assets/img/shell.png" alt="" class="work__img" />
-            <h3 class="work__title">Shell Wizzard</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">Shell Wizzard</h3>
-              <p class="details__description">
-              Feature-rich, POSIX-compliant shell in C with built-ins (exit, echo, type, pwd, cd), execvp-based external commands, and comprehensive I/O redirection. Includes raw-mode terminal interface, tab completion across PATH, advanced parsing with quotes and escapes, and robust resource management for reliable interactive use.
-              </p>
-              <ul class="details__info">
-              <li>Created - <span>30 Sep 2024</span></li>
-              <li>
-                Technologies -
-                <span>C23, POSIX APIs, termios, dup2, execvp</span>
-              </li>
-              <li>
-                View -
-                <span
-                ><a
-                  href="https://github.com/Dharld/shellwizz"
-                  target="_blank"
-                  >https://github.com/Dharld/shellwizz</a
-                ></span
-                >
-              </li>
-              </ul>
-            </div>
-            </div>
-
-            <!-- NodeJS Student Portal -->
-            <div class="work__card mix web">
-            <img
-              src="assets/img/node-js-student-portal.jpeg"
-              alt=""
-              class="work__img"
-            />
-            <h3 class="work__title">NodeJS REST API</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">NodeJS REST API</h3>
-              <p class="details__description">
-              Developed a comprehensive Node.js-based REST API to enhance
-              student management systems. Functionality: - User
-              Authentication: Implemented secure user authentication and
-              authorization mechanisms. - Course Management: Enabled creation,
-              updating, deletion, and fetching of courses. - User Progress
-              Tracking: Provided tools to track user progress through courses
-              and quizzes. - Quizzes Management: Facilitated creation and
-              management of quizzes with questions and answers. - Multimedia
-              Support: Integrated video and PDF content handling for enriched
-              course delivery.
-              </p>
-              <ul class="details__info">
-              <li>Created - <span>12 Apr 2024</span></li>
-
-              <li>
-                View -
-                <span
-                ><a
-                  href="https://github.com/Dharld/NodeJS-Student-Portal-API"
-                  target="https://github.com/Dharld/NodeJS-Student-Portal-API"
-                  >https://github.com/Dharld/NodeJS-Student-Portal-API</a
-                ></span
-                >
-              </li>
-              </ul>
-            </div>
-            </div>
-
-            <!-- Connectify Social Network -->
-            <div class="work__card mix web">
-            <img src="assets/img/video.gif" alt="" class="work__img" />
-            <h3 class="work__title">Connectify</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">Lambo Global LLC</h3>
-              <p class="details__description">
-              Developed a dynamic social networking web application,
-              Connectify, as my final project for CodePath. This app
-              facilitates seamless connections between users and enhances
-              social interactions through a variety of innovative features.
-              Project Highlights
-              </p>
-              <ul class="details__info">
-              <li>Created - <span>12 Apr 2024</span></li>
-
-              <li>
-                View -
-                <span
-                ><a
-                  href="https://github.com/Dharld/Connectify/"
-                  target="https://github.com/Dharld/Connectify/"
-                  >https://github.com/Dharld/Connectify</a
-                ></span
-                >
-              </li>
-              </ul>
-            </div>
-            </div>
-
-            <!-- Movie Rental Prediction Model -->
-            <div class="work__card mix web">
-            <img src="assets/img/predicting.jpeg" alt="" class="work__img" />
-            <h3 class="work__title">Predicting Movie Rental Durations</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">Predicting Movie Rental Duration</h3>
-              <p class="details__description">
-              About DVD Rental Prediction Model This project aims to develop a
-              regression model to predict the number of days a customer rents
-              a DVD from a DVD rental company. By accurately predicting rental
-              durations, the company can optimize their inventory planning and
-              improve operational efficiency.
-              </p>
-              <ul class="details__info">
-              <li>Created - <span>12 Apr 2024</span></li>
-
-              <li>
-                View -
-                <span
-                ><a
-                  href="https://github.com/Dharld/Predicting-Movie-Rental-Durations"
-                  target="https://github.com/Dharld/Predicting-Movie-Rental-Durations"
-                  >https://github.com/Dharld/Predicting-Movie-Rental-Durations</a
-                ></span
-                >
-              </li>
-              </ul>
-            </div>
-            </div>
-
-          <!-- Pizza Ordering System -->
-          <div class="work__card mix web">
-            <img src="assets/img/Pizza Ordering.jpg" alt="" class="work__img" />
-            <h3 class="work__title">Pizza Ordering System</h3>
-            <span class="work__button"
-              >Demo
-              <i class="uil uil-arrow-right work__button-icon"></i>
-            </span>
-            <div class="portfolio__item-details">
-              <h3 class="details__title">Pizza Ordering System</h3>
-              <p class="details__description">
-                Pizza Store Application: A Java-based platform for managing
-                pizza orders. Features include menu browsing, pizza
-                customization, order summaries, user authentication, secure
-                payment integration, order history, and a responsive design.
-                Built with Java, Maven, JavaFX, and JDBC.
-              </p>
-              <ul class="details__info">
-                <li>Created - <span>12 Apr 2024</span></li>
-
-                <li>
-                  View -
-                  <span
-                    ><a
-                      href="https://github.com/Dharld/POS-Pizza-Ordering-System"
-                      target="https://github.com/Dharld/POS-Pizza-Ordering-System"
-                      >https://github.com/Dharld/POS-Pizza-Ordering-System</a
-                    ></span
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Portfolio Popup -->
-      <div class="portfolio__popup">
-        <div class="portfolio__popup-inner">
-          <div class="portfolio__popup-content grid">
-            <span class="portfolio__popup-close"
-              ><i class="uil uil-times"></i
-            ></span>
-            <div class="pp__thumbnail">
-              <img
-                src="assets/img/work-2.webp"
-                alt=""
-                class="portfolio__popup-img"
-              />
-            </div>
-            <div class="portfolio__popup-info">
-              <div class="portfolio__popup-subtitle">
-                Featured - <span>Design</span>
-              </div>
-              <div class="portfolio__popup-body">
-                <h3 class="details__title">App for tecnology & services</h3>
-                <p class="details__description">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Earum impedit voluptatibus minima.
-                </p>
-                <ul class="details__info">
-                  <li>Created - <span>4 dec 2020</span></li>
-                  <li>Technologies - <span>html css</span></li>
-                  <li>Role - <span>frontend</span></li>
-                  <li>
-                    View - <span><a href="#">www.domain.com</a></span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--===== CHATBOT =====-->
-      <section class="chatbot section" id="chatbot">
-        <h2 data-heading="Ask Me Anything" class="section__title">AI Assistant</h2>
-        
-        <div class="chatbot__container container">
-          <!-- Chatbot Header -->
-          <div class="chatbot__header">
-            <div class="chatbot__avatar">
-              <i class="uil uil-robot"></i>
-            </div>
-            <div class="chatbot__info">
-              <h3 class="chatbot__title">Ask about Yann</h3>
-              <p class="chatbot__subtitle">Get insights about my experience, skills, and projects</p>
-            </div>
-            <div class="chatbot__status">
-              <div class="chatbot__status-dot"></div>
-              <span>Online</span>
-            </div>
-          </div>
-
-          <!-- Suggested Questions -->
-          <div class="chatbot__suggestions">
-            <h4 class="chatbot__suggestions-title">Try asking:</h4>
-            <div class="chatbot__suggestions-grid">
-              <!-- <button class="chatbot__suggestion-btn" data-question="Tell me about Yann's experience at Amazon">
-                <i class="uil uil-amazon"></i>
-                Amazon Experience
-              </button> -->
-              <button class="chatbot__suggestion-btn" data-question="What are Yann's technical skills?">
-                <i class="uil uil-brackets-curly"></i>
-                Technical Skills
-              </button>
-              <button class="chatbot__suggestion-btn" data-question="What projects has Yann worked on?">
-                <i class="uil uil-folder-open"></i>
-                Projects
-              </button>
-              <button class="chatbot__suggestion-btn" data-question="Tell me about Yann's education and GPA">
-                <i class="uil uil-graduation-cap"></i>
-                Education
-              </button>
-              <button class="chatbot__suggestion-btn" data-question="What are Yann's career goals?">
-                <i class="uil uil-rocket"></i>
-                Career Goals
-              </button>
-              <button class="chatbot__suggestion-btn" data-question="What internships has Yann completed?">
-                <i class="uil uil-briefcase-alt"></i>
-                Internships
-              </button>
-            </div>
-          </div>
-
-          <!-- Chat Interface -->
-          <div class="chatbot__interface">
-            <div class="chatbot__messages" id="chatbot-messages">
-              <div class="chatbot__message chatbot__message--bot">
-                <div class="chatbot__message-avatar">
-                  <i class="uil uil-robot"></i>
+            <div class="edu-grid">
+                <div class="edu-main">
+                    <h3 class="edu-school">Kennesaw State University</h3>
+                    <p class="edu-degree">B.S. Computer Science, Minor in Mathematics</p>
+                    <p class="edu-date">Aug 2021 — Dec 2025</p>
+                    <div class="edu-highlight">
+                        <span>★</span> 4.0 GPA
+                    </div>
                 </div>
-                <div class="chatbot__message-content">
-                  <p>Hi! I'm Yann's AI assistant. I can answer questions about his experience, skills, projects, and background. Feel free to ask me anything!</p>
+                <div class="edu-extras">
+                    <div class="edu-extra-card">
+                        <p class="edu-extra-title">Advanced Interview Preparation</p>
+                        <p class="edu-extra-org">CodePath • Jul — Aug 2024</p>
+                    </div>
+                    <div class="edu-extra-card">
+                        <p class="edu-extra-title">Intermediate Web Design</p>
+                        <p class="edu-extra-org">CodePath • Jan — Apr 2024</p>
+                    </div>
+                    <div class="edu-extra-card">
+                        <p class="edu-extra-title">Member</p>
+                        <p class="edu-extra-org">ColorStack • Brilliant Black Minds (Karat)</p>
+                    </div>
                 </div>
-                <div class="chatbot__message-time">Just now</div>
-              </div>
             </div>
-            
-            <div class="chatbot__input-area">
-              <div class="chatbot__input-container">
-                <input 
-                  type="text" 
-                  class="chatbot__input" 
-                  id="chatbot-input"
-                  placeholder="Ask me about Yann's experience, skills, projects..."
-                  maxlength="500"
-                />
-                <button class="chatbot__send-btn" id="chatbot-send">
-                  <i class="uil uil-message"></i>
-                </button>
-              </div>
-              <div class="chatbot__typing" id="chatbot-typing" style="display: none;">
-                <div class="chatbot__typing-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-text">
+                        <h2>Let's build something.</h2>
+                        <p>Open to opportunities in backend engineering, distributed systems, and infrastructure.</p>
+                    </div>
+                    <div class="contact-links">
+                        <a href="mailto:ydjoumes@gmail.com" class="contact-link">
+                            <div>
+                                <p class="contact-link-label">Email</p>
+                                <p class="contact-link-value">ydjoumes@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="tel:+14046494887" class="contact-link">
+                            <div>
+                                <p class="contact-link-label">Phone</p>
+                                <p class="contact-link-value">(404) 649-4887</p>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/yann-djoumessi" target="_blank" class="contact-link">
+                            <div>
+                                <p class="contact-link-label">LinkedIn</p>
+                                <p class="contact-link-value">yann-djoumessi</p>
+                            </div>
+                        </a>
+                        <a href="https://github.com/Dharld" target="_blank" class="contact-link">
+                            <div>
+                                <p class="contact-link-label">GitHub</p>
+                                <p class="contact-link-value">@Dharld</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <span>AI is typing...</span>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!--===== GAMES =====-->
-
-      <!--===== CONTACT =====-->
-      <section class="contact section" id="contact">
-        <h2 data-heading="Get in touch" class="section__title">Contact Me</h2>
-
-        <div class="contact__container container grid">
-          <div class="contact__content">
-            <div class="contact__info">
-              <div class="contact__card">
-                <i class="uil uil-envelope-edit contact__card-icon"></i>
-                <h3 class="contact__card-title">Email</h3>
-                <span class="contact__card-data">ydjoumes@gmail.com</span>
-                <a
-                  href="mailto:ydjoumes@gmail.com"
-                  class="contact__button"
-                >
-                  Write me
-                  <i class="uil uil-arrow-right contact__button-icon"></i>
-                </a>
-              </div>
-
-              <div class="contact__card">
-                <i class="uil uil-phone contact__card-icon"></i>
-                <h3 class="contact__card-title">Phone</h3>
-                <span class="contact__card-data">404-649-4887</span>
-                <a
-                  href="https://api.whatsapp.com/send?phone=349865677&text=Hello, more information!"
-                  class="contact__button"
-                >
-                  Write me
-                  <i class="uil uil-arrow-right contact__button-icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="contact__content">
-            <form action="" class="contact__form" id="contact__form">
-              <div class="input__container">
-                <input type="text" class="input" name="user_name" />
-                <label for="">Username</label>
-                <span>Username</span>
-              </div>
-              <div class="input__container">
-                <input type="email" class="input" name="user_email" />
-                <label for="">Email</label>
-                <span>Email</span>
-              </div>
-              <div class="input__container">
-                <input type="tel" class="input" name="contact_number" />
-                <label for="">Phone</label>
-                <span>Phone</span>
-              </div>
-              <div class="input__container textarea">
-                <textarea name="" id="" class="input" name="message"></textarea>
-                <label for="">Message</label>
-                <span>Message</span>
-              </div>
-              <button type="submit" class="button">
-                <i class="uil uil-navigator button__icon"></i>
-                Send Message
-              </button>
-            </form>
-          </div> -->
-        </div>
-      </section>
-
-      <!--========== FOOTER ==========-->
-      <footer class="footer">
-        <div class="footer__bg">
-          <div class="footer__container container grid">
-            <div>
-              <h1 class="footer__title">Yann</h1>
-              <span class="footer__subtitle">Software Engineer</span>
-            </div>
-
-            <ul class="footer__links">
-              <li>
-                <a href="#services" class="footer__link">Services</a>
-              </li>
-              <li>
-                <a href="#work" class="footer__link">Work</a>
-              </li>
-              <li>
-                <a href="#leetcode" class="footer__link">LeetCode</a>
-              </li>
-              <li>
-              </li>
-              <li>
-                <a href="#contact" class="footer__link">Contact</a>
-              </li>
-            </ul>
-
-            <div class="footer__socials">
-              <a
-                href="https://www.linkedin.com/in/yann-djoumessi"
-                target="_blank"
-                class="home__social-link"
-              >
-                <i class="uil uil-linkedin"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+        </section>
     </main>
 
-    <!--========== SCROLL UP ==========-->
-
-    <a href="#" class="scrollup" id="scroll-up">
-      <i class="bx bx-up-arrow-alt scrollup__icon"></i>
-    </a>
-
-    <script src="./creds.js"></script>
-
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"
-    ></script>
-
-    <!--========== MIXITUP FILTER ==========-->
-    <script src="assets/js/mixitup.min.js"></script>
-
-    <!--========== SWIPER JS ==========-->
-    <script src="assets/js/swiper-bundle.min.js"></script>
-
-  <!--========== MARKED (Markdown Parser) ==========-->
-  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
-
-    <!--========== CHATBOT JS ==========-->
-    <script src="assets/js/chatbot.js"></script>
-
-    <!--========== MAIN JS ==========-->
-    <script src="assets/js/main.js"></script>
-  </body>
+    <footer class="container">
+        <p class="footer-text">© 2025 Yann Djoumessi. Built with precision.</p>
+    </footer>
+</body>
 </html>
