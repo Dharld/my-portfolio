@@ -1,15 +1,15 @@
 /**
- * The blog page, rendered on the server.
+ * The writing page, rendered on the server.
  *
- * Posts arrive as HTML in the response body rather than being fetched by the
- * browser, so a crawler, a link preview and a reader with JavaScript disabled
- * all see the writing. Each post also gets real metadata — that is what makes
- * a shared link show a title and summary instead of a bare URL.
+ * Posts are HTML in the response body rather than fetched by the browser, so
+ * crawlers, link previews and readers without JavaScript all see the articles.
+ *
+ * The page shows the articles and nothing else — no source, no status, no
+ * controls. Where the words come from is not the reader's concern.
  */
 
-import { loadPosts, DOC_ID } from './_doc.js';
+import { loadPosts } from './_doc.js';
 
-const DOC_URL = `https://docs.google.com/document/d/${DOC_ID}/edit`;
 const SITE_NAME = 'Yann Djoumessi';
 
 const escapeHtml = (value) =>
@@ -32,18 +32,20 @@ export default async function handler(req, res) {
     wantsFresh ? 'no-store' : 'public, s-maxage=60, stale-while-revalidate=600',
   );
 
+  let posts = [];
   try {
-    const posts = await loadPosts();
-    return res.status(200).send(page({ posts, fetchedAt: new Date(), origin }));
+    posts = await loadPosts();
   } catch (error) {
-    console.error('[blog-page] ', error.message);
-    return res.status(200).send(page({ posts: [], error, fetchedAt: new Date(), origin }));
+    // A reader gets a quiet empty page; the detail belongs in the logs.
+    console.error('[blog] ', error.message, error.hint || '');
   }
+
+  return res.status(200).send(page({ posts, origin }));
 }
 
 // ── Rendering ───────────────────────────────────────────────────────────────
 
-function postArticle(post) {
+function article(post) {
   const meta = [
     post.date ? `<span>${escapeHtml(post.date)}</span><span aria-hidden="true">·</span>` : '',
     `<span>${post.readingMinutes} min read</span>`,
@@ -57,56 +59,8 @@ function postArticle(post) {
         </article>`;
 }
 
-function emptyState() {
-  return `
-        <div class="state">
-          <h2>The document is connected — it just has no posts yet</h2>
-          <p>Give a line the <b>Heading 1</b> style in the doc and it becomes a post
-             title. Write underneath it, and put a date on the line directly below
-             the title (<code>2026-09-07</code>) to show a date.</p>
-          <p>End a title with <code>[draft]</code> to keep something in the doc but
-             off the site.</p>
-          <p><a href="${DOC_URL}" target="_blank" rel="noopener">Open the document →</a></p>
-        </div>`;
-}
-
-function errorState(error) {
-  const sharing = /signing in|private/i.test(error.message || '');
-  return `
-        <div class="state">
-          <h2>${escapeHtml(error.message || 'The document could not be read')}</h2>
-          ${
-            sharing
-              ? `<p>The site reads the document anonymously, so it needs link access.
-                    Nobody gains the ability to edit:</p>
-                 <ol>
-                   <li>Open <a href="${DOC_URL}" target="_blank" rel="noopener">the document</a></li>
-                   <li><b>Share</b> → <b>General access</b></li>
-                   <li>Set <b>Anyone with the link</b>, role <b>Viewer</b></li>
-                   <li>Reload this page</li>
-                 </ol>`
-              : `<p>${escapeHtml(error.hint || 'Try again in a moment.')}</p>`
-          }
-        </div>`;
-}
-
-function page({ posts, error, fetchedAt, origin }) {
-  const lead = posts[0];
-  const description = lead
-    ? lead.excerpt
-    : 'Writing by Yann Djoumessi — notes on building TrendSpot, agents, and systems.';
-
-  const status = error
-    ? '<b>Not synced</b> — the document could not be read'
-    : `Synced from <a class="sync__link" href="${DOC_URL}" target="_blank" rel="noopener">Google Docs</a>` +
-      ` · <b>${posts.length}</b> post${posts.length === 1 ? '' : 's'}` +
-      ` · read <time datetime="${fetchedAt.toISOString()}" id="sync-time">just now</time>`;
-
-  const body = error
-    ? errorState(error)
-    : posts.length
-      ? `<div class="posts">${posts.map(postArticle).join('')}</div>`
-      : emptyState();
+function page({ posts, origin }) {
+  const description = posts[0] ? posts[0].excerpt : `Writing by ${SITE_NAME}.`;
 
   // Structured data so search results and link previews carry real titles.
   const jsonLd = posts.length
@@ -164,38 +118,8 @@ function page({ posts, error, fetchedAt, origin }) {
         max-width: 52ch; margin-bottom: 1.75rem;
       }
 
-      .sync {
-        display: flex; flex-wrap: wrap; align-items: center; gap: 0.65rem 1rem;
-        padding: 0.85rem 1.1rem; border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 0.6rem; background: var(--box-color); margin-bottom: 3rem;
-        font-size: var(--smaller-font-size); color: var(--text-color);
-      }
-      .sync__dot {
-        width: 8px; height: 8px; border-radius: 50%;
-        background: var(--skin-color); flex-shrink: 0; position: relative;
-      }
-      .sync__dot::after {
-        content: ""; position: absolute; inset: 0; border-radius: 50%;
-        background: var(--skin-color); animation: sync-ping 2s ease-out infinite;
-      }
-      .sync__dot.is-error, .sync__dot.is-error::after { background: #f2555a; animation: none; }
-      @keyframes sync-ping {
-        0% { transform: scale(1); opacity: 0.55; }
         80%, 100% { transform: scale(2.6); opacity: 0; }
       }
-      @media (prefers-reduced-motion: reduce) { .sync__dot::after { animation: none; opacity: 0; } }
-
-      .sync__text b { color: var(--title-color); font-weight: var(--font-medium); }
-      .sync__link { color: var(--skin-color); }
-      .sync__actions { margin-left: auto; }
-      .sync__btn {
-        display: inline-block; background: none;
-        border: 1px solid rgba(255,255,255,0.14); color: var(--text-color);
-        border-radius: 0.4rem; padding: 0.35rem 0.75rem;
-        font-family: var(--body-font); font-size: var(--smaller-font-size);
-        cursor: pointer; transition: border-color 0.25s, color 0.25s;
-      }
-      .sync__btn:hover { border-color: var(--skin-color); color: var(--skin-color); }
 
       .posts { display: flex; flex-direction: column; gap: 2.5rem; }
       .post { border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 2.5rem; }
@@ -228,23 +152,9 @@ function page({ posts, error, fetchedAt, origin }) {
         border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 0.7rem; text-align: left;
       }
 
-      .state {
-        border: 1px solid rgba(255,255,255,0.08); background: var(--box-color);
-        border-radius: 0.6rem; padding: 1.75rem; color: var(--text-color);
-      }
-      .state h2 { color: var(--title-color); font-size: var(--h3-font-size); margin-bottom: 0.6rem; }
-      .state p { margin-bottom: 0.75rem; line-height: 1.7; }
-      .state ol { margin: 0 0 0 1.15rem; line-height: 1.9; }
-      .state a { color: var(--skin-color); }
-      .state code {
-        background: rgba(255,255,255,0.07); padding: 0.1rem 0.35rem;
-        border-radius: 0.25rem; font-family: "JetBrains Mono", monospace; font-size: 0.85em;
-      }
-
       @media screen and (max-width: 576px) {
         .blog { padding: 2.5rem 0 4rem; }
-        .sync__actions { margin-left: 0; width: 100%; }
-      }
+        }
     </style>
   </head>
 
@@ -254,49 +164,14 @@ function page({ posts, error, fetchedAt, origin }) {
         <a href="/" class="blog__back">← Back to portfolio</a>
 
         <h1 class="blog__title">Writing</h1>
-        <p class="blog__subtitle">
-          Written in a Google Doc and published here automatically. Edit the doc,
-          reload, and the change is live.
-        </p>
 
-        <div class="sync">
-          <span class="sync__dot${error ? ' is-error' : ''}"></span>
-          <span class="sync__text">${status}</span>
-          <span class="sync__actions">
-            <a class="sync__btn" href="/blog?refresh=1">Sync now</a>
-          </span>
-        </div>
-
-        ${body}
+        ${
+          posts.length
+            ? `<div class="posts">${posts.map(article).join('')}</div>`
+            : `<p class="empty">Nothing published yet.</p>`
+        }
       </div>
     </main>
-
-    <script>
-      // The page is already complete; this only keeps the timestamp honest and
-      // re-reads the document when you come back from editing it.
-      (function () {
-        var el = document.getElementById('sync-time');
-        if (el) {
-          var at = new Date(el.getAttribute('datetime'));
-          setInterval(function () {
-            var s = Math.round((Date.now() - at) / 1000);
-            el.textContent =
-              s < 45 ? 'just now'
-              : s < 90 ? 'a minute ago'
-              : s < 3600 ? Math.round(s / 60) + ' minutes ago'
-              : Math.round(s / 3600) + ' hours ago';
-          }, 15000);
-        }
-
-        var returned = false;
-        document.addEventListener('visibilitychange', function () {
-          if (document.visibilityState === 'visible' && !returned) {
-            returned = true;
-            location.replace('/blog?refresh=1');
-          }
-        });
-      })();
-    </script>
   </body>
 </html>`;
 }

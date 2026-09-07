@@ -14,12 +14,25 @@
  * fetchViaServiceAccount below.
  */
 
-export const DOC_ID = process.env.BLOG_DOC_ID || '1ZrfOCDgMxeYIR4HM6UKhIkYd6nLGaggImcnZDb6zzHo';
+/**
+ * Which document backs the blog. Set BLOG_DOC_ID in the hosting environment.
+ *
+ * Deliberately not defaulted to a real id: this repository is public, and a
+ * document id in it is a document URL anyone can reconstruct.
+ */
+export const DOC_ID = process.env.BLOG_DOC_ID || '';
 const EXPORT_URL = (id) => `https://docs.google.com/document/d/${id}/export?format=html`;
 
 // ── Fetching ────────────────────────────────────────────────────────────────
 
 export async function fetchDocHtml(docId) {
+  if (!docId) {
+    const err = new Error('No document is configured for the blog.');
+    err.status = 500;
+    err.hint = 'Set BLOG_DOC_ID in the hosting environment to the document id.';
+    throw err;
+  }
+
   if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
     return fetchViaServiceAccount(docId);
   }
