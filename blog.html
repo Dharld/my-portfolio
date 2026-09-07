@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Notes and writing by Yann Djoumessi — written in Google Docs, published here automatically."
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>Blog — Yann Djoumessi</title>
+
+    <style>
+      .blog {
+        min-height: 100vh;
+        padding: 4rem 0 6rem;
+      }
+
+      .blog__container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .blog__back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--text-color);
+        font-size: var(--small-font-size);
+        margin-bottom: 2.5rem;
+        transition: color 0.3s;
+      }
+      .blog__back:hover { color: var(--skin-color); }
+
+      .blog__title {
+        font-size: var(--biggest-font-size);
+        color: var(--title-color);
+        font-weight: var(--font-bold);
+        line-height: 1.1;
+        margin-bottom: 0.75rem;
+      }
+
+      .blog__subtitle {
+        color: var(--text-color);
+        font-size: var(--normal-font-size);
+        max-width: 52ch;
+        margin-bottom: 1.75rem;
+      }
+
+      /* ── Sync status ─────────────────────────────────────────── */
+      .sync {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem 1rem;
+        padding: 0.85rem 1.1rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 0.6rem;
+        background: var(--box-color);
+        margin-bottom: 3rem;
+        font-size: var(--smaller-font-size);
+        color: var(--text-color);
+      }
+
+      .sync__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--skin-color);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .sync__dot::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--skin-color);
+        animation: sync-ping 2s ease-out infinite;
+      }
+      .sync__dot.is-error, .sync__dot.is-error::after { background: #f2555a; }
+      .sync__dot.is-idle::after { animation: none; opacity: 0; }
+
+      @keyframes sync-ping {
+        0% { transform: scale(1); opacity: 0.55; }
+        80%, 100% { transform: scale(2.6); opacity: 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .sync__dot::after { animation: none; opacity: 0; }
+      }
+
+      .sync__text b { color: var(--title-color); font-weight: var(--font-medium); }
+
+      .sync__actions { margin-left: auto; display: flex; gap: 0.75rem; }
+
+      .sync__btn {
+        background: none;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: var(--text-color);
+        border-radius: 0.4rem;
+        padding: 0.35rem 0.75rem;
+        font-family: var(--body-font);
+        font-size: var(--smaller-font-size);
+        cursor: pointer;
+        transition: border-color 0.25s, color 0.25s;
+      }
+      .sync__btn:hover { border-color: var(--skin-color); color: var(--skin-color); }
+      .sync__btn:disabled { opacity: 0.5; cursor: default; }
+
+      .sync__link { color: var(--skin-color); }
+
+      /* ── Posts ───────────────────────────────────────────────── */
+      .posts { display: flex; flex-direction: column; gap: 2.5rem; }
+
+      .post {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding-bottom: 2.5rem;
+      }
+      .post:last-child { border-bottom: none; }
+
+      .post__meta {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        font-size: var(--smaller-font-size);
+        color: var(--text-color);
+        opacity: 0.75;
+        margin-bottom: 0.55rem;
+      }
+
+      .post__title {
+        font-size: var(--h1-font-size);
+        color: var(--title-color);
+        font-weight: var(--font-bold);
+        line-height: 1.2;
+        margin-bottom: 0.9rem;
+      }
+
+      .post__body {
+        color: var(--text-color);
+        line-height: 1.75;
+      }
+      .post__body p { margin-bottom: 1.1rem; }
+      .post__body h3 {
+        color: var(--title-color);
+        font-size: var(--h3-font-size);
+        font-weight: var(--font-medium);
+        margin: 2rem 0 0.75rem;
+      }
+      .post__body ul, .post__body ol { margin: 0 0 1.1rem 1.25rem; }
+      .post__body li { margin-bottom: 0.5rem; }
+      .post__body a { color: var(--skin-color); text-underline-offset: 2px; }
+      .post__body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        margin: 1.25rem 0;
+      }
+      .post__body blockquote {
+        border-left: 2px solid var(--skin-color);
+        padding-left: 1rem;
+        margin: 0 0 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* ── States ──────────────────────────────────────────────── */
+      .state {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--box-color);
+        border-radius: 0.6rem;
+        padding: 1.75rem;
+        color: var(--text-color);
+      }
+      .state h2 {
+        color: var(--title-color);
+        font-size: var(--h3-font-size);
+        margin-bottom: 0.6rem;
+      }
+      .state p { margin-bottom: 0.75rem; line-height: 1.7; }
+      .state ol { margin: 0 0 0 1.15rem; line-height: 1.9; }
+      .state a { color: var(--skin-color); }
+      .state code {
+        background: rgba(255, 255, 255, 0.07);
+        padding: 0.1rem 0.35rem;
+        border-radius: 0.25rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85em;
+      }
+
+      .skeleton {
+        height: 1rem;
+        border-radius: 0.3rem;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.05) 25%,
+          rgba(255, 255, 255, 0.09) 50%,
+          rgba(255, 255, 255, 0.05) 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.4s infinite;
+        margin-bottom: 0.75rem;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      @media screen and (max-width: 576px) {
+        .blog { padding: 2.5rem 0 4rem; }
+        .sync__actions { margin-left: 0; width: 100%; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="blog">
+      <div class="blog__container">
+        <a href="index.html" class="blog__back">← Back to portfolio</a>
+
+        <h1 class="blog__title">Writing</h1>
+        <p class="blog__subtitle">
+          Written in a Google Doc and published here automatically. Edit the doc,
+          refresh this page, and the change is live.
+        </p>
+
+        <div class="sync" id="sync">
+          <span class="sync__dot is-idle" id="sync-dot"></span>
+          <span class="sync__text" id="sync-text">Connecting to the document…</span>
+          <span class="sync__actions">
+            <button class="sync__btn" id="sync-refresh" type="button">Sync now</button>
+          </span>
+        </div>
+
+        <div id="content">
+          <div class="skeleton" style="width: 45%; height: 1.6rem"></div>
+          <div class="skeleton" style="width: 92%"></div>
+          <div class="skeleton" style="width: 86%"></div>
+          <div class="skeleton" style="width: 60%"></div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const content = document.getElementById('content');
+      const syncText = document.getElementById('sync-text');
+      const syncDot = document.getElementById('sync-dot');
+      const refreshBtn = document.getElementById('sync-refresh');
+
+      const escapeHtml = (s) =>
+        String(s).replace(/[&<>"']/g, (c) => (
+          { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+        ));
+
+      function relativeTime(iso) {
+        const seconds = Math.round((Date.now() - new Date(iso).getTime()) / 1000);
+        if (seconds < 45) return 'just now';
+        if (seconds < 90) return 'a minute ago';
+        const minutes = Math.round(seconds / 60);
+        if (minutes < 60) return `${minutes} minutes ago`;
+        const hours = Math.round(minutes / 60);
+        return hours === 1 ? 'an hour ago' : `${hours} hours ago`;
+      }
+
+      function renderPosts(data) {
+        syncDot.className = 'sync__dot';
+        const when = relativeTime(data.fetchedAt);
+        syncText.innerHTML =
+          `Synced from <a class="sync__link" href="${data.docUrl}" target="_blank" rel="noopener">Google Docs</a> · ` +
+          `<b>${data.count}</b> post${data.count === 1 ? '' : 's'} · read ${when}`;
+
+        if (!data.posts.length) {
+          content.innerHTML = `
+            <div class="state">
+              <h2>The document is connected, but empty</h2>
+              <p>Add a <b>Heading 1</b> in the doc — that becomes a post title — and
+                 write underneath it. Put a date on the line right below the title
+                 (<code>2026-09-07</code>) and it will show as the post date.</p>
+              <p>End a title with <code>[draft]</code> to keep a post out of the site
+                 while you work on it.</p>
+            </div>`;
+          return;
+        }
+
+        content.innerHTML =
+          '<div class="posts">' +
+          data.posts
+            .map(
+              (post) => `
+            <article class="post" id="${escapeHtml(post.slug)}">
+              <div class="post__meta">
+                ${post.date ? `<span>${escapeHtml(post.date)}</span><span>·</span>` : ''}
+                <span>${post.readingMinutes} min read</span>
+              </div>
+              <h2 class="post__title">${escapeHtml(post.title)}</h2>
+              <div class="post__body">${post.html}</div>
+            </article>`,
+            )
+            .join('') +
+          '</div>';
+
+        // Deep link to a post if the URL carries one.
+        if (location.hash) {
+          document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      function renderError(data, status) {
+        syncDot.className = 'sync__dot is-error';
+        syncText.innerHTML = '<b>Not synced</b> — the document could not be read';
+
+        const isSharing = status === 502 && /signing in|private/i.test(data.error || '');
+        content.innerHTML = `
+          <div class="state">
+            <h2>${escapeHtml(data.error || 'Could not load the document')}</h2>
+            ${
+              isSharing
+                ? `<p>The site reads the doc anonymously, so it needs link access. This
+                    takes one change and nobody gains the ability to edit:</p>
+                   <ol>
+                     <li>Open <a href="${data.docUrl}" target="_blank" rel="noopener">the document</a></li>
+                     <li><b>Share</b> → <b>General access</b></li>
+                     <li>Set it to <b>Anyone with the link</b>, role <b>Viewer</b></li>
+                     <li>Come back and press <b>Sync now</b></li>
+                   </ol>
+                   <p>Prefer to keep it private? Set <code>GOOGLE_SERVICE_ACCOUNT_JSON</code>
+                      in Vercel and share the doc with that service account instead.</p>`
+                : `<p>${escapeHtml(data.hint || 'Try again in a moment.')}</p>`
+            }
+          </div>`;
+      }
+
+      async function load(fresh = false) {
+        refreshBtn.disabled = true;
+        syncDot.className = 'sync__dot is-idle';
+        if (fresh) syncText.textContent = 'Reading the document…';
+
+        try {
+          const res = await fetch(`/api/blog${fresh ? '?refresh=1' : ''}`, {
+            cache: fresh ? 'reload' : 'default',
+          });
+          const data = await res.json();
+          if (data.ok) renderPosts(data);
+          else renderError(data, res.status);
+        } catch (err) {
+          renderError({ error: 'The blog service is unreachable.', hint: String(err) }, 0);
+        } finally {
+          refreshBtn.disabled = false;
+        }
+      }
+
+      refreshBtn.addEventListener('click', () => load(true));
+      load();
+
+      // Coming back to the tab after editing the doc should show the edit.
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') load(true);
+      });
+    </script>
+  </body>
+</html>
