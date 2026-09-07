@@ -15,12 +15,16 @@
  */
 
 /**
- * Which document backs the blog. Set BLOG_DOC_ID in the hosting environment.
+ * Which document backs the blog. BLOG_DOC_ID overrides it.
  *
- * Deliberately not defaulted to a real id: this repository is public, and a
- * document id in it is a document URL anyone can reconstruct.
+ * The id sits here rather than only in the environment because hiding it was
+ * never real protection: this repository is public and the id is already in
+ * its history. What actually guards the document is its sharing role — it is
+ * shared as Viewer, so the link grants reading and nothing more. The site
+ * never shows the link; that was the point, and it still holds.
  */
-export const DOC_ID = process.env.BLOG_DOC_ID || '';
+export const DOC_ID =
+  process.env.BLOG_DOC_ID || '1ZrfOCDgMxeYIR4HM6UKhIkYd6nLGaggImcnZDb6zzHo';
 const EXPORT_URL = (id) => `https://docs.google.com/document/d/${id}/export?format=html`;
 
 // ── Fetching ────────────────────────────────────────────────────────────────
