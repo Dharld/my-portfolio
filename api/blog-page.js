@@ -19,6 +19,13 @@ const escapeHtml = (value) =>
 export default async function handler(req, res) {
   const wantsFresh = req.query?.refresh === '1';
 
+  // Taken from the request rather than hardcoded: this site is reachable on
+  // its own domain and on Vercel preview URLs, and a canonical pointing at
+  // the wrong one is worse than none.
+  const host = req.headers['x-forwarded-host'] || req.headers.host || '';
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  const origin = host ? `${proto}://${host}` : '';
+
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader(
     'Cache-Control',
@@ -27,10 +34,10 @@ export default async function handler(req, res) {
 
   try {
     const posts = await loadPosts();
-    return res.status(200).send(page({ posts, fetchedAt: new Date() }));
+    return res.status(200).send(page({ posts, fetchedAt: new Date(), origin }));
   } catch (error) {
     console.error('[blog-page] ', error.message);
-    return res.status(200).send(page({ posts: [], error, fetchedAt: new Date() }));
+    return res.status(200).send(page({ posts: [], error, fetchedAt: new Date(), origin }));
   }
 }
 
@@ -83,7 +90,7 @@ function errorState(error) {
         </div>`;
 }
 
-function page({ posts, error, fetchedAt }) {
+function page({ posts, error, fetchedAt, origin }) {
   const lead = posts[0];
   const description = lead
     ? lead.excerpt
@@ -124,7 +131,8 @@ function page({ posts, error, fetchedAt }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Writing — ${SITE_NAME}</title>
     <meta name="description" content="${escapeHtml(description)}" />
-    <link rel="canonical" href="https://yanndjoumessi.com/blog" />
+    ${origin ? `<link rel="canonical" href="${origin}/blog" />` : ''}
+    ${origin ? `<meta property="og:url" content="${origin}/blog" />` : ''}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Writing — ${SITE_NAME}" />
