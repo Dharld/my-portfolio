@@ -184,12 +184,23 @@ function cleanInline(fragment, classes) {
     return `<a href="${real}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>`;
   });
 
-  out = out.replace(/<img([^>]*?)src="([^"]*)"([^>]*?)>/gi, (_, __, src) => {
-    return `<img src="${src}" loading="lazy" alt="">`;
+  // Alt text is written in the document (right-click → Alt text) and is the
+  // only description a screen reader gets, so it is carried across rather
+  // than blanked.
+  out = out.replace(/<img\b([^>]*)>/gi, (_, attrs) => {
+    const src = attrs.match(/src="([^"]*)"/i)?.[1];
+    if (!src) return '';
+    const alt = attrs.match(/alt="([^"]*)"/i)?.[1] || '';
+    return `<img src="${src}" alt="${alt}" loading="lazy">`;
   });
 
   // Everything else keeps its tag but loses Google's attributes.
-  out = out.replace(/<(\/?)(p|h[1-6]|ul|ol|li|strong|em|b|i|blockquote|br|hr|code|pre)[^>]*>/gi,
+  // The lookahead matters: without it `i` matches the start of `img` and the
+  // rest of the tag is swallowed, turning every image into <i>. The same flaw
+  // collapses <pre> to <p> and <blockquote> to <b>. A tag name only counts
+  // when the next character ends it.
+  out = out.replace(
+    /<(\/?)(p|h[1-6]|ul|ol|li|strong|em|b|i|blockquote|br|hr|code|pre|table|thead|tbody|tr|td|th)(?=[\s/>])[^>]*>/gi,
     (_, slash, tag) => `<${slash}${tag.toLowerCase()}>`);
 
   return out.replace(/<p>\s*<\/p>/gi, '').trim();
@@ -259,7 +270,9 @@ export function parsePosts(html) {
       .replace(/<h2>/gi, '<h3>')
       .replace(/<\/h2>/gi, '</h3>');
 
-    if (!stripTags(contentHtml)) continue;
+    // "Empty" means no text and no image: a post can legitimately be a photo
+    // with nothing written under it, and stripTags alone would discard it.
+    if (!stripTags(contentHtml) && !/<img\b/i.test(contentHtml)) continue;
 
     posts.push({
       title,
