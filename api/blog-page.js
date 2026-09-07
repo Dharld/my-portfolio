@@ -33,12 +33,20 @@ export default async function handler(req, res) {
   );
 
   let posts = [];
+  let state = 'ok';
   try {
     posts = await loadPosts();
   } catch (error) {
     // A reader gets a quiet empty page; the detail belongs in the logs.
+    state = /No document is configured/i.test(error.message) ? 'unconfigured' : 'unreadable';
     console.error('[blog] ', error.message, error.hint || '');
   }
+
+  // An empty page has three causes that look identical to a reader: no source
+  // configured, a source that would not load, and a source with nothing in it.
+  // These headers tell them apart without putting anything on the page.
+  res.setHeader('x-blog-state', state);
+  res.setHeader('x-blog-posts', String(posts.length));
 
   return res.status(200).send(page({ posts, origin }));
 }
